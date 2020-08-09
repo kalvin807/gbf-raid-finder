@@ -23,7 +23,7 @@ window.onload = function () {
         if (!msg.value) {
             return false;
         }
-        conn.send(JSON.stringify({config: msg.value}));
+        conn.send(JSON.stringify({raid: [188, 60, 145]}));
         msg.value = "";
         return false;
     };

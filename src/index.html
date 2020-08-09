@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <div class="navbar-item">
+          <h1 class="title">GBF Raid Finder</h1>
+        </div>
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbar-items"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div id="navbar-items" class="navbar-menu">
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-danger">
+                Reset All
+              </a>
+              <a class="button is-primary">
+                Github
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div id="addScreenModal" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
+    </div>
+
+    <button id="fab" class="button is-primary fab">Add</button>
+    <script src="./js/index.js" type="module"></script>
+
+  </body>
+</html>

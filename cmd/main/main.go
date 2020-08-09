@@ -21,22 +21,38 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	http.ServeFile(w, r, "web/home.html")
+	http.ServeFile(w, r, "../../web/home.html")
+}
+
+func setupLog() {
+	file, err := os.OpenFile("../../logs.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.SetOutput(file)
+	log.Println("Go start farm in gbf!")
 }
 
 func main() {
 	flag.Parse()
 
-	dotenvErr := godotenv.Load()
+	setupLog()
+
+	dotenvErr := godotenv.Load("../../.env")
 	if dotenvErr != nil {
 		log.Fatal("Error loading .env file")
 	}
 
+	hub := newHub()
+	go hub.run()
+
 	apiKey, apiSecert := os.Getenv("TWITTER_API_KEY"), os.Getenv("TWITTER_API_SECERT")
 	accessKey, accessSecert := os.Getenv("TWITTER_ACCESS_KEY"), os.Getenv("TWITTER_ACCESS_SECERT")
 
-	hub := newHub()
-	go hub.run()
+	if apiKey == "" || apiSecert == "" || accessKey == "" || accessSecert == "" {
+		log.Fatal("Missing twitter credentials in .env)")
+	}
 
 	client := MakeTwitterClient(apiKey, apiSecert, accessKey, accessSecert)
 	quit := make(chan bool)

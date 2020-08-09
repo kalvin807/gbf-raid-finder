@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -17,6 +16,7 @@ var upgrader = websocket.Upgrader{
 // ClientConfigMsg is a struct that server expected to receive from client
 type clientConfigMsg struct {
 	Config string `json:"config"`
+	Raid   []int  `json:"raid"`
 }
 
 // Client is a middleman between the websocket connection and the hub.
@@ -30,7 +30,7 @@ type Client struct {
 	send chan *RaidMsg
 
 	// Set of raid this client listen to
-	filter map[int]bool
+	raid map[int]bool
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -48,7 +48,11 @@ func (c *Client) readPump() {
 			}
 			break
 		}
-		fmt.Println(msg.Config)
+		var tempRaidConfig = make(map[int]bool)
+		for _, raidID := range msg.Raid {
+			tempRaidConfig[raidID] = true
+		}
+		c.raid = tempRaidConfig
 	}
 }
 
@@ -65,7 +69,9 @@ func (c *Client) writePump() {
 				c.conn.WriteMessage(websocket.CloseMessage, []byte{})
 				return
 			}
-			c.conn.WriteJSON(message)
+			if c.raid[message.Raid] {
+				c.conn.WriteJSON(message)
+			}
 		}
 	}
 }
@@ -78,7 +84,7 @@ func serveWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client := &Client{hub: hub, conn: conn, send: make(chan *RaidMsg, 256)}
+	client := &Client{hub: hub, conn: conn, send: make(chan *RaidMsg, 256), raid: make(map[int]bool)}
 	client.hub.register <- client
 
 	// Allow collection of memory referenced by the caller by doing all work in

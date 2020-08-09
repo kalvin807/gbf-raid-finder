@@ -1,0 +1,1325 @@
+[
+    {
+        "jp": "Lv100 プロトバハムート",
+        "en": "Lvl 100 Proto Bahamut",
+        "image": "/assets/raids/Wings_of_Terror_Nightmare.jpg",
+        "category": "Nightmare",
+        "element": "Dark"
+    },
+    {
+        "jp": "Lv150 プロトバハムート",
+        "en": "Lvl 150 Proto Bahamut",
+        "image": "/assets/raids/Proto_Bahamut_Impossible.jpg",
+        "category": "Impossible Nightmare",
+        "element": "Dark"
+    },
+    {
+        "jp": "Lv100 ミカエル",
+        "en": "Lvl 100 Michael",
+        "image": "/assets/raids/BattleRaid_Michael_Raid.jpg",
+        "category": "Primarch",
+        "element": "Fire"
+    },
+    {
+        "jp": "Lv100 ガブリエル",
+        "en": "Lvl 100 Gabriel",
+        "image": "/assets/raids/BattleRaid_Gabriel_Raid.jpg",
+        "category": "Primarch",
+        "element": "Water"
+    },
+    {
+        "jp": "Lv100 ウリエル",
+        "en": "Lvl 100 Uriel",
+        "image": "/assets/raids/BattleRaid_Uriel_Raid.jpg",
+        "category": "Primarch",
+        "element": "Earth"
+    },
+    {
+        "jp": "Lv100 ラファエル",
+        "en": "Lvl 100 Raphael",
+        "image": "/assets/raids/BattleRaid_Raphael_Raid.jpg",
+        "category": "Primarch",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Macula Marius",
+        "jp": "Lv100 マキュラ・マリウス",
+        "image": "/assets/raids/BattleRaid_Macula_Marius.png",
+        "category": "Tier 1",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 120 Macula Marius",
+        "jp": "Lv120 マキュラ・マリウス",
+        "image": "/assets/raids/BattleRaid_Macula_Marius_Impossible.png",
+        "category": "Impossible Tier 1",
+        "element": "Water"
+    },
+    {
+        "jp": "Lv100 フラム＝グラス",
+        "en": "Lvl 100 Twin Elements",
+        "image": "/assets/raids/BattleRaid_Twin_Elements.png",
+        "category": "Tier 1",
+        "element": "Fire"
+    },
+    {
+        "jp": "Lv120 フラム＝グラス",
+        "en": "Lvl 120 Twin Elements",
+        "image": "/assets/raids/BattleRaid_Twin_Elements_Impossible.png",
+        "category": "Impossible Tier 1",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 100 Medusa",
+        "jp": "Lv100 メドゥーサ",
+        "image": "/assets/raids/BattleRaid_Medusa.png",
+        "category": "Tier 1",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 120 Medusa",
+        "jp": "Lv120 メドゥーサ",
+        "image": "/assets/raids/BattleRaid_Medusa_Impossible.png",
+        "category": "Impossible Tier 1",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 100 Nezha",
+        "jp": "Lv100 ナタク",
+        "image": "/assets/raids/BattleRaid_Nezha.png",
+        "category": "Tier 1",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 120 Nezha",
+        "jp": "Lv120 ナタク",
+        "image": "/assets/raids/BattleRaid_Nezha_Impossible.png",
+        "category": "Impossible Tier 1",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Apollo",
+        "jp": "Lv100 アポロン",
+        "image": "/assets/raids/BattleRaid_Apollo.png",
+        "category": "Tier 1",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 120 Apollo",
+        "jp": "Lv120 アポロン",
+        "image": "/assets/raids/BattleRaid_Apollo_Impossible.png",
+        "category": "Impossible Tier 1",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 100 Dark Angel Olivia",
+        "jp": "Lv100 Dエンジェル・オリヴィエ",
+        "image": "/assets/raids/BattleRaid_Dark_Angel_Olivia.png",
+        "category": "Tier 1",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 120 Dark Angel Olivia",
+        "jp": "Lv120 Dエンジェル・オリヴィエ",
+        "image": "/assets/raids/BattleRaid_Dark_Angel_Olivia_Impossible.png",
+        "category": "Impossible Tier 1",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Athena",
+        "jp": "Lv100 アテナ",
+        "image": "/assets/raids/BattleRaid_Athena_(Showdown).jpg",
+        "category": "Tier 2",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 100 Odin",
+        "jp": "Lv100 オーディン",
+        "image": "/assets/raids/BattleRaid_Odin_(Extreme).jpg",
+        "category": "Tier 2",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 75 Celeste Omega",
+        "jp": "Lv75 セレスト・マグナ",
+        "image": "/assets/raids/BattleRaid_Celeste_Omega_Extreme.jpg",
+        "category": "Omega",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 75 Luminiera Omega",
+        "jp": "Lv75 シュヴァリエ・マグナ",
+        "image": "/assets/raids/BattleRaid_Luminiera_Omega_Extreme.jpg",
+        "category": "Omega",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 60 Yggdrasil Omega",
+        "jp": "Lv60 ユグドラシル・マグナ",
+        "image": "/assets/raids/BattleRaid_Yggdrasil_Omega_Extreme.jpg",
+        "category": "Omega",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 60 Leviathan Omega",
+        "jp": "Lv60 リヴァイアサン・マグナ",
+        "image": "/assets/raids/BattleRaid_Leviathan_Omega_Extreme.jpg",
+        "category": "Omega",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 70 Colossus Omega",
+        "jp": "Lv70 コロッサス・マグナ",
+        "image": "/assets/raids/BattleRaid_Colossus_Omega_(Showdown).jpg",
+        "category": "Omega",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 50 Tiamat Omega",
+        "jp": "Lv50 ティアマト・マグナ",
+        "image": "/assets/raids/BattleRaid_Tiamat_Omega_(Showdown).jpg",
+        "category": "Omega",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Grand Order",
+        "jp": "Lv100 ジ・オーダー・グランデ",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Nightmare.jpg",
+        "category": "Nightmare",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 100 Xeno Ifrit",
+        "jp": "Lv100 ゼノ・イフリート",
+        "image": "/assets/raids/Xeno_Ifrit_Raid.jpg",
+        "category": "Event",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 100 Grani",
+        "jp": "Lv100 グラニ",
+        "image": "/assets/raids/BattleRaid_Grani.png",
+        "category": "Tier 2",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 100 Garuda",
+        "jp": "Lv100 ガルーダ",
+        "image": "/assets/raids/BattleRaid_Garuda.png",
+        "category": "Tier 2",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Lich",
+        "jp": "Lv100 リッチ",
+        "image": "/assets/raids/BattleRaid_Lich.png",
+        "category": "Tier 2",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Huanglong",
+        "jp": "Lv100 黄龍",
+        "image": "/assets/raids/Huanglong_Nightmare.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 100 Qilin",
+        "jp": "Lv100 黒麒麟",
+        "image": "/assets/raids/Qilin_Nightmare.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Xeno Vohu Manah",
+        "jp": "Lv100 ゼノ・ウォフマナフ",
+        "image": "/assets/raids/Xeno_Vohu_Manah_Raid.jpg",
+        "category": "Event",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 20 Griffin",
+        "jp": "Lv20 グリフォン",
+        "image": "/assets/raids/BattleRaid_Griffin_(Normal).jpg",
+        "category": "Low Level",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 30 Griffin",
+        "jp": "Lv30 グリフォン",
+        "image": "/assets/raids/BattleRaid_Griffin_(Hard).jpg",
+        "category": "Low Level",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 20 Zarchnal Flame",
+        "jp": "Lv20 ザリチュナルフレイム",
+        "image": "/assets/raids/BattleRaid_Zarchnal_Flame_Normal.jpg",
+        "category": "Low Level",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 30 Zarchnal Flame",
+        "jp": "Lv30 ザリチュナルフレイム",
+        "image": "/assets/raids/BattleRaid_Zarchnal_Flame_Hard.jpg",
+        "category": "Low Level",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 20 Imperial Guard",
+        "jp": "Lv20 インペリアルガード",
+        "image": "/assets/raids/BattleRaid_Imperial_Guard_Normal.jpg",
+        "category": "Low Level",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 30 Imperial Guard",
+        "jp": "Lv30 インペリアルガード",
+        "image": "/assets/raids/BattleRaid_Imperial_Guard_Hard.jpg",
+        "category": "Low Level",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 30 Will-o'-Wisp",
+        "jp": "Lv30 ウィル･オ･ウィスプ",
+        "image": "/assets/raids/BattleRaid_Will-o'-Wisp_Hard.jpg",
+        "category": "Low Level",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 30 Ancient Dragon",
+        "jp": "Lv30 エンシェントドラゴン",
+        "image": "/assets/raids/BattleRaid_Ancient_Dragon_Hard.jpg",
+        "category": "Low Level",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 30 Evil Eye",
+        "jp": "Lv30 イービルアイ",
+        "image": "/assets/raids/BattleRaid_Evil_Eye_(Hard).jpg",
+        "category": "Low Level",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 30 Tiamat",
+        "jp": "Lv30 ティアマト",
+        "image": "/assets/raids/BattleRaid_Tiamat_Normal.jpg",
+        "category": "Low Level",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 50 Tiamat",
+        "jp": "Lv50 ティアマト",
+        "image": "/assets/raids/BattleRaid_Tiamat_Hard.jpg",
+        "category": "Low Level",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Tiamat Omega Ayr",
+        "jp": "Lv100 ティアマト・マグナ＝エア",
+        "image": "/assets/raids/BattleRaid_Tiamat_Impossible.jpg",
+        "category": "Impossible Omega",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 30 Colossus",
+        "jp": "Lv30 コロッサス",
+        "image": "/assets/raids/BattleRaid_Colossus_Normal.jpg",
+        "category": "Low Level",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 50 Colossus",
+        "jp": "Lv50 コロッサス",
+        "image": "/assets/raids/BattleRaid_Colossus_Hard.jpg",
+        "category": "Low Level",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 100 Colossus Omega",
+        "jp": "Lv100 コロッサス・マグナ",
+        "image": "/assets/raids/BattleRaid_Colossus_Impossible.jpg",
+        "category": "Impossible Omega",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 30 Leviathan",
+        "jp": "Lv30 リヴァイアサン",
+        "image": "/assets/raids/BattleRaid_Leviathan_Normal.jpg",
+        "category": "Low Level",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 50 Leviathan",
+        "jp": "Lv50 リヴァイアサン",
+        "image": "/assets/raids/BattleRaid_Leviathan_Hard.jpg",
+        "category": "Low Level",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 100 Leviathan Omega",
+        "jp": "Lv100 リヴァイアサン・マグナ",
+        "image": "/assets/raids/BattleRaid_Leviathan_Impossible.jpg",
+        "category": "Impossible Omega",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 30 Yggdrasil",
+        "jp": "Lv30 ユグドラシル",
+        "image": "/assets/raids/BattleRaid_Yggdrasil_Normal.jpg",
+        "category": "Low Level",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 50 Yggdrasil",
+        "jp": "Lv50 ユグドラシル",
+        "image": "/assets/raids/BattleRaid_Yggdrasil_Hard.jpg",
+        "category": "Low Level",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 100 Yggdrasil Omega",
+        "jp": "Lv100 ユグドラシル・マグナ",
+        "image": "/assets/raids/BattleRaid_Yggdrasil_Impossible.jpg",
+        "category": "Nightmare Omega",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 30 Adversa",
+        "jp": "Lv30 アドウェルサ",
+        "image": "/assets/raids/BattleRaid_Luminiera_Normal.jpg",
+        "category": "Low Level",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 50 Adversa",
+        "jp": "Lv50 アドウェルサ",
+        "image": "/assets/raids/BattleRaid_Luminiera_Hard.jpg",
+        "category": "Low Level",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 100 Luminiera Omega",
+        "jp": "Lv100 シュヴァリエ・マグナ",
+        "image": "/assets/raids/BattleRaid_Luminiera_Impossible.jpg",
+        "category": "Nightmare Omega",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 30 Celeste",
+        "jp": "Lv30 セレスト",
+        "image": "/assets/raids/BattleRaid_Celeste_Normal.jpg",
+        "category": "Low Level",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 50 Celeste",
+        "jp": "Lv50 セレスト",
+        "image": "/assets/raids/BattleRaid_Celeste_Hard.jpg",
+        "category": "Low Level",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Celeste Omega",
+        "jp": "Lv100 セレスト・マグナ",
+        "image": "/assets/raids/BattleRaid_Celeste_Impossible.jpg",
+        "category": "Nightmare Omega",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 110 Rose Queen",
+        "jp": "Lv110 ローズクイーン",
+        "image": "/assets/raids/BattleRaid_Rose_Queen_Impossible.png",
+        "category": "Impossible Tier 1",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 120 Prometheus",
+        "jp": "Lv120 プロメテウス",
+        "image": "/assets/raids/BattleRaid_Prometheus_Impossible.png",
+        "category": "Impossible Tier 3",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 120 Ca Ong",
+        "jp": "Lv120 カー・オン",
+        "image": "/assets/raids/BattleRaid_Ca_Ong_Impossible.png",
+        "category": "Impossible Tier 3",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 120 Gilgamesh",
+        "jp": "Lv120 ギルガメッシュ",
+        "image": "/assets/raids/BattleRaid_Gilgamesh_Impossible.png",
+        "category": "Impossible Tier 3",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 120 Morrigna",
+        "jp": "Lv120 バイヴカハ",
+        "image": "/assets/raids/BattleRaid_Morrigna_Impossible.png",
+        "category": "Impossible Tier 3",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 120 Hector",
+        "jp": "Lv120 ヘクトル",
+        "image": "/assets/raids/BattleRaid_Hector_Impossible.png",
+        "category": "Impossible Tier 3",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 120 Anubis",
+        "jp": "Lv120 アヌビス",
+        "image": "/assets/raids/BattleRaid_Anubis_Impossible.png",
+        "category": "Impossible Tier 3",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Baal",
+        "jp": "Lv100 バアル",
+        "image": "/assets/raids/BattleRaid_Baal_Extreme.jpg",
+        "category": "Tier 2",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 60 Zhuque",
+        "jp": "Lv60 朱雀",
+        "image": "/assets/raids/Zhuque_Extreme.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 60 Xuanwu",
+        "jp": "Lv60 玄武",
+        "image": "/assets/raids/Xuanwu_Extreme.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 60 Baihu",
+        "jp": "Lv60 白虎",
+        "image": "/assets/raids/Baihu_Extreme.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 60 Qinglong",
+        "jp": "Lv60 青竜",
+        "image": "/assets/raids/Qinglong_Extreme.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 90 Agni",
+        "jp": "Lv90 アグニス",
+        "image": "/assets/raids/Agni_ExtremePlus.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 90 Neptune",
+        "jp": "Lv90 ネプチューン",
+        "image": "/assets/raids/Neptune_ExtremePlus.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 90 Titan",
+        "jp": "Lv90 ティターン",
+        "image": "/assets/raids/Titan_ExtremePlus.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 90 Zephyrus",
+        "jp": "Lv90 ゼピュロス",
+        "image": "/assets/raids/Zephyrus_ExtremePlus.jpg",
+        "category": "Rise of the Beasts",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 150 Ultimate Bahamut",
+        "jp": "Lv150 アルティメットバハムート",
+        "image": "/assets/raids/BattleRaid_Ultimate_Bahamut_Normal.png",
+        "category": "Impossible Nightmare",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 200 Ultimate Bahamut",
+        "jp": "Lv200 アルティメットバハムート",
+        "image": "/assets/raids/BattleRaid_Ultimate_Bahamut_Impossible.png",
+        "category": "Impossible Ultimate",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 30 Elder Vestige",
+        "jp": "Lv30 先史の遺像",
+        "image": "/assets/raids/BattleRaid_Five_Flowers_of_Fate_Raid_Very_Hard.png",
+        "category": "Event",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 50 Xolotl",
+        "jp": "Lv50 ショロトル",
+        "image": "/assets/raids/BattleRaid_Five_Flowers_of_Fate_Raid_Extreme.png",
+        "category": "Event",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 30 Cyaegha",
+        "jp": "Lv30 シアエガ",
+        "image": "/assets/raids/BattleRaid_Eyeball_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 40 Cyaegha",
+        "jp": "Lv40 シアエガ",
+        "image": "/assets/raids/BattleRaid_Eyeball_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 30 Dimorphodon",
+        "jp": "Lv30 ディモルフォドン",
+        "image": "/assets/raids/BattleRaid_Eyeball_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 40 Dimorphodon",
+        "jp": "Lv40 ディモルフォドン",
+        "image": "/assets/raids/BattleRaid_Eyeball_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 50 Audumbla",
+        "jp": "Lv50 アウズンブラ",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 60 Audumbla",
+        "jp": "Lv60 アウズンブラ",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_Extreme.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 75 Aberration",
+        "jp": "Lv75 ビザールビースト",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 50 Allosaurus",
+        "jp": "Lv50 アロザロウス",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 60 Allosaurus",
+        "jp": "Lv60 アロザロウス",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_Extreme.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 75 Tyrannus",
+        "jp": "Lv75 ティラノス",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 90 Oktopode",
+        "jp": "Lv90 オクトポーデ",
+        "image": "/assets/raids/BattleRaid_Oktopode_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 95 Oktopode",
+        "jp": "Lv95 オクトポーデ",
+        "image": "/assets/raids/BattleRaid_Oktopode_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 100 Oktopode",
+        "jp": "Lv100 オクトポーデ",
+        "image": "/assets/raids/BattleRaid_Oktopode_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 90 Piasa",
+        "jp": "Lv90 パイア・ソー",
+        "image": "/assets/raids/BattleRaid_Piasa_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 95 Piasa",
+        "jp": "Lv95 パイア・ソー",
+        "image": "/assets/raids/BattleRaid_Piasa_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 100 Piasa",
+        "jp": "Lv100 パイア・ソー",
+        "image": "/assets/raids/BattleRaid_Piasa_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 100 Xeno Sagittarius",
+        "jp": "Lv100 ゼノ・サジタリウス",
+        "image": "/assets/raids/BattleRaid_Xeno_Sagittarius_Raid.png",
+        "category": "Event",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 30 Aberrant Tower",
+        "jp": "Lv30 異形の司令塔",
+        "image": "/assets/raids/BattleRaid_Lonesome_Dragoness_Very_Hard.png",
+        "category": "Event",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 50 Chaos Beast",
+        "jp": "Lv50 ケイオスビースト",
+        "image": "/assets/raids/BattleRaid_Lonesome_Dragoness_Extreme.png",
+        "category": "Event",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 30 Time Retrograde Army",
+        "jp": "Lv30 時間遡行軍",
+        "image": "/assets/raids/BattleRaid_Katsugeki_Touken_Ranbu_Fate_Horizon_Raid_Very_Hard.png",
+        "category": "Event",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 50 Amatsumaula",
+        "jp": "Lv50 アマツマウラ",
+        "image": "/assets/raids/BattleRaid_Katsugeki_Touken_Ranbu_Fate_Horizon_Raid_Extreme.png",
+        "category": "Event",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 30 Queen's Armor",
+        "jp": "Lv30 魔王の鎧",
+        "image": "/assets/raids/BattleRaid_Violet_Violence_Very_Hard.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 50 Sharom",
+        "jp": "Lv50 シャローム",
+        "image": "/assets/raids/BattleRaid_Violet_Violence_Extreme.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 30 The Watery",
+        "jp": "Lv30 『水』",
+        "image": "/assets/raids/BattleRaid_Cardcaptor_Sakura_Raid_Very_Hard.png",
+        "category": "Event",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 50 The Thunder",
+        "jp": "Lv50 『雷』",
+        "image": "/assets/raids/BattleRaid_Cardcaptor_Sakura_Raid_Extreme.png",
+        "category": "Event",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 60 Procris",
+        "jp": "Lv60 プロスクリスィ",
+        "image": "/assets/raids/BattleRaid_Cardcaptor_Sakura_Raid_ExtremePlus.png",
+        "category": "Event",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 30 Ahura",
+        "jp": "Lv30 アーフラー",
+        "image": "/assets/raids/BattleRaid_Eyeball_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 40 Ahura",
+        "jp": "Lv40 アーフラー",
+        "image": "/assets/raids/BattleRaid_Eyeball_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 50 Grendel",
+        "jp": "Lv50 ベオウルフ",
+        "image": "/assets/raids/BattleRaid_Grendel_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 60 Grendel",
+        "jp": "Lv60 ベオウルフ",
+        "image": "/assets/raids/BattleRaid_Grendel_Extreme.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 75 Vulcanrio",
+        "jp": "Lv75 ヴァルカンライオ",
+        "image": "/assets/raids/BattleRaid_Volcanrio_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 90 Sethlans",
+        "jp": "Lv90 セスランス",
+        "image": "/assets/raids/BattleRaid_Sethlans_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 95 Sethlans",
+        "jp": "Lv95 セスランス",
+        "image": "/assets/raids/BattleRaid_Sethlans_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 100 Sethlans",
+        "jp": "Lv100 セスランス",
+        "image": "/assets/raids/BattleRaid_Sethlans_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 30 Phantom Fox",
+        "jp": "Lv30 九尾の幻影",
+        "image": "/assets/raids/BattleRaid_Forgiveness_and_Gratitude_Very_Hard.png",
+        "category": "Event",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 50 Ninpress",
+        "jp": "Lv50 九尾",
+        "image": "/assets/raids/BattleRaid_Forgiveness_and_Gratitude_Extreme.png",
+        "category": "Event",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 100 Xeno Cocytus",
+        "jp": "Lv100 ゼノ・コキュートス",
+        "image": "/assets/raids/BattleRaid_Xeno_Cocytus_Raid.png",
+        "category": "Event",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 100 Xeno Diablo",
+        "jp": "Lv100 ゼノ・ディアボロス",
+        "image": "/assets/raids/BattleRaid_Xeno_Diablo_Raid.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 30 Ogler",
+        "jp": "Lv30 ゲイザー",
+        "image": "/assets/raids/BattleRaid_Ogler_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 40 Ogler",
+        "jp": "Lv40 ゲイザー",
+        "image": "/assets/raids/BattleRaid_Ogler_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 50 Gugalanna",
+        "jp": "Lv50 グガランナ",
+        "image": "/assets/raids/BattleRaid_Gugalanna_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 60 Gugalanna",
+        "jp": "Lv60 グガランナ",
+        "image": "/assets/raids/BattleRaid_Gugalanna_Extreme.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 75 Viridian Horn",
+        "jp": "Lv75 エメラルドホーン",
+        "image": "/assets/raids/BattleRaid_Viridian_Horn_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 90 Quetzalcoatl",
+        "jp": "Lv90 ケツァルコアトル",
+        "image": "/assets/raids/BattleRaid_Quetzalcoatl_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 95 Quetzalcoatl",
+        "jp": "Lv95 ケツァルコアトル",
+        "image": "/assets/raids/BattleRaid_Quetzalcoatl_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Quetzalcoatl",
+        "jp": "Lv100 ケツァルコアトル",
+        "image": "/assets/raids/BattleRaid_Quetzalcoatl_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 50 Cocoa Creepy",
+        "jp": "Lv50 チョコポーチ",
+        "image": "/assets/raids/BattleRaid_Cocoa_Creepy_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 60 Cocoa Creepy",
+        "jp": "Lv60 チョコポーチ",
+        "image": "/assets/raids/BattleRaid_Cocoa_Creepy_Extreme.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 75 Chocolate Fantastica",
+        "jp": "Lv75　チョコレートメルヘン",
+        "image": "/assets/raids/BattleRaid_Chocolate_Fantastica_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 90 Fudgey Filly",
+        "jp": "Lv90 ボンボン・ポニー",
+        "image": "/assets/raids/BattleRaid_Fudgey_Filly_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 95 Fudgey Filly",
+        "jp": "Lv95 ボンボン・ポニー",
+        "image": "/assets/raids/BattleRaid_Fudgey_Filly_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 100 Fudgey Filly",
+        "jp": "Lv100 ボンボン・ポニー",
+        "image": "/assets/raids/BattleRaid_Fudgey_Filly_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 30 Dominion Core",
+        "jp": "Lv30 ドミニオンズ・コア",
+        "image": "/assets/raids/BattleRaid_What_Makes_the_Sky_Blue_Very_Hard.jpg",
+        "category": "Event",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 50 Sandalphon",
+        "jp": "Lv50 サンダルフォン",
+        "image": "/assets/raids/BattleRaid_What_Makes_the_Sky_Blue_Extreme.jpg",
+        "category": "Event",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 100 Sandalphon",
+        "jp": "Lv100 サンダルフォン",
+        "image": "/assets/raids/BattleRaid_What_Makes_the_Sky_Blue_Impossible.png",
+        "category": "Event",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 30 Belial",
+        "jp": "Lv30 ベリアル",
+        "image": "/assets/raids/BattleRaid_What_Makes_the_Sky_Blue_II_Very_Hard.jpg",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 50 Avatar",
+        "jp": "Lv50 アバター",
+        "image": "/assets/raids/BattleRaid_What_Makes_the_Sky_Blue_II_Extreme.jpg",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Belial",
+        "jp": "Lv100 ベリアル",
+        "image": "/assets/raids/BattleRaid_What_Makes_the_Sky_Blue_II_Impossible.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 120 Shiva",
+        "jp": "Lv120 シヴァ",
+        "image": "/assets/raids/BattleRaid_Shiva_Impossible.png",
+        "category": "Impossible Omega II",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 120 Europa",
+        "jp": "Lv120 エウロペ",
+        "image": "/assets/raids/BattleRaid_Europa_Impossible.png",
+        "category": "Impossible Omega II",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 120 Godsworn Alexiel",
+        "jp": "Lv120 ゴッドガード・ブローディア",
+        "image": "/assets/raids/BattleRaid_Godsworn_Alexiel_Impossible.png",
+        "category": "Impossible Omega II",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 120 Grimnir",
+        "jp": "Lv120 グリームニル",
+        "image": "/assets/raids/BattleRaid_Grimnir_Impossible.png",
+        "category": "Impossible Omega II",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Xeno Corow",
+        "jp": "Lv100 ゼノ・コロゥ",
+        "image": "/assets/raids/BattleRaid_Xeno_Corow_Raid.png",
+        "category": "Event",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 120 Metatron",
+        "jp": "Lv120 メタトロン",
+        "image": "/assets/raids/BattleRaid_Metatron_Impossible.png",
+        "category": "Impossible Omega II",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 120 Avatar",
+        "jp": "Lv120 アバター",
+        "image": "/assets/raids/BattleRaid_Avatar_Impossible.png",
+        "category": "Impossible Omega II",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 30 Mecha Zogora",
+        "jp": "Lv30 覇壊機獣メカゾゴラ",
+        "image": "/assets/raids/BattleRaid_Robomi_Generations_Raid_Very_Hard.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 50 Lord Daimon",
+        "jp": "Lv50 覇壊神ダイモン",
+        "image": "/assets/raids/BattleRaid_Robomi_Generations_Raid_Extreme.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 30 Devastation Cannon",
+        "jp": "Lv30 自律駆動ガトリング砲",
+        "image": "/assets/raids/BattleRaid_Detective_Conan_Gears_of_Conspiracy_Raid_Very_Hard.png",
+        "category": "Event",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 50 Devastation Cannon",
+        "jp": "Lv50 自律駆動ガトリング砲",
+        "image": "/assets/raids/BattleRaid_Detective_Conan_Gears_of_Conspiracy_Raid_Extreme.png",
+        "category": "Event",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 30 Ahriman",
+        "jp": "Lv30 アーリマン",
+        "image": "/assets/raids/BattleRaid_Eyeball_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 40 Ahriman",
+        "jp": "Lv40 アーリマン",
+        "image": "/assets/raids/BattleRaid_Eyeball_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 75 Wicked Rebel",
+        "jp": "Lv75 ウィケッドレブル",
+        "image": "/assets/raids/BattleRaid_Wicked_Rebel_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 90 Typhon",
+        "jp": "Lv90 テュポーン",
+        "image": "/assets/raids/BattleRaid_Typhon_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 95 Typhon",
+        "jp": "Lv95 テュポーン",
+        "image": "/assets/raids/BattleRaid_Typhon_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Typhon",
+        "jp": "Lv100 テュポーン",
+        "image": "/assets/raids/BattleRaid_Typhon_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 90 Snow White",
+        "jp": "Lv90 スノウホワイト",
+        "image": "/assets/raids/BattleRaid_Snow_White_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 95 Snow White",
+        "jp": "Lv95 スノウホワイト",
+        "image": "/assets/raids/BattleRaid_Snow_White_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 100 Snow White",
+        "jp": "Lv100 スノウホワイト",
+        "image": "/assets/raids/BattleRaid_Snow_White_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 30 Pisard",
+        "jp": "Lv30 ピーサード",
+        "image": "/assets/raids/BattleRaid_Pretty_Cure_Memories_of_the_Sky_Raid_Very_Hard.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 50 Pisard",
+        "jp": "Lv50 ピーサード",
+        "image": "/assets/raids/BattleRaid_Pretty_Cure_Memories_of_the_Sky_Raid_Extreme.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 60 Desperate Pisard",
+        "jp": "Lv60 捨て身のピーサード",
+        "image": "/assets/raids/BattleRaid_Pretty_Cure_Memories_of_the_Sky_Nightmare120.png",
+        "category": "Event",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 30 Nagelwolf",
+        "jp": "Lv30 ナーゲルヴォルフ",
+        "image": "/assets/raids/BattleRaid_Divergent_Knighthoods_Raid_Very_Hard.png",
+        "category": "Event",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 50 Bone Dragon",
+        "jp": "Lv50 ボーンドラゴン",
+        "image": "/assets/raids/BattleRaid_Divergent_Knighthoods_Raid_Extreme.png",
+        "category": "Event",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 90 Freyr",
+        "jp": "Lv90 フレイ",
+        "image": "/assets/raids/BattleRaid_Freyr_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 95 Freyr",
+        "jp": "Lv95 フレイ",
+        "image": "/assets/raids/BattleRaid_Freyr_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Freyr",
+        "jp": "Lv100 フレイ",
+        "image": "/assets/raids/BattleRaid_Freyr_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Huanglong & Qilin (Impossible)",
+        "jp": "黄龍・黒麒麟HL",
+        "image": "/assets/raids/BattleRaid_Huanglong_and_Qilin_Impossible.png",
+        "category": "Rise of the Beasts",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 150 Tiamat Malice",
+        "jp": "Lv150 ティアマト・マリス",
+        "image": "/assets/raids/BattleRaid_Tiamat_Malice_Impossible.png",
+        "category": "Impossible Nightmare",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 200 Akasha",
+        "jp": "Lv200 アーカーシャ",
+        "image": "/assets/raids/BattleRaid_Akasha_Impossible.png",
+        "category": "Impossible Nightmare",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 50 Mahisha",
+        "jp": "Lv50 マヒシャ",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_Very_Hard.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 60 Mahisha",
+        "jp": "Lv60 マヒシャ",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_Extreme.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 75 Supergigante",
+        "jp": "Lv75 スーペルヒガンテ",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 90 Vortex Dragon",
+        "jp": "Lv90 雷霆公",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 95 Vortex Dragon",
+        "jp": "Lv95 雷霆公",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 100 Vortex Dragon",
+        "jp": "Lv100 雷霆公",
+        "image": "/assets/raids/BattleRaid_Bizarre_Beast_ExtremePlus.png",
+        "category": "Unite and Fight",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 90 Tsukuyomi",
+        "jp": "Lv90 ツクヨミ",
+        "image": "/assets/raids/BattleRaid_Tsukuyomi_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 95 Tsukuyomi",
+        "jp": "Lv95 ツクヨミ",
+        "image": "/assets/raids/BattleRaid_Tsukuyomi_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 100 Tsukuyomi",
+        "jp": "Lv100 ツクヨミ",
+        "image": "/assets/raids/BattleRaid_Tsukuyomi_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 150 Lucilius",
+        "jp": "Lv150 ルシファー",
+        "image": "/assets/raids/BattleRaid_Lucilius_Impossible.png",
+        "category": "Impossible Nightmare",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 250 Lucilius",
+        "jp": "Lv250 ルシファー",
+        "image": "/assets/raids/BattleRaid_Lucilius_ImpossibleHard.png",
+        "category": "Rapture",
+        "element": "Dark"
+    },
+    {
+        "en": "The Four Primarchs",
+        "jp": "四大天司ＨＬ",
+        "image": "/assets/raids/BattleRaid_The_Four_Primarchs_Impossible.png",
+        "category": "Impossible Nightmare",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 90 Varuna",
+        "jp": "Lv90 ツクヨミ",
+        "image": "/assets/raids/BattleRaid_Varuna_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 95 Varuna",
+        "jp": "Lv95 ツクヨミ",
+        "image": "/assets/raids/BattleRaid_Varuna_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 100 Varuna",
+        "jp": "Lv100 ツクヨミ",
+        "image": "/assets/raids/BattleRaid_Varuna_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 90 Garula, Shining Hawk",
+        "jp": "Lv90 シャインホーク・ガルラ",
+        "image": "/assets/raids/BattleRaid_Garula_Nightmare90.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 95 Garula, Shining Hawk",
+        "jp": "Lv95 シャインホーク・ガルラ",
+        "image": "/assets/raids/BattleRaid_Garula_Nightmare95.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 100 Garula, Shining Hawk",
+        "jp": "Lv100 シャインホーク・ガルラ",
+        "image": "/assets/raids/BattleRaid_Garula_Nightmare100.png",
+        "category": "Unite and Fight",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 200 Grand Order",
+        "jp": "Lv200 ジ・オーダー・グランデ",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible",
+        "element": "Light"
+    }
+]

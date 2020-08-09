@@ -16,3 +16,12 @@
 
 # dot env is a big nono
 .env
+
+# node
+node_modules
+
+# .vscode
+.vscode
+
+# log files
+.log
