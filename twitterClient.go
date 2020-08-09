@@ -65,9 +65,10 @@ func TweetStreamController(client *twitter.Client, tweetQuit chan bool, hub *Hub
 	}
 }
 
-func makeTwitterClient() *twitter.Client {
-	config := oauth1.NewConfig("lMWebVnRlJ2ksKQLACzKnMwr7", "Il9LvX0MrqMk8rwOXngRRzFTzuhf03Tw7tmeujAlJ5705FGbex")
-	token := oauth1.NewToken("843490459-ipPprd68yaOEQ4yglgRJ1Pw8juKE0Gx2PY4t9iHM", "jTLdWv99dZpY9rCyee00bAGfO6TUoRmyqfe1Eu1UXG6WD")
+// MakeTwitterClient create a twitter client for fetching data from twitter.com
+func MakeTwitterClient(apiKey string, apiSecert string, accessKey string, accessSecert string) *twitter.Client {
+	config := oauth1.NewConfig(apiKey, apiSecert)
+	token := oauth1.NewToken(accessKey, accessSecert)
 	httpClient := config.Client(oauth1.NoContext, token)
 	client := twitter.NewClient(httpClient)
 	return client

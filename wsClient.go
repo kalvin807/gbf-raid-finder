@@ -15,7 +15,7 @@ var upgrader = websocket.Upgrader{
 }
 
 // ClientConfigMsg is a struct that server expected to receive from client
-type ClientConfigMsg struct {
+type clientConfigMsg struct {
 	Config string `json:"config"`
 }
 
@@ -40,7 +40,7 @@ func (c *Client) readPump() {
 		c.conn.Close()
 	}()
 	for {
-		var msg ClientConfigMsg
+		var msg clientConfigMsg
 		err := c.conn.ReadJSON(&msg)
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
