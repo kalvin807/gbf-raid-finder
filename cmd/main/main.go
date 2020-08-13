@@ -25,7 +25,7 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func setupLog() {
-	file, err := os.OpenFile("../../logs.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile("../../logs.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -44,9 +44,6 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
-	hub := newHub()
-	go hub.run()
-
 	apiKey, apiSecert := os.Getenv("TWITTER_API_KEY"), os.Getenv("TWITTER_API_SECERT")
 	accessKey, accessSecert := os.Getenv("TWITTER_ACCESS_KEY"), os.Getenv("TWITTER_ACCESS_SECERT")
 
@@ -55,8 +52,9 @@ func main() {
 	}
 
 	client := MakeTwitterClient(apiKey, apiSecert, accessKey, accessSecert)
-	quit := make(chan bool)
-	go TweetStreamController(client, quit, hub)
+	hub := newHub(client)
+
+	go hub.run()
 
 	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {

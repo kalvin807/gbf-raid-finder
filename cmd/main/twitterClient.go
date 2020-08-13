@@ -1,20 +1,18 @@
 package main
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 )
 
-// TweetStreamController Start stream
-func TweetStreamController(client *twitter.Client, tweetQuit chan bool, hub *Hub) {
+func MakeTweetStream(client *twitter.Client) *twitter.Stream {
 	params := &twitter.StreamFilterParams{
 		Track:         []string{"参加者募集！", "I need backup!"},
 		StallWarnings: twitter.Bool(true),
 	}
-	msgHandler := NewMessageHandler()
+
 	stream, err := client.Streams.Filter(params)
 	log.Println("Twitter Stream Started")
 
@@ -22,26 +20,21 @@ func TweetStreamController(client *twitter.Client, tweetQuit chan bool, hub *Hub
 		log.Println(err)
 	}
 
-	defer stream.Stop()
+	return stream
+}
+
+// TweetStreamHandler Start stream
+func TweetStreamHandler(stream *twitter.Stream, raidChan chan *RaidMsg) {
+	msgHandler := NewMessageHandler()
 	demux := twitter.NewSwitchDemux()
 	demux.Tweet = func(tweet *twitter.Tweet) {
 		// Make sure it is from GBF
 		if tweet.Source == `<a href="http://granbluefantasy.jp/" rel="nofollow">グランブルー ファンタジー</a>` {
 			msg := msgHandler.NewRaidMsg(tweet.Text, tweet.CreatedAt)
-			hub.broadcast <- msg
+			raidChan <- msg
 		}
 	}
-
-	for message := range stream.Messages {
-		select {
-		case <-tweetQuit:
-			fmt.Printf("Stopping stream")
-			stream.Stop()
-			return
-		default:
-			demux.Handle(message)
-		}
-	}
+	demux.HandleChan(stream.Messages)
 }
 
 // MakeTwitterClient create a twitter client for fetching data from twitter.com
