@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/julienschmidt/httprouter"
 )
 
 var addr = flag.String("a", ":8080", "http service address")
@@ -22,6 +23,18 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.ServeFile(w, r, "../../web/home.html")
+}
+
+func makeRouter() *httprouter.Router {
+	router := httprouter.New()
+	router.GlobalOPTIONS = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("Access-Control-Request-Method") != "" {
+			// Set CORS headers
+			w.Header().Set("Access-Control-Allow-Methods", w.Header().Get("Allow"))
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+		}
+	})
+	return router
 }
 
 func setupLog() {
@@ -56,11 +69,21 @@ func main() {
 
 	go hub.run()
 
-	http.HandleFunc("/", serveHome)
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+	router := makeRouter()
+	router.HandlerFunc("GET", "/", serveHome)
+	fileServer := http.FileServer(http.Dir("../../static"))
+	router.GET("/static/*filepath", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+
+		w.Header().Set("Access-Control-Allow-Methods", w.Header().Get("Allow"))
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+
+		r.URL.Path = p.ByName("filepath")
+		fileServer.ServeHTTP(w, r)
+	})
+	router.HandlerFunc("GET", "/ws", func(w http.ResponseWriter, r *http.Request) {
 		serveWs(hub, w, r)
 	})
-	err := http.ListenAndServe(*addr, nil)
+	err := http.ListenAndServe(*addr, router)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

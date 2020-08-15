@@ -10,7 +10,7 @@ import (
 
 var (
 	roomIDMsgRegex = regexp.MustCompile("(?P<Desc>.*)(?P<ID>[0-9A-Z]{8})")
-	raidRegex      = regexp.MustCompile("(?P<Boss>Lv.*)")
+	raidRegex      = regexp.MustCompile(".*\n.*\n([^\n]+)")
 )
 
 // RaidMsg is a struct of a raid tweet
@@ -53,19 +53,20 @@ func (m MessageHandler) NewRaidMsg(rawText string, time string) *RaidMsg {
 	raidID, found := m.nameIDMap[raid]
 	if !found && raid != "" {
 		log.Printf("%s: %s", "Unknown raid", raid)
+		return nil
 	}
-
 	return &RaidMsg{
 		RoomID:    strings.TrimSpace(roomID),
 		Msg:       strings.TrimSpace(msg),
 		Raid:      raidID,
 		Timestamp: time,
 	}
+
 }
 
 // NewMessageHandler creates a new MessageHandler if raid.json exists at root
 func NewMessageHandler() *MessageHandler {
-	path := "../../raid.json"
+	path := "../../static/raid.json"
 	file, ioErr := ioutil.ReadFile(path)
 	if ioErr != nil {
 		log.Fatal(ioErr)

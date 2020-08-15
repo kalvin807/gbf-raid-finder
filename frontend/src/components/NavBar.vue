@@ -1,8 +1,8 @@
 <template>
-  <b-navbar>
+  <b-navbar fixed-top shadow transparent >
     <template slot="brand">
-      <b-navbar-item tag="router-link" :to="{ path: '/' }">
-        <h1 class="title">GBF Raid Finder</h1>
+      <b-navbar-item>
+        <h1 class="title is-size-4-mobile">GBF Raid Finder</h1>
       </b-navbar-item>
     </template>
 
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: "employee-table",
+  name: "nav-bar",
 };
 </script>
 

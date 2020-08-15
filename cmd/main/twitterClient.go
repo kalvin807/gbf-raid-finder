@@ -1,12 +1,14 @@
 package main
 
 import (
+	"html"
 	"log"
 
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 )
 
+// MakeTweetStream create uplink with twitter api
 func MakeTweetStream(client *twitter.Client) *twitter.Stream {
 	params := &twitter.StreamFilterParams{
 		Track:         []string{"参加者募集！", "I need backup!"},
@@ -30,8 +32,10 @@ func TweetStreamHandler(stream *twitter.Stream, raidChan chan *RaidMsg) {
 	demux.Tweet = func(tweet *twitter.Tweet) {
 		// Make sure it is from GBF
 		if tweet.Source == `<a href="http://granbluefantasy.jp/" rel="nofollow">グランブルー ファンタジー</a>` {
-			msg := msgHandler.NewRaidMsg(tweet.Text, tweet.CreatedAt)
-			raidChan <- msg
+			msg := msgHandler.NewRaidMsg(html.UnescapeString(tweet.Text), tweet.CreatedAt)
+			if msg != nil {
+				raidChan <- msg
+			}
 		}
 	}
 	demux.HandleChan(stream.Messages)

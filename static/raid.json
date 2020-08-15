@@ -420,6 +420,13 @@
         "element": "Dark"
     },
     {
+        "en": "Lvl 60 Celeste",
+        "jp": "Lv60 セレスト",
+        "image": "/assets/raids/BattleRaid_Celeste_Hard.jpg",
+        "category": "Low Level",
+        "element": "Dark"
+    },
+    {
         "en": "Lvl 100 Celeste Omega",
         "jp": "Lv100 セレスト・マグナ",
         "image": "/assets/raids/BattleRaid_Celeste_Impossible.jpg",
@@ -1321,5 +1328,76 @@
         "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
         "category": "Impossible",
         "element": "Light"
-    }
+    },
+    {
+        "en": "Lvl 100 Shenxian",
+        "jp": "Lv100 四象瑞神",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible V2",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 200 Wilnas",
+        "jp": "Lv200 ウィルナス",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Dragons",
+        "element": "Fire"
+    },
+    {
+        "en": "Lvl 200 Wamdus",
+        "jp": "Lv200 ワムデュス",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Dragons",
+        "element": "Water"
+    },
+    {
+        "en": "Lvl 200 Galleon",
+        "jp": "Lv200 ガレヲン",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Dragons",
+        "element": "Earth"
+    },
+    {
+        "en": "Lvl 200 Ewiyar",
+        "jp": "Lv200 イーウィヤ",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Dragons",
+        "element": "Wind"
+    },
+    {
+        "en": "Lvl 200 Lu Woh",
+        "jp": "Lv200 ル・オー",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Dragons",
+        "element": "Light"
+    },
+    {
+        "en": "Lvl 200 Fediel",
+        "jp": "Lv200 フェディエル",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Dragons",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 150 Phronesis",
+        "jp": "Lv150 フロネシス",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Nightmare",
+        "element": "Dark"
+    },
+    {
+        "en": "Lvl 200 Lindwurm",
+        "jp": "Lv200 リンドヴルム",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Nightmare",
+        "element": "None"
+    },
+    {
+        "en": "Lvl 150 Leviathan Malice",
+        "jp": "Lv150 リヴァイアサン・マリス",
+        "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
+        "category": "Impossible Nightmare",
+        "element": "Water"
+    },
+    {}
 ]
