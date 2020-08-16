@@ -1,0 +1,33 @@
+name: Frontend - Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move to Frontend Directory
+        run: cd frontend
+
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Install and Build 🔧
+        run: |
+          yarn install
+          yarn run build
+        env: 
+          NODE_ENV: production
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@3.5.9
+        with:
+          ACCESS_TOKEN: ${{ secrets.api_key }}
+          BRANCH: gh-pages
+          FOLDER: dist
+          CLEAN: True
