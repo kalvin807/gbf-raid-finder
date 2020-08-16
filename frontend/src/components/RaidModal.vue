@@ -1,80 +1,81 @@
 <template>
   <section>
-    <div class="buttons">
-      <button id="fab" class="button is-primary is-medium" @click="isModalActive = true">Add Raid</button>
-    </div>
-
-    <b-modal :active.sync="isModalActive">
-      <div class="card is-clipped rounded-modal-card">
-        <div class="card-content">
-          <b-field>
-            <b-input
-              v-model="filterStr"
-              placeholder="Search..."
-              type="search"
-              icon-pack="fas"
-              icon="search"
-            ></b-input>
-          </b-field>
-          <b-field grouped>
+    <b-modal :active="isModalActive" :on-cancel="onCancel" has-modal-card>
+      <div class="card modal-card">
+        <!-- Card Header -->
+        <b-collapse class="card" animation="slide">
+          <div
+            slot="trigger"
+            slot-scope="props"
+            class="card-header"
+            role="button"
+            aria-controls="contentIdForA11y3"
+          >
+            <p class="card-header-title">Add Raids</p>
+            <a class="card-header-icon">
+              <span>
+                Filter
+                <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
+              </span>
+            </a>
+          </div>
+          <div class="column">
             <b-field>
-              <template v-for="ele in raidElements">
-                <b-checkbox-button
-                  v-model="selectedElements"
-                  :native-value="ele"
-                  type="is-success"
-                  :key="ele"
-                >{{ele}}</b-checkbox-button>
-              </template>
+              <b-input v-model="filterStr" placeholder="Search..." type="search" icon="magnify"></b-input>
             </b-field>
-            <b-dropdown v-model="selectedTypes" multiple aria-role="list" scrollable>
-              <button class="button" type="button" slot="trigger">
-                <span>Select Raid Types</span>
-                <b-icon pack="fas" icon="angle-down"></b-icon>
-              </button>
-              <template v-for="type in raidTypes">
-                <b-dropdown-item :value="type" aria-role="listitem" :key="type">
-                  <span>{{type}}</span>
-                </b-dropdown-item>
-              </template>
-            </b-dropdown>
-            <b-tag v-for="type in selectedTypes" style="margin: 0.2em" :key="type">{{type}}</b-tag>
-          </b-field>
-        </div>
+            <div class="columns is-vcentered is-centered">
+              <div class="column">
+                <template v-for="ele in raidElements">
+                  <b-checkbox :key="ele" v-model="selectedElements" :native-value="ele">{{ele}}</b-checkbox>
+                </template>
+              </div>
+              <div class="column">
+                <multiselect
+                  v-model="selectedTypes"
+                  :options="raidTypes"
+                  :multiple="true"
+                  :searchable="false"
+                  :close-on-select="false"
+                  :clear-on-select="false"
+                  :taggable="true"
+                  placeholder="Pick a value"
+                ></multiselect>
+              </div>
+            </div>
+          </div>
+        </b-collapse>
 
-        <div class="card">
-          <ul class="card-body">
-            <RaidOptionCard
-              v-for="raid in filterSearch"
-              :raid="raid"
-              :key="raid.index"
-              @click="selectRaid(raid)"
-            />
-          </ul>
-        </div>
-
-        <div class="card-content"></div>
+        <!-- Card Body -->
+        <ul class="card-body">
+          <RaidOptionCard
+            v-for="raid in filterSearch"
+            :raid="raid"
+            :key="raid.index"
+            @click="selectRaid(raid)"
+          />
+        </ul>
       </div>
     </b-modal>
   </section>
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
 import RaidOptionCard from "./RaidOptionCard";
 export default {
   name: "raid-modal",
   components: {
     RaidOptionCard,
+    Multiselect,
   },
   props: {
     raids: Array,
+    raidTypes: Array,
+    raidElements: Array,
+    isModalActive: Boolean,
   },
   data() {
     return {
-      isModalActive: false,
-      raidTypes: [],
-      raidElements: [],
-      customRaids: [],
       selectedRaids: new Set(),
       selectedTypes: [],
       selectedElements: [],
@@ -84,11 +85,25 @@ export default {
   methods: {
     selectRaid(event) {
       const { index, selected } = event;
-      this.customRaids[index].selected = !selected;
+      this.raids[index].selected = !selected;
       if (this.selectedRaids.has(index)) this.selectedRaids.delete(index);
       else this.selectedRaids.add(index);
 
       this.$emit("onSelectChange", this.selectedRaids);
+    },
+    isMobile() {
+      if (
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    onCancel() {
+      this.$emit("onClose");
     },
   },
   computed: {
@@ -96,7 +111,7 @@ export default {
       const { selectedTypes, selectedElements, filterStr } = this;
       const typeSet = new Set(selectedTypes);
       const eleSet = new Set(selectedElements);
-      return this.customRaids.filter((v) => {
+      return this.raids.filter((v) => {
         const isType = typeSet.size > 0 ? typeSet.has(v.category) : true;
         const isElement = eleSet.has(v.element);
         const isMatch = filterStr
@@ -107,21 +122,8 @@ export default {
     },
   },
   watch: {
-    raids() {
-      this.customRaids = this.raids.map((v) => ({
-        ...v,
-        selected: false,
-        active: true,
-      }));
-      this.raidElements = [...new Set(this.raids.map((v) => v.element))];
+    raidElements() {
       this.selectedElements = this.raidElements;
-      this.raidTypes = [...new Set(this.raids.map((v) => v.category))].sort(
-        function (a, b) {
-          if (a < b) return -1;
-          else if (a > b) return 1;
-          return 0;
-        }
-      );
     },
   },
 };
@@ -135,11 +137,12 @@ export default {
 }
 .card-body {
   overflow-y: auto;
+  outline: solid 2px rgba(10, 10, 10, 0.1);
 }
 
 @media (min-height: 500px) {
   .card-body {
-    height: 300px;
+    height: 50vh;
   }
 }
 
@@ -148,9 +151,7 @@ export default {
     height: 600px;
   }
 }
-.rounded-modal-card {
-  border-radius: 1rem;
-  margin: 1em 2em;
+.modal-card {
   overflow-y: hidden !important;
 }
 </style>

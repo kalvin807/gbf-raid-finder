@@ -1,10 +1,17 @@
 <template>
   <div id="app" class="is-clipped">
-    <NavBar />
+    <NavBar @openModal="openModal" @resetFeed="resetFeed" />
     <transition-group name="raids-feed" class="column raids-feed" style="overflow-y=auto" tag="div">
       <RaidMsgCard v-for="msg in reverseFeed" :msg="msg" :key="msg.key" />
     </transition-group>
-    <RaidModal :raids="raids" @onSelectChange="updateFilter" />
+    <RaidModal
+      :raids="raids"
+      :raidTypes="raidTypes"
+      :raidElements="raidElements"
+      :isModalActive="isModalActive"
+      @onSelectChange="updateFilter"
+      @onClose="closeModal"
+    />
   </div>
 </template>
 
@@ -23,16 +30,33 @@ export default {
   },
   data() {
     return {
-      raids: [],
       ws: null,
       msgFeed: [],
+      raids: [],
+      raidTypes: [],
+      raidElements: [],
+      filterStr: "",
+      isModalActive: false,
     };
   },
   methods: {
     getRaids() {
       get("/static", "raid.json")
         .then((res) => {
-          this.raids = res.map((v, idx) => ({ ...v, index: idx }));
+          this.raids = res.map((v, idx) => ({
+            ...v,
+            index: idx,
+            selected: false,
+            active: true,
+          }));
+          this.raidElements = [...new Set(this.raids.map((v) => v.element))];
+          this.raidTypes = [...new Set(this.raids.map((v) => v.category))].sort(
+            function (a, b) {
+              if (a < b) return -1;
+              else if (a > b) return 1;
+              return 0;
+            }
+          );
         })
         .catch((err) => console.log(err));
     },
@@ -75,6 +99,15 @@ export default {
     wsSend(data) {
       this.ws.send(data);
     },
+    openModal() {
+      this.isModalActive = true;
+    },
+    closeModal() {
+      this.isModalActive = false;
+    },
+    resetFeed() {
+      this.msgFeed = [];
+    },
   },
   created() {
     this.initWebSocket();
@@ -101,8 +134,7 @@ export default {
   touch-action: manipulation;
 }
 .raids-feed {
-  display: flex;
   height: 100%;
-  flex-direction: column-reverse;
+  padding: 0 !important;
 }
 </style>
