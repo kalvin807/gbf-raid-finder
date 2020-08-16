@@ -31,5 +31,5 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.api_key }}
           BRANCH: gh-pages
-          FOLDER: front/dist
+          FOLDER: frontend/dist
           CLEAN: True
