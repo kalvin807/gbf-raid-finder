@@ -9,13 +9,13 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Move to Frontend Directory
-        run: cd frontend
-
       - name: Checkout 🛎️
         uses: actions/checkout@v2
         with:
           persist-credentials: false
+
+      - name: Move to Frontend Directory 🏃
+        run: cd frontend
 
       - name: Install and Build 🔧
         run: |
