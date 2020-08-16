@@ -9,5 +9,5 @@ const prodConfig = {
 };
 
 module.exports = {
-  ...(process.env.NODE_ENV === "production" ? devConfig : prodConfig),
+  ...(process.env.NODE_ENV === "production" ? prodConfig : devConfig),
 };
