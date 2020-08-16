@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+defaults:
+  run:
+    working-directory: frontend
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,9 +17,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           persist-credentials: false
-
-      - name: Move to Frontend Directory 🏃
-        run: cd frontend
 
       - name: Install and Build 🔧
         run: |
