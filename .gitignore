@@ -24,7 +24,7 @@ node_modules
 .vscode
 
 # log files
-.log
+*.log
 
 .DS_Store
 node_modules
