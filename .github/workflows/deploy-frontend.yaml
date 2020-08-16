@@ -20,6 +20,7 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
+          yarn global add @vue/cli
           yarn install
           yarn run build
         env: 
