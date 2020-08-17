@@ -34,7 +34,7 @@ func main() {
 
 	dotenvErr := godotenv.Load(".env")
 	if dotenvErr != nil {
-		log.Fatal("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
 
 	apiKey, apiSecert := os.Getenv("TWITTER_API_KEY"), os.Getenv("TWITTER_API_SECERT")

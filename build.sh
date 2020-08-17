@@ -7,6 +7,6 @@ if [ -d "$DIR" ]; then rm -Rf $DIR; fi
 
 mkdir $DIR
 go mod download
-go build -o $DIR/$FILE
+GOARCH=amd64 GOOS=linux go build -o $DIR/$FILE
 
 echo "Binary File Built"
