@@ -1,15 +1,16 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/julienschmidt/httprouter"
+	"github.com/kalvin807/gbf-raid-finder/internal/clients"
+	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
+	"github.com/kalvin807/gbf-raid-finder/internal/router"
 )
-
-var addr = flag.String("a", ":8080", "http service address")
 
 func setupLog() {
 	file, err := os.OpenFile("../../logs.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
@@ -22,11 +23,9 @@ func setupLog() {
 }
 
 func main() {
-	flag.Parse()
-
 	setupLog()
 
-	dotenvErr := godotenv.Load("../../.env")
+	dotenvErr := godotenv.Load(".env")
 	if dotenvErr != nil {
 		log.Fatal("Error loading .env file")
 	}
@@ -38,15 +37,15 @@ func main() {
 		log.Fatal("Missing twitter credentials in .env)")
 	}
 
-	client := MakeTwitterClient(apiKey, apiSecert, accessKey, accessSecert)
-	hub := newHub(client)
+	client := fetcher.MakeTwitterClient(apiKey, apiSecert, accessKey, accessSecert)
+	hub := clients.NewHub(client)
 
-	go hub.run()
+	go hub.Run()
 
-	router := makeRouter()
-	setUpRoute(router, hub)
+	r := httprouter.New()
+	router.SetUpRoute(r, hub)
 
-	err := http.ListenAndServe(*addr, router)
+	err := http.ListenAndServe(":8080", r)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

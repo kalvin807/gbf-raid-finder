@@ -1,4 +1,4 @@
-package main
+package fetcher
 
 import (
 	"encoding/json"
@@ -21,8 +21,8 @@ type RaidMsg struct {
 	Timestamp string `json:"timestamp"`
 }
 
-// Raid is a struct of a raid config
-type Raid struct {
+// raid is a struct of a raid config
+type raid struct {
 	En       string `json:"en"`
 	Jp       string `json:"jp"`
 	Image    string `json:"image"`
@@ -30,10 +30,10 @@ type Raid struct {
 	Element  string `json:"element"`
 }
 
-// MessageHandler handles tweet message transformation
-type MessageHandler struct {
+// messageHandler handles tweet message transformation
+type messageHandler struct {
 	nameIDMap map[string]int
-	raids     []Raid
+	raids     []raid
 }
 
 func safeGetMsg(matches []string, id int) string {
@@ -43,8 +43,8 @@ func safeGetMsg(matches []string, id int) string {
 	return matches[id]
 }
 
-// NewRaidMsg create a raidmsg from a tweet
-func (m MessageHandler) NewRaidMsg(rawText string, time string) *RaidMsg {
+// newRaidMsg create a raidmsg from a tweet
+func (m messageHandler) newRaidMsg(rawText string, time string) *RaidMsg {
 	idMsgMatch := roomIDMsgRegex.FindStringSubmatch(rawText)
 	raidMatch := raidRegex.FindStringSubmatch(rawText)
 	roomID, msg, raid := safeGetMsg(idMsgMatch, 2), safeGetMsg(idMsgMatch, 1), safeGetMsg(raidMatch, 1)
@@ -64,15 +64,15 @@ func (m MessageHandler) NewRaidMsg(rawText string, time string) *RaidMsg {
 
 }
 
-// NewMessageHandler creates a new MessageHandler if raid.json exists at root
-func NewMessageHandler() *MessageHandler {
+// NewmessageHandler creates a new messageHandler if raid.json exists at root
+func newMessageHandler() *messageHandler {
 	path := "../../static/raid.json"
 	file, ioErr := ioutil.ReadFile(path)
 	if ioErr != nil {
 		log.Fatal(ioErr)
 	}
 
-	var tempRaids []Raid
+	var tempRaids []raid
 	var tempRaidIDMap = make(map[string]int)
 
 	jsonErr := json.Unmarshal(file, &tempRaids)
@@ -85,7 +85,7 @@ func NewMessageHandler() *MessageHandler {
 		tempRaidIDMap[r.Jp] = i
 	}
 
-	return &MessageHandler{
+	return &messageHandler{
 		nameIDMap: tempRaidIDMap,
 		raids:     tempRaids,
 	}

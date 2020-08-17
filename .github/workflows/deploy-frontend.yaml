@@ -7,7 +7,7 @@ on:
 
 defaults:
   run:
-    working-directory: frontend
+    working-directory: web
 
 jobs:
   build-and-deploy:
@@ -31,5 +31,5 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.api_key }}
           BRANCH: gh-pages
-          FOLDER: frontend/dist
+          FOLDER: web/dist
           CLEAN: True

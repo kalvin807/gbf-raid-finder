@@ -1,9 +1,10 @@
-package main
+package clients
 
 import (
 	"log"
 
 	"github.com/dghubble/go-twitter/twitter"
+	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 )
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -13,7 +14,7 @@ type Hub struct {
 	clients map[*Client]bool
 
 	// Inbound messages from the clients.
-	broadcast chan *RaidMsg
+	broadcast chan *fetcher.RaidMsg
 
 	// Register requests from the clients.
 	register chan *Client
@@ -34,19 +35,21 @@ type Hub struct {
 	tweetStatus bool
 }
 
-func newHub(tweetClient *twitter.Client) *Hub {
+// NewHub create a Hub instance that managing all client/server communcations
+func NewHub(tweetClient *twitter.Client) *Hub {
 	return &Hub{
 		register:          make(chan *Client),
 		unregister:        make(chan *Client),
 		clients:           make(map[*Client]bool),
-		broadcast:         make(chan *RaidMsg),
+		broadcast:         make(chan *fetcher.RaidMsg),
 		activeClientCount: 0,
 		tweetClient:       tweetClient,
 		tweetStatus:       false,
 	}
 }
 
-func (h *Hub) run() {
+// Run start the hub main loop
+func (h *Hub) Run() {
 	for {
 		select {
 		case client := <-h.register:
@@ -55,9 +58,9 @@ func (h *Hub) run() {
 			// Start stream if stream is stopped
 			if !h.tweetStatus {
 				log.Println("New client connected but stream stopped, Stream now starts")
-				h.tweetStream = MakeTweetStream(h.tweetClient)
+				h.tweetStream = fetcher.MakeTweetStream(h.tweetClient)
 				h.tweetStatus = true
-				go TweetStreamHandler(h.tweetStream, h.broadcast)
+				go fetcher.TweetStreamHandler(h.tweetStream, h.broadcast)
 			}
 		case client := <-h.unregister:
 			if _, ok := h.clients[client]; ok {

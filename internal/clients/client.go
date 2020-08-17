@@ -1,16 +1,11 @@
-package main
+package clients
 
 import (
 	"log"
 
 	"github.com/gorilla/websocket"
+	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 )
-
-var upgrader = websocket.Upgrader{
-	EnableCompression: true,
-	ReadBufferSize:    1024,
-	WriteBufferSize:   1024,
-}
 
 // ClientConfigMsg is a struct that server expected to receive from client
 type clientConfigMsg struct {
@@ -26,7 +21,7 @@ type Client struct {
 	conn *websocket.Conn
 
 	// Buffered channel of outbound messages.
-	send chan *RaidMsg
+	send chan *fetcher.RaidMsg
 
 	// Set of raid this client listen to
 	raid map[int]bool
@@ -75,9 +70,9 @@ func (c *Client) writePump() {
 	}
 }
 
-// serveWs handles websocket requests from the peer.
-func makeWsClient(hub *Hub, conn *websocket.Conn) {
-	client := &Client{hub: hub, conn: conn, send: make(chan *RaidMsg, 256), raid: make(map[int]bool)}
+// MakeWsClient starts a client connect from websocket
+func MakeWsClient(hub *Hub, conn *websocket.Conn) {
+	client := &Client{hub: hub, conn: conn, send: make(chan *fetcher.RaidMsg, 256), raid: make(map[int]bool)}
 	client.hub.register <- client
 
 	// Allow collection of memory referenced by the caller by doing all work in

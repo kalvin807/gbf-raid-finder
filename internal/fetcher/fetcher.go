@@ -1,4 +1,4 @@
-package main
+package fetcher
 
 import (
 	"html"
@@ -27,12 +27,12 @@ func MakeTweetStream(client *twitter.Client) *twitter.Stream {
 
 // TweetStreamHandler Start stream
 func TweetStreamHandler(stream *twitter.Stream, raidChan chan *RaidMsg) {
-	msgHandler := NewMessageHandler()
+	msgHandler := newMessageHandler()
 	demux := twitter.NewSwitchDemux()
 	demux.Tweet = func(tweet *twitter.Tweet) {
 		// Make sure it is from GBF
 		if tweet.Source == `<a href="http://granbluefantasy.jp/" rel="nofollow">グランブルー ファンタジー</a>` {
-			msg := msgHandler.NewRaidMsg(html.UnescapeString(tweet.Text), tweet.CreatedAt)
+			msg := msgHandler.newRaidMsg(html.UnescapeString(tweet.Text), tweet.CreatedAt)
 			if msg != nil {
 				raidChan <- msg
 			}
