@@ -49,3 +49,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Binary file folder
+bin

@@ -13,7 +13,14 @@ import (
 )
 
 func setupLog() {
-	file, err := os.OpenFile("../../logs.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	if _, err := os.Stat("log"); os.IsNotExist(err) {
+		errDir := os.MkdirAll("log", 0755)
+		if errDir != nil {
+			log.Fatal(err)
+		}
+	}
+
+	file, err := os.OpenFile("./log/run.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
