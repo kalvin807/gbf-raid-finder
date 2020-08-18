@@ -2,7 +2,7 @@
   <div id="app" class="is-clipped">
     <NavBar @openModal="openModal" @resetFeed="resetFeed" />
     <transition-group name="raids-feed" class="column raids-feed" style="overflow-y=auto" tag="div">
-      <RaidMsgCard v-for="msg in reverseFeed" :msg="msg" :key="msg.key" />
+      <RaidMsgCard v-for="msg in reverseFeed" :msg="msg" :timeNow="timeNow" :key="msg.key" />
     </transition-group>
     <RaidModal
       :raids="raids"
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import moment from "moment";
 import NavBar from "./components/NavBar.vue";
 import RaidModal from "./components/RaidModal";
 import RaidMsgCard from "./components/RaidMsgCard";
@@ -37,6 +38,7 @@ export default {
       raidElements: [],
       filterStr: "",
       isModalActive: false,
+      timeNow: "",
     };
   },
   methods: {
@@ -76,14 +78,15 @@ export default {
       this.ws.onclose = this.onClose;
     },
     onMessage(event) {
-      console.log(event);
       const msg = JSON.parse(event.data);
       const raid = this.raids[msg.raid];
       this.msgFeed.push({
         jp: raid.jp,
         en: raid.en,
+        img: raid.image,
         msg: msg.msg,
         roomId: msg.roomId,
+        timestamp: msg.timestamp,
         key: `${event.timeStamp}${msg.roomId}`,
       });
     },
@@ -108,10 +111,17 @@ export default {
     resetFeed() {
       this.msgFeed = [];
     },
+    time() {
+      this.timeNow = moment();
+    },
   },
   created() {
     this.initWebSocket();
     this.getRaids();
+    this.interval = setInterval(this.time, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
   },
   destroyed() {
     this.ws.close();

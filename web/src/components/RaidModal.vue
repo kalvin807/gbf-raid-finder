@@ -115,7 +115,8 @@ export default {
         const isType = typeSet.size > 0 ? typeSet.has(v.category) : true;
         const isElement = eleSet.has(v.element);
         const isMatch = filterStr
-          ? v.en.includes(filterStr) || v.jp.includes(filterStr)
+          ? v.en.toLowerCase().includes(filterStr.toLowerCase()) ||
+            v.jp.toLowerCase().includes(filterStr.toLowerCase())
           : true;
         return isType && isElement && isMatch;
       });
