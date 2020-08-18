@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -10,6 +11,7 @@ import (
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 	"github.com/kalvin807/gbf-raid-finder/internal/router"
+	"github.com/urfave/negroni"
 )
 
 func setupLog() {
@@ -19,13 +21,12 @@ func setupLog() {
 			log.Fatal(err)
 		}
 	}
-
 	file, err := os.OpenFile("./log/run.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	log.SetOutput(file)
+	mw := io.MultiWriter(os.Stdout, file)
+	log.SetOutput(mw)
 	log.Println("Go start farm in gbf!")
 }
 
@@ -58,7 +59,10 @@ func main() {
 	r := httprouter.New()
 	router.SetUpRoute(r, hub)
 
-	err := http.ListenAndServe(":"+port, r)
+	n := negroni.Classic()
+	n.UseHandler(r)
+
+	err := http.ListenAndServe(":"+port, n)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}

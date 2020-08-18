@@ -8,4 +8,5 @@ require (
 	github.com/gorilla/websocket v1.4.2
 	github.com/joho/godotenv v1.3.0
 	github.com/julienschmidt/httprouter v1.3.0
+	github.com/urfave/negroni v1.0.0
 )
