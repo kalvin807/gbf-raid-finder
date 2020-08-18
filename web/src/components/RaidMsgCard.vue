@@ -3,7 +3,7 @@
     <div class="column feed-column" :class="clicked && 'clicked'" @click="copy(msg)">
       <div class="has-text-left columns is-mobile">
         <div class="column is-narrow">
-          <img class="img-rounded" :src="msg.img" />
+          <img class="img-rounded" :src="imgUrl" />
         </div>
 
         <div class="column">
@@ -36,6 +36,7 @@
 
 <script>
 import moment from "moment";
+import { makeImgUrls } from '../api';
 export default {
   name: "raid-msg-card",
   props: {
@@ -47,6 +48,7 @@ export default {
       clicked: false,
       durationStr: "",
       timestamp: moment(this.msg.timestamp),
+      imgUrl: makeImgUrls(msg.img)
     };
   },
   methods: {

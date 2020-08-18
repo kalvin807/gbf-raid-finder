@@ -26,6 +26,7 @@ jobs:
         env:
           NODE_ENV: production
           VUE_APP_BACKEND_URI: gbf-raids-finder.herokuapp.com
+          VUE_APP_GITHUB_DIR: /gbf-raid-finder
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9

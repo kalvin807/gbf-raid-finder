@@ -14,7 +14,5 @@ export const get = async (dir, fileName) => {
   }
 };
 
-export const makeImgUrls = (dir, filename) => ({
-  webp: `/img/${dir}/${filename}.webp`,
-  jpg: `/img/${dir}/${filename}.jpg`,
-});
+export const makeImgUrl = (filename) =>
+  `${process.env.VUE_APP_GITHUB_DIR}${filename}`;
