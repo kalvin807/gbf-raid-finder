@@ -68,7 +68,7 @@ export default {
       this.wsSend(JSON.stringify(req));
     },
     initWebSocket() {
-      const wsuri = "ws://192.168.1.30:8080/ws";
+      const wsuri = `wss://${process.env.VUE_APP_BACKEND_URI}/ws`;
       this.ws = new WebSocket(wsuri);
       this.ws.onmessage = this.onMessage;
       this.ws.onopen = this.onOpen;

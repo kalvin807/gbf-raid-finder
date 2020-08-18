@@ -25,7 +25,7 @@ jobs:
         run: yarn run build
         env:
           NODE_ENV: production
-          VUE_APP_BACKEND_URI: https://gbf-raids-finder.herokuapp.com/
+          VUE_APP_BACKEND_URI: gbf-raids-finder.herokuapp.com
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9
