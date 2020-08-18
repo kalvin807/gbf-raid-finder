@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -66,8 +67,12 @@ func (m messageHandler) newRaidMsg(rawText string, time string) *RaidMsg {
 
 // NewmessageHandler creates a new messageHandler if raid.json exists at root
 func newMessageHandler() *messageHandler {
-	path := "../../static/raid.json"
-	file, ioErr := ioutil.ReadFile(path)
+	path, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	raidFilePath := path + "/static/raid.json"
+	file, ioErr := ioutil.ReadFile(raidFilePath)
 	if ioErr != nil {
 		log.Fatal(ioErr)
 	}
