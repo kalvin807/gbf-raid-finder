@@ -48,7 +48,7 @@ export default {
       clicked: false,
       durationStr: "",
       timestamp: moment(this.msg.timestamp),
-      imgUrl: makeImgUrls(msg.img)
+      imgUrl: makeImgUrls(this.msg.img)
     };
   },
   methods: {
