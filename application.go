@@ -37,6 +37,12 @@ func main() {
 		log.Println("Error loading .env file")
 	}
 
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+
 	apiKey, apiSecert := os.Getenv("TWITTER_API_KEY"), os.Getenv("TWITTER_API_SECERT")
 	accessKey, accessSecert := os.Getenv("TWITTER_ACCESS_KEY"), os.Getenv("TWITTER_ACCESS_SECERT")
 
@@ -52,7 +58,7 @@ func main() {
 	r := httprouter.New()
 	router.SetUpRoute(r, hub)
 
-	err := http.ListenAndServe(":8080", r)
+	err := http.ListenAndServe(":"+port, r)
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
