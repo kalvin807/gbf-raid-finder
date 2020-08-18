@@ -1,1 +1,1 @@
-web: bin/app
+web: bin/gbf-raid-finder
