@@ -1398,5 +1398,12 @@
         "image": "/assets/raids/BattleRaid_The_Peacemaker's_Wings_Impossible.jpg",
         "category": "Impossible Nightmare",
         "element": "Water"
+    },
+    {
+        "en": "Lvl 250 Beelzebub",
+        "jp": "Lv250 ベルゼバブ",
+        "image": "Beelzebub_Impossible",
+        "category": "Impossible Rapture",
+        "element": "None"
     }
 ]
