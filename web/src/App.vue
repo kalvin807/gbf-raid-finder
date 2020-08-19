@@ -147,4 +147,12 @@ export default {
   height: 100%;
   padding: 0 !important;
 }
+.raids-feed-enter-active,
+.raids-feed-leave-active {
+  opacity: 1;
+  transition: opacity 0.6s ease-in;
+}
+.raids-feed-enter, .raids-feed-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0
+}
 </style>

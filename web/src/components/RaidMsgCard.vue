@@ -3,7 +3,7 @@
     <div class="column feed-column has-text-white" :class="clicked && 'clicked'" @click="copy(msg)">
       <div class="has-text-left columns is-mobile">
         <div class="column is-narrow">
-          <img class="img-rounded" :src="imgUrl" />
+          <b-image class="img-rounded" :src="imgUrl" webp-fallback=".jpg" :lazy="false" />
         </div>
 
         <div class="column">
@@ -30,13 +30,12 @@
         >{{ msg.roomId }}</div>
       </div>
     </div>
-    <hr :class="clicked && 'clicked'" style="margin: 0" />
   </section>
 </template>
 
 <script>
 import moment from "moment";
-import { makeImgUrl } from '../api';
+import { makeImgUrl } from "../api";
 export default {
   name: "raid-msg-card",
   props: {
@@ -48,7 +47,7 @@ export default {
       clicked: false,
       durationStr: "",
       timestamp: moment(this.msg.timestamp),
-      imgUrl: makeImgUrl(this.msg.img)
+      imgUrl: makeImgUrl(this.msg.img),
     };
   },
   methods: {
@@ -69,16 +68,24 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .feed-column {
-  padding: 0.75rem;
+  margin: 1rem 1rem;
+  border-radius: 0.33rem;
+  background: rgba(70, 76, 76, 0.8);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.feed-column:hover {
+  -webkit-transform: translateY(-0.2rem);
+  -moz-transform: translateY(-0.2rem);
+  transform: translateY(-0.2rem);
+  transition: all 80ms ease-out;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .clicked {
-  background-color: rgba(10, 10, 10, 0.3);
+  background-color: rgba(70, 76, 76, 0.1);
 }
 .img-rounded {
-  max-width: 100px;
-  height: auto;
   border-radius: 6px;
   margin: auto;
 }

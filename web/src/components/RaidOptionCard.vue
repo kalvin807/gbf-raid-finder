@@ -7,7 +7,7 @@
           <div class="is-size-7-mobile is-size-6">{{ raid.en }}</div>
         </div>
         <div class="level-right">
-          <b-image :src="uri"></b-image>
+          <b-image :src="uri" webp-fallback=".jpg"></b-image>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
 <script>
 import { makeImgUrl } from "../api";
 export default {
-  name: "raid-card",
+  name: "raidCard",
   props: {
     raid: {
       type: Object,
@@ -26,8 +26,8 @@ export default {
   },
   data() {
     return {
-      uri: makeImgUrl(this.raid.image)
-    }
+      uri: makeImgUrl(this.raid.image),
+    };
   },
   methods: {
     selectMe() {
@@ -37,9 +37,16 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .raid-card {
   padding: 2em;
+}
+.raid-card:hover {
+  -webkit-transform: translateY(-0.2rem);
+  -moz-transform: translateY(-0.2rem);
+  transform: translateY(-0.2rem);
+  transition: all 80ms ease-out;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .selected {
   background-color: rgba(0, 150, 136, 1) !important;
@@ -61,9 +68,6 @@ export default {
   background-color: #464c4c;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 2px 1px -1px rgba(0, 0, 0, 0.12), 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-}
-.image {
-  width: 50%;
 }
 img {
   border-radius: 0.3rem;

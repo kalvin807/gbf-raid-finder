@@ -4,13 +4,7 @@
       <div class="card modal-card has-text-white">
         <!-- Card Header -->
         <b-collapse class="card filter" animation="slide">
-          <div
-            slot="trigger"
-            slot-scope="props"
-            class="card-header"
-            role="button"
-            aria-controls="contentIdForA11y3"
-          >
+          <div slot="trigger" slot-scope="props" class="card-header" role="button">
             <p class="card-header-title has-text-white">Add Raids</p>
             <a class="card-header-icon">
               <span>
@@ -115,6 +109,9 @@ export default {
     onCancel() {
       this.$emit("onClose");
     },
+    resetModal() {
+      console.log("HEY");
+    },
   },
   computed: {
     filterSearch() {
@@ -172,5 +169,12 @@ export default {
 }
 .field.has-addons {
   flex-wrap: wrap !important;
+}
+.reset-button {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0.75rem 1rem;
 }
 </style>
