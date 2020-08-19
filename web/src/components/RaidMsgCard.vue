@@ -79,7 +79,7 @@ export default {
   -webkit-transform: translateY(-0.2rem);
   -moz-transform: translateY(-0.2rem);
   transform: translateY(-0.2rem);
-  transition: all 80ms ease-out;
+  transition: transform 80ms ease-in-out;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .clicked {
