@@ -17,4 +17,10 @@ const prodConfig = {
 
 module.exports = {
   ...(process.env.NODE_ENV === "production" ? prodConfig : devConfig),
+  chainWebpack: (config) => {
+    config.plugin("html").tap((args) => {
+      args[0].title = "Sarya - GBF Raids Finder";
+      return args;
+    });
+  },
 };
