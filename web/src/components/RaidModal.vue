@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-modal :active="isModalActive" :on-cancel="onCancel" has-modal-card>
-      <div class="card modal-card">
+      <div class="card modal-card has-text-white">
         <!-- Card Header -->
         <b-collapse class="card filter" animation="slide">
           <div
@@ -19,15 +19,25 @@
               </span>
             </a>
           </div>
-          <div class="column filter">
+          <div class="column filter has-text-white">
             <b-field>
               <b-input v-model="filterStr" placeholder="Search..." type="search" icon="magnify"></b-input>
             </b-field>
             <div class="columns is-vcentered is-centered">
               <div class="column">
-                <template v-for="ele in raidElements">
-                  <b-checkbox :key="ele" v-model="selectedElements" :native-value="ele">{{ele}}</b-checkbox>
-                </template>
+                <b-field>
+                  <template v-for="ele in raidElements">
+                    <b-checkbox-button
+                      :key="ele"
+                      v-model="selectedElements"
+                      :native-value="ele"
+                      expanded
+                      is-small
+                    >
+                      <span>{{ele}}</span>
+                    </b-checkbox-button>
+                  </template>
+                </b-field>
               </div>
               <div class="column">
                 <multiselect
@@ -130,11 +140,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-$grey-light: #8c9b9d;
-$grey: darken($grey-light, 18);
-$grey-darker: darken($grey, 23);
-
+<style scoped>
 #fab {
   position: fixed;
   bottom: 3rem;
@@ -163,5 +169,8 @@ $grey-darker: darken($grey, 23);
   background: rgba(18, 18, 18, 0.5);
   border: 0 !important;
   border-radius: 0.4em;
+}
+.field.has-addons {
+  flex-wrap: wrap !important;
 }
 </style>

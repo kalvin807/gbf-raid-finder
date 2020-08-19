@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="column feed-column" :class="clicked && 'clicked'" @click="copy(msg)">
+    <div class="column feed-column has-text-white" :class="clicked && 'clicked'" @click="copy(msg)">
       <div class="has-text-left columns is-mobile">
         <div class="column is-narrow">
           <img class="img-rounded" :src="imgUrl" />

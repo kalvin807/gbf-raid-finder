@@ -10,3 +10,12 @@
 html {
   overflow: auto;
 }
+
+.field {
+  &.has-addons {
+    flex-wrap: wrap;
+    div {
+      margin: 0.1rem 0;
+    }
+  }
+}
