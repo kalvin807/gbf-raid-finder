@@ -3,7 +3,7 @@
     <b-modal :active="isModalActive" :on-cancel="onCancel" has-modal-card>
       <div class="card modal-card">
         <!-- Card Header -->
-        <b-collapse class="card" animation="slide">
+        <b-collapse class="card filter" animation="slide">
           <div
             slot="trigger"
             slot-scope="props"
@@ -11,7 +11,7 @@
             role="button"
             aria-controls="contentIdForA11y3"
           >
-            <p class="card-header-title">Add Raids</p>
+            <p class="card-header-title has-text-white">Add Raids</p>
             <a class="card-header-icon">
               <span>
                 Filter
@@ -19,7 +19,7 @@
               </span>
             </a>
           </div>
-          <div class="column">
+          <div class="column filter">
             <b-field>
               <b-input v-model="filterStr" placeholder="Search..." type="search" icon="magnify"></b-input>
             </b-field>
@@ -130,7 +130,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$grey-light: #8c9b9d;
+$grey: darken($grey-light, 18);
+$grey-darker: darken($grey, 23);
+
 #fab {
   position: fixed;
   bottom: 3rem;
@@ -154,5 +158,10 @@ export default {
 }
 .modal-card {
   overflow-y: hidden !important;
+}
+.filter {
+  background: rgba(18, 18, 18, 0.5);
+  border: 0 !important;
+  border-radius: 0.4em;
 }
 </style>

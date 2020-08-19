@@ -36,7 +36,7 @@
 
 <script>
 import moment from "moment";
-import { makeImgUrls } from '../api';
+import { makeImgUrl } from '../api';
 export default {
   name: "raid-msg-card",
   props: {
@@ -48,7 +48,7 @@ export default {
       clicked: false,
       durationStr: "",
       timestamp: moment(this.msg.timestamp),
-      imgUrl: makeImgUrls(this.msg.img)
+      imgUrl: makeImgUrl(this.msg.img)
     };
   },
   methods: {

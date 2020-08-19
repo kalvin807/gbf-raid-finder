@@ -1,5 +1,5 @@
 <template>
-  <b-navbar fixed-top shadow>
+  <b-navbar fixed-top class="is-dark">
     <template slot="brand">
       <b-navbar-item>
         <h1 class="title is-size-4-mobile">GBF Raid Finder</h1>
@@ -12,9 +12,9 @@
       <b-navbar-item tag="div">
         <div class="buttons">
           <a class="button is-danger" @click="resetFeed">
-            <strong>Reset</strong>
+            <b>Clear</b>
           </a>
-          <a class="button is-primary">Github</a>
+          <a class="button" href="https://github.com/kalvin807/gbf-raid-finder" target="_blank" ref="noopener noreferrer">Github</a>
         </div>
       </b-navbar-item>
     </template>
@@ -36,4 +36,7 @@ export default {
 </script>
 
 <style>
+.navbar-menu{
+  background: none !important;
+}
 </style>

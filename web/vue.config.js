@@ -6,6 +6,13 @@ const devConfig = {
 
 const prodConfig = {
   publicPath: "/gbf-raid-finder/",
+  configureWebpack: {
+    resolve: {
+      alias: {
+        moment: "moment/src/moment",
+      },
+    },
+  },
 };
 
 module.exports = {
