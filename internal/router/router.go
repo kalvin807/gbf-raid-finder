@@ -73,6 +73,10 @@ func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
 
 	withGz := gziphandler.GzipHandler(withoutGz)
 
+	router.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", 301)
+	})
+
 	router.Handler("GET", "/raid", withGz)
 
 	router.GET("/ws", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
