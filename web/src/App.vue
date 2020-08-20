@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     getRaids() {
-      get("/static", "raid.json")
+      get("/raid")
         .then((res) => {
           this.raids = res.map((v, idx) => ({
             ...v,
@@ -63,14 +63,13 @@ export default {
         .catch((err) => console.log(err));
     },
     updateFilter(selected) {
-      console.log(selected);
       const req = {
         raid: [...selected],
       };
       this.wsSend(JSON.stringify(req));
     },
     initWebSocket() {
-      const wsuri = `wss://${process.env.VUE_APP_BACKEND_URI}/ws`;
+      const wsuri = process.env.VUE_APP_WS_URI;
       this.ws = new WebSocket(wsuri);
       this.ws.onmessage = this.onMessage;
       this.ws.onopen = this.onOpen;
@@ -153,6 +152,6 @@ export default {
   transition: opacity 0.6s ease-in;
 }
 .raids-feed-enter, .raids-feed-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0
+  opacity: 0;
 }
 </style>

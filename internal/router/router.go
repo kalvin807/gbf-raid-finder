@@ -4,25 +4,49 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
+	"time"
 
+	"github.com/NYTimes/gziphandler"
 	"github.com/gorilla/websocket"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
+	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
+	"github.com/tdewolff/minify"
+	"github.com/tdewolff/minify/json"
 )
 
 var upgrader = websocket.Upgrader{
-	EnableCompression: true,
-	ReadBufferSize:    1024,
-	WriteBufferSize:   1024,
+	ReadBufferSize:  1024,
+	WriteBufferSize: 2048,
+	CheckOrigin: func(r *http.Request) bool {
+		if checkOrigin(r) {
+			return true
+		}
+		return false
+	},
 }
 
-func cors(w http.ResponseWriter, r *http.Request) {
+var (
+	raidFilePath = fetcher.GetRaidFilePath()
+	cacheSince   = time.Now().Format(http.TimeFormat)
+	cacheUntil   = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
+)
+
+func setCors(w http.ResponseWriter, r *http.Request) {
 	if checkOrigin(r) {
 		header := w.Header()
 		header.Set("Access-Control-Allow-Methods", w.Header().Get("Allow"))
 		header.Set("Access-Control-Allow-Origin", os.Getenv("FRONT_END_URL"))
 		header.Set("Vary", "Origin")
 	}
+}
+
+func setCache(w http.ResponseWriter) {
+	// Must revalidate
+	w.Header().Set("Cache-Control", "no-cache, max-age=0")
+	w.Header().Set("Last-Modified", cacheSince)
+	w.Header().Set("Expires", cacheUntil)
 }
 
 func checkOrigin(r *http.Request) bool {
@@ -35,20 +59,23 @@ func checkOrigin(r *http.Request) bool {
 
 // SetUpRoute set up endpoints for websocket and static files
 func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
-	staticFileServer := http.FileServer(http.Dir("static"))
-	router.GET("/static/*filepath", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		cors(w, r)
-		r.URL.Path = p.ByName("filepath")
-		staticFileServer.ServeHTTP(w, r)
+	m := minify.New()
+	m.AddFuncRegexp(regexp.MustCompile("[/+]json$"), json.Minify)
+
+	withoutGz := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		mw := m.ResponseWriter(w, r)
+		defer mw.Close()
+		w = mw
+		setCors(w, r)
+		setCache(w)
+		http.ServeFile(w, r, raidFilePath)
 	})
 
-	router.HandlerFunc("GET", "/ws", func(w http.ResponseWriter, r *http.Request) {
-		upgrader.CheckOrigin = func(r *http.Request) bool {
-			if checkOrigin(r) {
-				return true
-			}
-			return false
-		}
+	withGz := gziphandler.GzipHandler(withoutGz)
+
+	router.Handler("GET", "/raid", withGz)
+
+	router.GET("/ws", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
 			log.Println(err)

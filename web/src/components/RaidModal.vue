@@ -109,9 +109,6 @@ export default {
     onCancel() {
       this.$emit("onClose");
     },
-    resetModal() {
-      console.log("HEY");
-    },
   },
   computed: {
     filterSearch() {

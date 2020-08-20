@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const backend = axios.create({
-  baseURL: `https://${process.env.VUE_APP_BACKEND_URI}`,
+  baseURL: process.env.VUE_APP_BACKEND_URI,
   timeout: 10000,
 });
 
-export const get = async (dir, fileName) => {
+export const get = async (dir) => {
   try {
-    const res = await backend.get(`${dir}/${fileName}`);
+    const res = await backend.get(dir);
     return res.data;
   } catch (err) {
     console.log(err);

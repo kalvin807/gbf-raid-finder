@@ -7,11 +7,13 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"time"
 )
 
 var (
 	roomIDMsgRegex = regexp.MustCompile("(?P<Desc>.*)(?P<ID>[0-9A-Z]{8})")
 	raidRegex      = regexp.MustCompile(".*\n.*\n([^\n]+)")
+	raidFilePath   = GetRaidFilePath()
 )
 
 // RaidMsg is a struct of a raid tweet
@@ -44,34 +46,38 @@ func safeGetMsg(matches []string, id int) string {
 	return matches[id]
 }
 
-// newRaidMsg create a raidmsg from a tweet
-func (m messageHandler) newRaidMsg(rawText string, time string) *RaidMsg {
-	idMsgMatch := roomIDMsgRegex.FindStringSubmatch(rawText)
-	raidMatch := raidRegex.FindStringSubmatch(rawText)
-	roomID, msg, raid := safeGetMsg(idMsgMatch, 2), safeGetMsg(idMsgMatch, 1), safeGetMsg(raidMatch, 1)
-	raid = strings.TrimSpace(raid)
-
-	raidID, found := m.nameIDMap[raid]
-	if !found && raid != "" {
-		log.Printf("%s: %s", "Unknown raid", raid)
-		return nil
-	}
-	return &RaidMsg{
-		RoomID:    strings.TrimSpace(roomID),
-		Msg:       strings.TrimSpace(msg),
-		Raid:      raidID,
-		Timestamp: time,
-	}
-
-}
-
-// NewmessageHandler creates a new messageHandler if raid.json exists at root
-func newMessageHandler() *messageHandler {
+// GetRaidFilePath gives the path of the raid.json
+func GetRaidFilePath() string {
 	path, err := os.Getwd()
 	if err != nil {
 		log.Println(err)
 	}
-	raidFilePath := path + "/static/raid.json"
+	return path + "/static/raid.json"
+}
+
+// newRaidMsg create a raidmsg from a tweet
+func (m messageHandler) newRaidMsg(rawText string, timestamp time.Time) *RaidMsg {
+	idMsgMatch := roomIDMsgRegex.FindStringSubmatch(rawText)
+	raidMatch := raidRegex.FindStringSubmatch(rawText)
+	roomID, msg, raid := safeGetMsg(idMsgMatch, 2), safeGetMsg(idMsgMatch, 1), safeGetMsg(raidMatch, 1)
+	raid = strings.TrimSpace(raid)
+	raidID, found := m.nameIDMap[raid]
+
+	if !found && raid != "" {
+		log.Printf("%s: %s", "Unknown raid", raid)
+		return nil
+	}
+
+	return &RaidMsg{
+		RoomID:    strings.TrimSpace(roomID),
+		Msg:       strings.TrimSpace(msg),
+		Raid:      raidID,
+		Timestamp: timestamp.Format(time.RFC3339),
+	}
+}
+
+// NewmessageHandler creates a new messageHandler if raid.json exists at root
+func newMessageHandler() *messageHandler {
 	file, ioErr := ioutil.ReadFile(raidFilePath)
 	if ioErr != nil {
 		log.Fatal(ioErr)

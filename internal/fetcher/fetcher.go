@@ -32,9 +32,14 @@ func TweetStreamHandler(stream *twitter.Stream, raidChan chan *RaidMsg) {
 	demux.Tweet = func(tweet *twitter.Tweet) {
 		// Make sure it is from GBF
 		if tweet.Source == `<a href="http://granbluefantasy.jp/" rel="nofollow">グランブルー ファンタジー</a>` {
-			msg := msgHandler.newRaidMsg(html.UnescapeString(tweet.Text), tweet.CreatedAt)
-			if msg != nil {
-				raidChan <- msg
+			time, err := tweet.CreatedAtTime()
+			if err != nil {
+				log.Println(err)
+			} else {
+				msg := msgHandler.newRaidMsg(html.UnescapeString(tweet.Text), time)
+				if msg != nil {
+					raidChan <- msg
+				}
 			}
 		}
 	}

@@ -25,7 +25,8 @@ jobs:
         run: yarn run build
         env:
           NODE_ENV: production
-          VUE_APP_BACKEND_URI: gbf-raids-finder.herokuapp.com
+          VUE_APP_BACKEND_URI: https://1gbf-raids-finder.herokuapp.com
+          VUE_APP_WS_URI: wss://192.168.1.30:8080/ws
           VUE_APP_GITHUB_DIR: /gbf-raid-finder
 
       - name: Deploy 🚀
