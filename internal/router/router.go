@@ -37,7 +37,7 @@ func setCors(w http.ResponseWriter, r *http.Request) {
 	if checkOrigin(r) {
 		header := w.Header()
 		header.Set("Access-Control-Allow-Methods", w.Header().Get("Allow"))
-		header.Set("Access-Control-Allow-Origin", "*")
+		header.Set("Access-Control-Allow-Origin", os.Getenv("FRONT_END_URL"))
 		header.Set("Vary", "Origin")
 	}
 }
