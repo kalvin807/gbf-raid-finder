@@ -75,7 +75,7 @@ export default {
     },
   },
   router: {
-    base: process.env.githubFolder || ''
+    base: `/${process.env.githubFolder}/` || ''
   },
   build: {},
 }
