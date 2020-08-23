@@ -26,17 +26,12 @@ jobs:
         run: yarn run build
         env: 
           NODE_ENV: production
-          BACKEND_URL: https://gbf-raids-finder.herokuapp.com
-          WEBSOCKET_URI: wss://gbf-raids-finder.herokuapp.com/ws
-          GITHUB_FOLDER: /gbf-raid-finder/
+          NUXT_ENV_BACKEND_URL: https://gbf-raids-finder.herokuapp.com
+          NUXT_ENV_WEBSOCKET_URI: wss://gbf-raids-finder.herokuapp.com/ws
+          NUXT_ENV_GITHUB_FOLDER: /gbf-raid-finder/
 
       - name: Generate Static 🔧
         run: yarn run generate
-        env: 
-          NODE_ENV: production
-          BACKEND_URL: https://gbf-raids-finder.herokuapp.com
-          WEBSOCKET_URI: wss://gbf-raids-finder.herokuapp.com/ws
-          GITHUB_FOLDER: /gbf-raid-finder/
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9

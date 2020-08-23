@@ -59,7 +59,7 @@ export default {
     }
   },
   mounted() {
-    this.ws = new WebSocket(process.env.wsUrl || 'ws://localhost:8080/ws')
+    this.ws = new WebSocket(process.env.NUXT_ENV_WEBSOCKET_URI || 'ws://localhost:8080/ws')
     this.ws.onmessage = this.onMessage
     this.ws.onopen = this.onOpen
     this.ws.onerror = this.onError

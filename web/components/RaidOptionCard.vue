@@ -40,7 +40,7 @@ export default {
       this.$emit('click', this.fn)
     },
     makeImgUrl(uri) {
-      return `${process.env.githubFolder || ''}${uri}`
+      return `${process.env.NUXT_ENV_GITHUB_FOLDER || ''}${uri}`
     },
   },
 }

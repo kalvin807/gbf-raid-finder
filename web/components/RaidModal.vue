@@ -136,7 +136,7 @@ export default {
       this.$store.commit('resetSelected', event.index)
     },
     makeSpriteUri(name) {
-      return `${process.env.githubFolder || ''}img/sprites/${name.toLowerCase()}.png`
+      return `${process.env.NUXT_ENV_GITHUB_FOLDER || ''}img/sprites/${name.toLowerCase()}.png`
     },
   },
 }

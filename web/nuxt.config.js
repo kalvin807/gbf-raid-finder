@@ -37,11 +37,6 @@ export default {
    ** Global CSS
    */
   css: [],
-  env: {
-    githubFolder: process.env.GITHUB_FOLDER,
-    wsUrl: process.env.WEBSOCKET_URI,
-    bnUrl: process.env.BACKEND_URL,
-  },
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -71,7 +66,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   axios: {
-    baseURL: process.env.bnUrl || 'http://localhost:8080',
+    baseURL: process.env.NUXT_ENV_BACKEND_URL || 'http://localhost:8080',
   },
   vuetify: {
     /* module options */
@@ -80,7 +75,7 @@ export default {
     },
   },
   router: {
-    base: process.env.GITHUB_FOLDER || '',
+    base: process.env.NUXT_ENV_GITHUB_FOLDER || '',
   },
   build: {},
 }
