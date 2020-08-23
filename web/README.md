@@ -1,29 +1,20 @@
-# frontend
+# gbf-raider-nuxt
 
-## Project setup
+## Build Setup
 
-```
-yarn install
-```
+```bash
+# install dependencies
+$ yarn install
 
-### Compiles and hot-reloads for development
+# serve with hot reload at localhost:3000
+$ yarn dev
 
-```
-yarn serve
-```
+# build for production and launch server
+$ yarn build
+$ yarn start
 
-### Compiles and minifies for production
-
-```
-yarn build
-```
-
-### Lints and fixes files
-
-```
-yarn lint
+# generate static project
+$ yarn generate
 ```
 
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).

@@ -37,7 +37,7 @@ func setCors(w http.ResponseWriter, r *http.Request) {
 	if checkOrigin(r) {
 		header := w.Header()
 		header.Set("Access-Control-Allow-Methods", w.Header().Get("Allow"))
-		header.Set("Access-Control-Allow-Origin", os.Getenv("FRONT_END_URL"))
+		header.Set("Access-Control-Allow-Origin", "*")
 		header.Set("Vary", "Origin")
 	}
 }
@@ -51,7 +51,8 @@ func setCache(w http.ResponseWriter) {
 
 func checkOrigin(r *http.Request) bool {
 	fnURL := os.Getenv("FRONT_END_URL")
-	if origin := r.Header.Get("Origin"); origin != "" && origin == fnURL {
+	origin := r.Header.Get("Origin")
+	if origin == "" || origin == fnURL {
 		return true
 	}
 	return false

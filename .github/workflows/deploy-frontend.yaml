@@ -25,9 +25,17 @@ jobs:
         run: yarn run build
         env:
           NODE_ENV: production
-          VUE_APP_BACKEND_URI: https://gbf-raids-finder.herokuapp.com
-          VUE_APP_WS_URI: wss://gbf-raids-finder.herokuapp.com/ws
-          VUE_APP_GITHUB_DIR: /gbf-raid-finder
+          bnUrl: https://gbf-raids-finder.herokuapp.com
+          wsUrl: wss://gbf-raids-finder.herokuapp.com/ws
+          githubFolder: gbf-raid-finder
+
+      - name: Generate Static 🔧
+        run: yarn run generate
+        env:
+          NODE_ENV: production
+          bnUrl: https://gbf-raids-finder.herokuapp.com
+          wsUrl: wss://gbf-raids-finder.herokuapp.com/ws
+          githubFolder: gbf-raid-finder
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9
