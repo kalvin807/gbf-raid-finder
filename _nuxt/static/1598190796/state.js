@@ -1,0 +1,1 @@
+window.__NUXT__={staticAssetsBase:"\u002F_nuxt\u002Fstatic\u002F1598190796",layout:"default",error:null,state:{selected:new Set([]),raids:[],elements:["fire","water","earth","wind","light","dark","none"],types:[]},serverRendered:true,routePath:"\u002F",config:{}};
