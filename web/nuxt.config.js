@@ -66,7 +66,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   axios: {
-    baseURL: process.env.bkEndUrl || 'http://localhost:8080',
+    baseURL: process.env.bnUrl || 'http://localhost:8080',
   },
   vuetify: {
     /* module options */
