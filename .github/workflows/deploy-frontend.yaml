@@ -9,6 +9,7 @@ defaults:
   run:
     working-directory: web
 
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -23,19 +24,14 @@ jobs:
 
       - name: Build 🔧
         run: yarn run build
-        env:
+        env: 
           NODE_ENV: production
-          bnUrl: https://gbf-raids-finder.herokuapp.com
-          wsUrl: wss://gbf-raids-finder.herokuapp.com/ws
-          githubFolder: gbf-raid-finder
+          BACKEND_URL: https://gbf-raids-finder.herokuapp.com
+          WEBSOCKET_URI: wss://gbf-raids-finder.herokuapp.com/ws
+          GITHUB_FOLDER: /gbf-raid-finder/
 
       - name: Generate Static 🔧
         run: yarn run generate
-        env:
-          NODE_ENV: production
-          bnUrl: https://gbf-raids-finder.herokuapp.com
-          wsUrl: wss://gbf-raids-finder.herokuapp.com/ws
-          githubFolder: gbf-raid-finder
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.5.9

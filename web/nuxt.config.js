@@ -37,6 +37,11 @@ export default {
    ** Global CSS
    */
   css: [],
+  env: {
+    githubFolder: process.env.GITHUB_FOLDER,
+    wsUrl: process.env.WEBSOCKET_URI,
+    bnUrl: process.env.BACKEND_URL,
+  },
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
@@ -75,7 +80,7 @@ export default {
     },
   },
   router: {
-    base: `/${process.env.githubFolder}/` || ''
+    base: process.env.GITHUB_FOLDER || '',
   },
   build: {},
 }
