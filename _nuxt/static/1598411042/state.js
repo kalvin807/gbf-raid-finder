@@ -1,1 +1,0 @@
-window.__NUXT__={staticAssetsBase:"\u002F_nuxt\u002Fstatic\u002F1598411042",layout:"default",error:null,state:{selected:new Set([]),raids:[],elements:["fire","water","earth","wind","light","dark","none"],types:[]},serverRendered:true,routePath:"\u002F",config:{backendUrl:void 0,websocketUrl:"ws:\u002F\u002Flocalhost:8080\u002Fws",githubPrefix:""}};
