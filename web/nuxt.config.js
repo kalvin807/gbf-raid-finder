@@ -13,6 +13,11 @@ export default {
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
    */
+  publicRuntimeConfig: {
+    backendUrl: process.env.BACKEND_URL,
+    websocketUrl: process.env.WEBSOCKET_URI || 'ws://localhost:8080/ws',
+    githubPrefix: process.env.GITHUB_FOLDER || '',
+  },
   head: {
     title: 'GBF Raids Finder Omega',
     meta: [
@@ -66,7 +71,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   axios: {
-    baseURL: process.env.NUXT_ENV_BACKEND_URL || 'http://localhost:8080',
+    baseURL: process.env.BACKEND_URL || 'http://localhost:8080',
   },
   vuetify: {
     /* module options */
@@ -75,7 +80,7 @@ export default {
     },
   },
   router: {
-    base: process.env.NUXT_ENV_GITHUB_FOLDER || '',
+    base: process.env.GITHUB_FOLDER || '',
   },
   build: {},
 }

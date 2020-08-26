@@ -66,7 +66,7 @@ export default {
       this.clicked = true
     },
     makeImgUrl(uri) {
-      return `${process.env.NUXT_ENV_GITHUB_FOLDER || ''}${uri}`
+      return `${this.$config.githubPrefix}${uri}`
     },
   },
 }
