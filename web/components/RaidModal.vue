@@ -136,7 +136,7 @@ export default {
       this.$store.commit('resetSelected', event.index)
     },
     makeSpriteUri(name) {
-      return `${this.$config.githubPrefix}img/sprites/${name.toLowerCase()}.png`
+      return `/img/sprites/${name.toLowerCase()}.png`
     },
   },
 }

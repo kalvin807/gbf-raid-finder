@@ -16,7 +16,6 @@ export default {
   publicRuntimeConfig: {
     backendUrl: process.env.BACKEND_URL,
     websocketUrl: process.env.WEBSOCKET_URI || 'ws://localhost:8080/ws',
-    githubPrefix: process.env.GITHUB_FOLDER || '',
   },
   head: {
     title: 'GBF Raids Finder Omega',
@@ -78,9 +77,6 @@ export default {
     theme: {
       dark: true,
     },
-  },
-  router: {
-    base: process.env.GITHUB_FOLDER || '',
   },
   build: {},
 }

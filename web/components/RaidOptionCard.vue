@@ -40,7 +40,7 @@ export default {
       this.$emit('click', this.fn)
     },
     makeImgUrl(uri) {
-      return `${this.$config.githubPrefix}${uri}`
+      return `/${uri}`
     },
   },
 }

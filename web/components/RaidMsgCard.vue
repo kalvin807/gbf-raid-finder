@@ -66,7 +66,7 @@ export default {
       this.clicked = true
     },
     makeImgUrl(uri) {
-      return `${this.$config.githubPrefix}${uri}`
+      return `/${uri}`
     },
   },
 }
