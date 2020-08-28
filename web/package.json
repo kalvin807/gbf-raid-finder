@@ -12,9 +12,9 @@
     "lint": "yarn lint:js && yarn lint:style"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.12.1",
-    "moment": "^2.27.0",
-    "nuxt": "^2.14.0"
+    "@nuxtjs/axios": "^5.12.2",
+    "dayjs": "^1.8.34",
+    "nuxt": "^2.14.4"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
@@ -22,11 +22,12 @@
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "babel-eslint": "^10.1.0",
+    "core-js": "3",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-nuxt": "^1.0.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "prettier": "^2.0.5",
+    "prettier": "^2.1.1",
     "stylelint": "^13.6.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0"

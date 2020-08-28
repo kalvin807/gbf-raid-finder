@@ -1,81 +1,79 @@
 <template>
-  <client-only>
-    <v-dialog v-model="isModalActive" max-width="960">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon>
-          <v-icon dark v-bind="attrs" v-on="on">mdi-plus-box</v-icon>
-        </v-btn>
-      </template>
+  <v-dialog v-model="isModalActive" max-width="960">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn icon>
+        <v-icon dark v-bind="attrs" v-on="on">mdi-plus-box</v-icon>
+      </v-btn>
+    </template>
 
-      <v-card class="mx-auto">
-        <!-- Filter-->
-        <v-card-actions class="card">
-          <v-card-title>
-            <span class="text-h6 text-lg-h5">Select Raids</span>
-          </v-card-title>
-          <v-spacer></v-spacer>
-          <v-btn color="red accent-3" text @click="clearAllSelect"
-            >Clear all</v-btn
-          >
-          <v-btn text @click="show = !show">
-            Filter
-            <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-          </v-btn>
-        </v-card-actions>
-        <v-expand-transition>
-          <div v-show="show">
-            <v-container>
-              <v-row dense>
-                <v-col>
-                  <v-text-field
-                    v-model="filterStr"
-                    outlined
-                    dense
-                    label="Search"
-                    hide-details="auto"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row dense>
-                <v-col>
-                  <v-btn-toggle v-model="selectedElements" dark multiple dense>
-                    <template v-for="ele in raidElements">
-                      <v-btn :key="ele" :value="ele" icon>
-                        <v-img cover :src="makeSpriteUri(ele)"></v-img>
-                      </v-btn>
-                    </template>
-                  </v-btn-toggle>
-                </v-col>
-                <v-col>
-                  <v-select
-                    v-model="selectedTypes"
-                    item-value="string"
-                    :items="raidTypes"
-                    label="Raid Types"
-                    multiple
-                    outlined
-                    dark
-                    dense
-                  ></v-select>
-                </v-col>
-              </v-row>
-            </v-container>
-          </div>
-        </v-expand-transition>
-        <v-container class="body">
-          <!-- Card Body -->
-          <v-row dense>
-            <RaidOptionCard
-              v-for="raid in filterSearch"
-              :key="raid.index"
-              :raid="raid"
-              @click="selectRaid(raid)"
-            />
-          </v-row>
-        </v-container>
-      </v-card>
-    </v-dialog>
-  </client-only>
+    <v-card class="mx-auto">
+      <!-- Filter-->
+      <v-card-actions class="card">
+        <v-card-title>
+          <span class="text-h6 text-lg-h5">Select Raids</span>
+        </v-card-title>
+        <v-spacer></v-spacer>
+        <v-btn color="red accent-3" text @click="clearAllSelect"
+          >Clear all</v-btn
+        >
+        <v-btn text @click="show = !show">
+          Filter
+          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        </v-btn>
+      </v-card-actions>
+      <v-expand-transition>
+        <div v-show="show">
+          <v-container>
+            <v-row dense>
+              <v-col>
+                <v-text-field
+                  v-model="filterStr"
+                  outlined
+                  dense
+                  label="Search"
+                  hide-details="auto"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row dense>
+              <v-col>
+                <v-btn-toggle v-model="selectedElements" dark multiple dense>
+                  <template v-for="ele in raidElements">
+                    <v-btn :key="ele" :value="ele" icon>
+                      <v-img cover :src="makeSpriteUri(ele)"></v-img>
+                    </v-btn>
+                  </template>
+                </v-btn-toggle>
+              </v-col>
+              <v-col>
+                <v-select
+                  v-model="selectedTypes"
+                  item-value="string"
+                  :items="raidTypes"
+                  label="Raid Types"
+                  multiple
+                  outlined
+                  dark
+                  dense
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
+      </v-expand-transition>
+      <v-container class="body">
+        <!-- Card Body -->
+        <v-row dense>
+          <RaidOptionCard
+            v-for="raid in filterSearch"
+            :key="raid.index"
+            :raid="raid"
+            @click="selectRaid(raid)"
+          />
+        </v-row>
+      </v-container>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>

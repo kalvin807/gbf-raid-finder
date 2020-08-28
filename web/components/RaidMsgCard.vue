@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   name: 'RaidMsgCard',
@@ -47,7 +47,7 @@ export default {
     return {
       clicked: false,
       durationStr: '',
-      timestamp: moment(this.msg.timestamp),
+      timestamp: dayjs(this.msg.timestamp),
       uri: this.makeImgUrl(this.msg.img),
     }
   },

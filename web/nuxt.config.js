@@ -78,5 +78,9 @@ export default {
       dark: true,
     },
   },
-  build: {},
+  build: {
+    corejs: '3',
+    extractCSS: true
+  },
+  modern: 'client'
 }

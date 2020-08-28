@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 import NavBar from '../components/NavBar'
 import RaidMsgCard from '../components/RaidMsgCard'
 export default {
@@ -116,7 +116,7 @@ export default {
       this.msgFeed = []
     },
     time() {
-      this.timeNow = moment()
+      this.timeNow = dayjs()
     },
   },
 }
