@@ -40,7 +40,7 @@ export default {
       this.$emit('click', this.fn)
     },
     makeImgUrl(uri) {
-      return `/${uri}`
+      return `${uri}`
     },
   },
 }

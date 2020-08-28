@@ -66,7 +66,7 @@ export default {
       this.clicked = true
     },
     makeImgUrl(uri) {
-      return `/${uri}`
+      return `${uri}`
     },
   },
 }
