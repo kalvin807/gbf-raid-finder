@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="light-blue darken-4" dark elevation="5" fixed>
+  <v-app-bar class="grey darken-3" dark elevation="5" fixed>
     <v-toolbar-title>GBF Raid Finder</v-toolbar-title>
     <v-spacer></v-spacer>
     <RaidModal />
