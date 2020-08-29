@@ -51,6 +51,6 @@ export default {
   background-color: #424242;
 }
 .selected {
-  background-color: rgba(0, 150, 136, 1) !important;
+  background-color: #7045af !important;
 }
 </style>

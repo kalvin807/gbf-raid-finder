@@ -1,8 +1,23 @@
 <template>
-  <v-app-bar class="grey darken-3" dark elevation="5" fixed>
-    <v-toolbar-title>GBF Raid Finder</v-toolbar-title>
+  <v-app-bar class="deep-purple darken-4" dark elevation="5" fixed>
+    <v-toolbar-title>{{ $t('title') }}</v-toolbar-title>
     <v-spacer></v-spacer>
     <RaidModal />
+    <v-menu bottom offset-y>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn text v-bind="attrs" v-on="on">{{ $t('lang') }}</v-btn>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="lang in $i18n.locales"
+          :key="lang.code"
+          :value="lang.code"
+          @click="$i18n.setLocale(lang.code)"
+        >
+          <v-list-item-title>{{ lang.name }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
     <v-menu bottom open-on-hover offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
@@ -12,7 +27,9 @@
       <v-list>
         <v-list-item @click="resetFeed">
           <v-list-item-title
-            ><span class="danger">Reset</span></v-list-item-title
+            ><span class="danger">{{
+              $t('resetBtnText')
+            }}</span></v-list-item-title
           >
         </v-list-item>
         <v-list-item
@@ -30,13 +47,12 @@
 <script>
 import RaidModal from './RaidModal'
 export default {
-  name: 'NavBar',
   components: {
     RaidModal,
   },
   methods: {
     resetFeed() {
-      this.$emit('resetFeed')
+      this.$store.commit('resetFeed')
     },
   },
 }

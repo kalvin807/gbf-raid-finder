@@ -1,38 +1,30 @@
 <template>
-  <v-app id="app" class="is-clipped" data-app="true">
-    <NavBar @resetFeed="resetFeed" />
-
-    <transition-group name="raids-feed" class="raids-feed" tag="div">
-      <RaidMsgCard
-        v-for="msg in reverseFeed"
-        :key="msg.key"
-        :msg="msg"
-        :time-now="timeNow"
-      />
-    </transition-group>
-  </v-app>
+  <transition-group name="raids-feed" class="raids-feed" tag="div">
+    <RaidMsgCard
+      v-for="msg in reverseFeed"
+      :key="msg.key"
+      :msg="msg"
+      :time-now="timeNow"
+    />
+  </transition-group>
 </template>
 
 <script>
 import dayjs from 'dayjs'
-import NavBar from '../components/NavBar'
 import RaidMsgCard from '../components/RaidMsgCard'
 export default {
-  name: 'App',
   components: {
-    NavBar,
     RaidMsgCard,
   },
   data() {
     return {
       ws: null,
-      msgFeed: [],
       timeNow: '',
     }
   },
   computed: {
     reverseFeed() {
-      return this.msgFeed.slice().reverse()
+      return this.$store.state.msgFeed.slice().reverse()
     },
     selected() {
       return this.$store.state.selected
@@ -94,21 +86,17 @@ export default {
       }
     },
     onMessage(event) {
-      const msg = JSON.parse(event.data)
-      const raid = this.raids[msg.raid]
-      this.msgFeed.push({
-        jp: raid.jp,
-        en: raid.en,
-        img: raid.image,
-        msg: msg.msg,
-        roomId: msg.roomId,
-        timestamp: msg.timestamp,
-        key: `${event.timeStamp}${msg.roomId}`,
-      })
+      this.$store.commit('insertFeed', event)
     },
-    onOpen() {},
-    onError() {},
-    onClose() {},
+    onOpen() {
+      console.log('websocket connected')
+    },
+    onError(err) {
+      console.log('websocket err', err)
+    },
+    onClose() {
+      console.log('websocket disconnected')
+    },
     wsSend(data) {
       this.ws.send(data)
     },
@@ -123,14 +111,6 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  touch-action: manipulation;
-  overflow: hidden;
-}
 .raids-feed {
   height: 100%;
   margin-top: 60px;

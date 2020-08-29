@@ -1,3 +1,5 @@
+import i18n from './configs/i18n'
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -14,7 +16,6 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   publicRuntimeConfig: {
-    backendUrl: process.env.BACKEND_URL,
     websocketUrl: process.env.WEBSOCKET_URI || 'ws://localhost:8080/ws',
   },
   head: {
@@ -26,13 +27,13 @@ export default {
         hid: 'description',
         name: 'description',
         content:
-          'A New Granblue Fantasy Raids finder with almost realtime search speed',
+          'Another Granblue Fantasy Raid finder 最新のグラブルTwitter救援検索ツール',
       },
       {
         hid: 'keywords',
         name: 'keywords',
         content:
-          'gbf, グラブル, gbf raiders, gbf raids finder, granblue fantasy, gbf tweetdeck',
+          'gbf, グラブル, granblue, granblue fantasy, gbf raiders, raid finder, gbf tweetdeck',
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -64,7 +65,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', 'nuxt-i18n'],
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
@@ -80,7 +81,21 @@ export default {
   },
   build: {
     corejs: '3',
-    extractCSS: true
+    extractCSS: process.env.NODE_ENV === 'production',
   },
-  modern: 'client'
+  i18n: {
+    locales: [
+      { code: 'ja', iso: 'ja-JP', name: '日本語' },
+      { code: 'en', iso: 'en-US', name: 'English' },
+    ],
+    defaultLocale: 'ja',
+    vueI18n: i18n,
+    vueI18nLoader: process.env.NODE_ENV === 'production',
+    strategy: 'no_prefix',
+    seo: false,
+    detectBrowserLanguage: {
+      useCookie: true,
+    },
+    baseUrl: 'https://gbf.kalvin.io/',
+  },
 }

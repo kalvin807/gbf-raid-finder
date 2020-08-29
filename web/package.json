@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "node --max-old-space-size=4096 node_modules/nuxt/bin/nuxt.js",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
@@ -14,7 +14,8 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
     "dayjs": "^1.8.34",
-    "nuxt": "^2.14.4"
+    "nuxt": "^2.14.4",
+    "nuxt-i18n": "^6.13.12"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",

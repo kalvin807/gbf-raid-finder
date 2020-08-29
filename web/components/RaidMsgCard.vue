@@ -47,13 +47,13 @@ export default {
     return {
       clicked: false,
       durationStr: '',
-      timestamp: dayjs(this.msg.timestamp),
+      timeStamp: dayjs(this.msg.timeStamp),
       uri: this.makeImgUrl(this.msg.img),
     }
   },
   watch: {
     timeNow() {
-      const diff = this.timeNow.diff(this.timestamp, 's')
+      const diff = this.timeNow.diff(this.timeStamp, 's')
       if (diff > 60) {
         this.durationStr = `${(diff / 60) >> 0}m`
       } else this.durationStr = `${diff}s`
@@ -74,10 +74,16 @@ export default {
 
 <style scoped>
 .base {
-  background-color: rgba(70, 76, 76, 0.8);
+  background-color: rgba(97, 97, 97, 0.8);
+}
+.base:hover {
+  background-color: rgba(97, 97, 97, 1);
+}
+.base:focus {
+  background-color: rgba(84, 110, 122, 0.2);
 }
 .clicked {
-  background-color: rgba(70, 76, 76, 0.1);
+  background-color: rgba(84, 110, 122, 0.2);
   color: rgba(255, 255, 255, 0.333) !important;
 }
 </style>
