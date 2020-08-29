@@ -35,9 +35,8 @@ var (
 
 func setCors(w http.ResponseWriter, r *http.Request) {
 	header := w.Header()
-	header.Set("Access-Control-Allow-Methods", w.Header().Get("Allow"))
-	header.Set("Access-Control-Allow-Origin", os.Getenv("FRONT_END_URL"))
-	header.Set("Vary", "Origin")
+	header.Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	header.Set("Access-Control-Allow-Origin", "*")
 }
 
 func setCache(w http.ResponseWriter) {
