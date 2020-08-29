@@ -29,22 +29,16 @@ var upgrader = websocket.Upgrader{
 
 var (
 	raidFilePath = fetcher.GetRaidFilePath()
-
-	cacheSince = time.Now().Format(http.TimeFormat)
-	cacheUntil = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
+	cacheSince   = time.Now().Format(http.TimeFormat)
+	cacheUntil   = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
 )
 
-func setCors(w http.ResponseWriter, r *http.Request) {
-	header := w.Header()
-	header.Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
-	header.Set("Access-Control-Allow-Origin", os.Getenv("FRONT_END_URL"))
-}
-
-func setCache(w http.ResponseWriter) {
+func setCache(w *http.ResponseWriter) {
 	// Must revalidate
-	w.Header().Set("Cache-Control", "no-cache, max-age=0")
-	w.Header().Set("Last-Modified", cacheSince)
-	w.Header().Set("Expires", cacheUntil)
+	header := (*w).Header()
+	header.Set("Cache-Control", "no-cache, max-age=0")
+	header.Set("Last-Modified", cacheSince)
+	header.Set("Expires", cacheUntil)
 }
 
 func checkOrigin(r *http.Request) bool {
@@ -65,8 +59,7 @@ func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
 		mw := m.ResponseWriter(w, r)
 		defer mw.Close()
 		w = mw
-		setCors(w, r)
-		setCache(w)
+		setCache(&w)
 		http.ServeFile(w, r, raidFilePath)
 	})
 

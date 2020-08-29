@@ -11,6 +11,7 @@ import (
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 	"github.com/kalvin807/gbf-raid-finder/internal/router"
+	"github.com/rs/cors"
 	"github.com/urfave/negroni"
 )
 
@@ -56,10 +57,15 @@ func main() {
 
 	go hub.Run()
 
+	c := cors.New(cors.Options{
+		AllowedOrigins: []string{os.Getenv("FRONT_END_URL")},
+	})
+
 	r := httprouter.New()
 	router.SetUpRoute(r, hub)
 
 	n := negroni.Classic()
+	n.Use(c)
 	n.UseHandler(r)
 
 	err := http.ListenAndServe(":"+port, n)
