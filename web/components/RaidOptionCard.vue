@@ -48,7 +48,7 @@ export default {
 
 <style scoped>
 .base {
-  background-color: #424242;
+  background-color: #424242 !important;
 }
 .selected {
   background-color: #7045af !important;

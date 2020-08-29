@@ -48,7 +48,7 @@ export default {
       clicked: false,
       durationStr: '',
       timeStamp: dayjs(this.msg.timeStamp),
-      uri: this.makeImgUrl(this.msg.img),
+      uri: this.makeImgUrl(this.msg.image),
     }
   },
   watch: {
