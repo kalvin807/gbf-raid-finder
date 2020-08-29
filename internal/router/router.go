@@ -29,14 +29,15 @@ var upgrader = websocket.Upgrader{
 
 var (
 	raidFilePath = fetcher.GetRaidFilePath()
-	cacheSince   = time.Now().Format(http.TimeFormat)
-	cacheUntil   = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
+
+	cacheSince = time.Now().Format(http.TimeFormat)
+	cacheUntil = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
 )
 
 func setCors(w http.ResponseWriter, r *http.Request) {
 	header := w.Header()
-	header.Set("Access-Control-Allow-Methods", "GET, OPTIONS")
-	header.Set("Access-Control-Allow-Origin", "*")
+	header.Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+	header.Set("Access-Control-Allow-Origin", os.Getenv("FRONT_END_URL"))
 }
 
 func setCache(w http.ResponseWriter) {
