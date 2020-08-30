@@ -1,1 +1,0 @@
-window.__NUXT__={staticAssetsBase:"\u002F_nuxt\u002Fstatic\u002F1598765010",layout:"default",error:null,state:{selected:new Set([]),raids:[],elements:["fire","water","earth","wind","light","dark","none"],types:[],msgFeed:[],i18n:{routeParams:{}}},serverRendered:true,routePath:"\u002F",config:{websocketUrl:"wss:\u002F\u002Fgbf-raids-finder.herokuapp.com\u002Fws"}};
