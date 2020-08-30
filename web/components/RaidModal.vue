@@ -2,8 +2,8 @@
   <client-only>
     <v-dialog v-model="isModalActive" max-width="960">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn icon>
-          <v-icon dark v-bind="attrs" v-on="on">mdi-plus-box</v-icon>
+        <v-btn icon dark v-bind="attrs" v-on="on">
+          <v-icon>mdi-plus-box</v-icon>
         </v-btn>
       </template>
 
@@ -11,7 +11,9 @@
         <!-- Filter-->
         <v-card-actions class="card">
           <v-card-title>
-            <span class="text-h6 text-lg-h5">{{ $t('modalTitle') }}</span>
+            <span class="text-subtitle-2 text-sm-h5">{{
+              $t('modalTitle')
+            }}</span>
           </v-card-title>
           <v-spacer></v-spacer>
           <v-btn color="red accent-3" text @click="clearAllSelect">{{
@@ -24,8 +26,8 @@
         </v-card-actions>
         <v-expand-transition>
           <div v-show="show">
-            <v-container>
-              <v-row dense>
+            <v-container fluid>
+              <v-row dense align="center" justify="center">
                 <v-col>
                   <v-text-field
                     v-model="filterStr"
@@ -37,8 +39,8 @@
                 </v-col>
               </v-row>
               <v-row dense>
-                <v-col>
-                  <v-btn-toggle v-model="selectedElements" dark multiple dense>
+                <v-col cols="12" sm="auto">
+                  <v-btn-toggle v-model="selectedElements" dark dense multiple>
                     <template v-for="ele in raidElements">
                       <v-btn :key="ele" :value="ele" icon>
                         <v-img cover :src="makeSpriteUri(ele)"></v-img>
