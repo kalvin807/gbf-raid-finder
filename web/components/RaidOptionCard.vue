@@ -2,7 +2,7 @@
   <v-col cols="12">
     <v-card
       class="base"
-      :class="{ selected: raid.selected }"
+      :class="{ selected: isSelected() }"
       dark
       @click="selectMe"
     >
@@ -14,7 +14,12 @@
           <v-card-subtitle>{{ raid.en }}</v-card-subtitle>
         </div>
         <div class="ma-3">
-          <v-img dark max-height="100" contain :src="uri"></v-img>
+          <v-img
+            dark
+            max-height="100"
+            contain
+            :src="makeImgUrl(raid.image)"
+          ></v-img>
         </div>
       </div>
     </v-card>
@@ -30,17 +35,27 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      uri: this.makeImgUrl(this.raid.image),
-    }
+  computed: {
+    webpSupport() {
+      return this.$store.state.webpSupport
+    },
+    selected() {
+      return this.$store.state.selected
+    },
   },
   methods: {
+    isSelected() {
+      return this.selected.includes(this.raid.index)
+    },
     selectMe() {
       this.$emit('click', this.fn)
     },
     makeImgUrl(uri) {
-      return `${uri}`
+      if (this.webpSupport) {
+        return `${uri}.webp`
+      } else {
+        return `${uri}.jpg`
+      }
     },
   },
 }

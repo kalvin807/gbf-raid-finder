@@ -51,11 +51,8 @@ export default {
     }
   },
   mounted() {
-    this.ws = new WebSocket(this.$config.websocketUrl)
-    this.ws.onmessage = this.onMessage
-    this.ws.onopen = this.onOpen
-    this.ws.onerror = this.onError
-    this.ws.onclose = this.onClose
+    this.initWebSocket()
+    this.checkWebpSupport()
   },
   methods: {
     getRaids() {
@@ -63,8 +60,6 @@ export default {
         const raids = res.map((v, idx) => ({
           ...v,
           index: idx,
-          selected: false,
-          active: true,
         }))
         const raidTypes = [...new Set(raids.map((v) => v.category))].sort(
           function (a, b) {
@@ -85,6 +80,13 @@ export default {
         this.wsSend(JSON.stringify(req))
       }
     },
+    initWebSocket() {
+      this.ws = new WebSocket(this.$config.websocketUrl)
+      this.ws.onmessage = this.onMessage
+      this.ws.onopen = this.onOpen
+      this.ws.onerror = this.onError
+      this.ws.onclose = this.onClose
+    },
     onMessage(event) {
       this.$store.commit('insertFeed', event)
     },
@@ -100,11 +102,23 @@ export default {
     wsSend(data) {
       this.ws.send(data)
     },
-    resetFeed() {
-      this.msgFeed = []
-    },
     time() {
       this.timeNow = dayjs()
+    },
+    async checkWebpSupport() {
+      if (!self.createImageBitmap) {
+        this.$store.commit('setWebpSupport', false)
+        return
+      }
+      // Base64 representation of a white point image
+      const webpData =
+        'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoCAAEAAQAcJaQAA3AA/v3AgAA='
+      const blob = await fetch(webpData).then((r) => r.blob())
+      const webpSupported = await createImageBitmap(blob).then(
+        () => true,
+        () => false
+      )
+      this.$store.commit('setWebpSupport', webpSupported)
     },
   },
 }

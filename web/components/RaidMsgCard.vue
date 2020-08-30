@@ -15,7 +15,12 @@
           <v-spacer></v-spacer>
           <v-col>
             <div class="ma-3">
-              <v-img dark height="80" contain :src="uri"></v-img>
+              <v-img
+                dark
+                height="80"
+                contain
+                :src="makeImgUrl(msg.image)"
+              ></v-img>
             </div>
           </v-col>
         </v-row>
@@ -48,8 +53,12 @@ export default {
       clicked: false,
       durationStr: '',
       timeStamp: dayjs(this.msg.timeStamp),
-      uri: this.makeImgUrl(this.msg.image),
     }
+  },
+  computed: {
+    webpSupport() {
+      return this.$store.state.webpSupport
+    },
   },
   watch: {
     timeNow() {
@@ -66,7 +75,11 @@ export default {
       this.clicked = true
     },
     makeImgUrl(uri) {
-      return `${uri}`
+      if (this.webpSupport) {
+        return `${uri}.webp`
+      } else {
+        return `${uri}.jpg`
+      }
     },
   },
 }
