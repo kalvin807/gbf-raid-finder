@@ -7,5 +7,7 @@
   "modalClear": "選択クリア",
   "modalFilter": "絞り込み",
   "modalSearchText": "バトル捜索",
-  "modalRaidDropdownText": "カテゴリ選択"
+  "modalRaidDropdownText": "カテゴリ選択",
+  "motd": "最新のグラブル救援検索ツールです。一番使いやすいように作りました。右上のプラスボタンを押すと救援フォローしましょう。",
+  "supportBtn": "バグみつけた/提案"
 }

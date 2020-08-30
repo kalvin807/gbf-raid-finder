@@ -1,7 +1,7 @@
 <template>
   <v-app id="app" data-app="true">
     <NavBar />
-    <v-main>
+    <v-main class="blue-grey darken-4">
       <v-container fluid>
         <Nuxt />
       </v-container>

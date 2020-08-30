@@ -7,5 +7,7 @@
   "modalClear": "Clear selected",
   "modalFilter": "Filter",
   "modalSearchText": "Search",
-  "modalRaidDropdownText": "Category"
+  "modalRaidDropdownText": "Category",
+  "motd": "Freshly created this raid finder! Let's start farming by clicking the plus sign on the right upper side!",
+  "supportBtn": "Bug Report/Suggestion"
 }

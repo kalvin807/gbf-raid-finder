@@ -1,12 +1,34 @@
 <template>
-  <transition-group name="raids-feed" class="raids-feed" tag="div">
-    <RaidMsgCard
-      v-for="msg in reverseFeed"
-      :key="msg.key"
-      :msg="msg"
-      :time-now="timeNow"
-    />
-  </transition-group>
+  <section v-if="reverseFeed.length > 0" class="raids-feed">
+    <v-banner dark>
+      <v-chip
+        v-for="raid in selectedRaids"
+        class="ma-1 blue-grey darken-1"
+        :key="raid.index"
+        close
+        @click:close="selectRaid(raid)"
+      >
+        {{ $i18n.locale == 'en' ? raid.en : raid.jp }}
+      </v-chip>
+    </v-banner>
+    <transition-group name="raids-feed" tag="div">
+      <RaidMsgCard
+        v-for="msg in reverseFeed"
+        :key="msg.key"
+        :msg="msg"
+        :time-now="timeNow"
+      />
+    </transition-group>
+  </section>
+  <v-banner v-else class="notice-card" two-line dark>
+    <v-avatar slot="icon" color="teal lighten-2" size="40">
+      <v-icon icon="mdi-information" color="white"> mdi-information </v-icon>
+    </v-avatar>
+    {{ $t('motd') }}
+    <template v-slot:actions>
+      <v-btn text color="teal lighten-2">{{ $t('supportBtn') }}</v-btn>
+    </template>
+  </v-banner>
 </template>
 
 <script>
@@ -28,6 +50,11 @@ export default {
     },
     selected() {
       return this.$store.state.selected
+    },
+    selectedRaids() {
+      return this.raids.filter((v) =>
+        this.$store.state.selected.includes(v.index)
+      )
     },
     raids() {
       return this.$store.state.raids
@@ -82,6 +109,9 @@ export default {
         this.wsSend(JSON.stringify(req))
       }
     },
+    selectRaid(event) {
+      this.$store.commit('toggleSelected', event.index)
+    },
     initWebSocket() {
       this.ws = new WebSocket(this.$config.websocketUrl)
       this.ws.onmessage = this.onMessage
@@ -127,9 +157,11 @@ export default {
 </script>
 
 <style>
+.notice-card {
+  margin-top: 50px;
+}
 .raids-feed {
-  height: 100%;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 .raids-feed-enter-active,
 .raids-feed-leave-active {

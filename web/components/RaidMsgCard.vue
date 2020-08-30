@@ -1,26 +1,28 @@
 <template>
-  <v-col cols="12">
+  <v-col cols="12" class="raid-feed">
     <v-card class="base" :class="clicked && 'clicked'" dark @click="copy(msg)">
       <div class="d-flex flex-no-wrap justify-space-between">
         <v-row no-gutters align="center">
           <v-col cols="5">
-            <v-card-title class="text-body-2 text-lg-h6">{{
+            <v-card-title class="text-body-2 text-lg-h6 raid-feed-text">{{
               msg.jp
             }}</v-card-title>
-            <v-card-subtitle>{{ msg.en }} | {{ durationStr }} </v-card-subtitle>
+            <v-card-subtitle class="raid-feed-text"
+              >{{ msg.en }}
+            </v-card-subtitle>
             <v-card-text class="text-h6">{{ msg.roomId }}</v-card-text>
           </v-col>
-
           <v-col cols="3">{{ msg.msg }}</v-col>
           <v-spacer></v-spacer>
           <v-col>
-            <div class="ma-3">
+            <div class="ma-2">
               <v-img
                 dark
                 height="80"
                 contain
                 :src="makeImgUrl(msg.image)"
               ></v-img>
+              <div class="text-caption text-center">{{ durationStr }}</div>
             </div>
           </v-col>
         </v-row>
@@ -87,10 +89,10 @@ export default {
 
 <style scoped>
 .base {
-  background-color: rgba(97, 97, 97, 0.8);
+  background-color: #455a64;
 }
 .base:hover {
-  background-color: rgba(97, 97, 97, 1);
+  background-color: #00897b;
 }
 .base:focus {
   background-color: rgba(84, 110, 122, 0.2);
@@ -98,5 +100,13 @@ export default {
 .clicked {
   background-color: rgba(84, 110, 122, 0.2);
   color: rgba(255, 255, 255, 0.333) !important;
+}
+.raid-feed {
+  padding: 6px;
+}
+.raid-feed-text {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>

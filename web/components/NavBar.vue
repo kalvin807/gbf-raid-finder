@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="deep-purple darken-4" dark elevation="5" fixed>
+  <v-app-bar class="blue-grey darken-3" dark elevation="5" fixed>
     <v-toolbar-title>{{ $t('title') }}</v-toolbar-title>
     <v-spacer></v-spacer>
     <RaidModal />

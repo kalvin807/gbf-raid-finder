@@ -7,7 +7,7 @@
         </v-btn>
       </template>
 
-      <v-card class="mx-auto">
+      <v-card class="mx-auto blue-grey darken-4">
         <!-- Filter-->
         <v-card-actions class="card">
           <v-card-title>
@@ -42,7 +42,12 @@
                 <v-col cols="12" sm="auto">
                   <v-btn-toggle v-model="selectedElements" dark dense multiple>
                     <template v-for="ele in raidElements">
-                      <v-btn :key="ele" :value="ele" icon>
+                      <v-btn
+                        :key="ele"
+                        :value="ele"
+                        icon
+                        class="blue-grey darken-4"
+                      >
                         <v-img cover :src="makeSpriteUri(ele)"></v-img>
                       </v-btn>
                     </template>
