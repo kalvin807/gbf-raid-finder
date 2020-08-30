@@ -13,7 +13,7 @@ import (
 var (
 	roomIDMsgRegex = regexp.MustCompile("(?P<Desc>.*)(?P<ID>[0-9A-Z]{8})")
 	raidRegex      = regexp.MustCompile(".*\n.*\n([^\n]+)")
-	raidFilePath   = GetRaidFilePath()
+	raidFilePath   = GetFilePath("/static/raid.json")
 )
 
 // RaidMsg is a struct of a raid tweet
@@ -46,13 +46,13 @@ func safeGetMsg(matches []string, id int) string {
 	return matches[id]
 }
 
-// GetRaidFilePath gives the path of the raid.json
-func GetRaidFilePath() string {
+// GetFilePath gives the path of the raid.json
+func GetFilePath(dir string) string {
 	path, err := os.Getwd()
 	if err != nil {
 		log.Println(err)
 	}
-	return path + "/static/raid.json"
+	return path + dir
 }
 
 // newRaidMsg create a raidmsg from a tweet

@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"regexp"
 	"time"
 
 	"github.com/NYTimes/gziphandler"
@@ -13,7 +12,6 @@ import (
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 	"github.com/tdewolff/minify"
-	"github.com/tdewolff/minify/json"
 )
 
 var upgrader = websocket.Upgrader{
@@ -28,9 +26,11 @@ var upgrader = websocket.Upgrader{
 }
 
 var (
-	raidFilePath = fetcher.GetRaidFilePath()
-	cacheSince   = time.Now().Format(http.TimeFormat)
-	cacheUntil   = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
+	raidFilePath     = fetcher.GetFilePath("/static/raid.json")
+	categoryFilePath = fetcher.GetFilePath("/static/category.json")
+	cacheSince       = time.Now().Format(http.TimeFormat)
+	cacheUntil       = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
+	m                = minify.New()
 )
 
 func setCache(w *http.ResponseWriter) {
@@ -50,26 +50,26 @@ func checkOrigin(r *http.Request) bool {
 	return false
 }
 
-// SetUpRoute set up endpoints for websocket and static files
-func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
-	m := minify.New()
-	m.AddFuncRegexp(regexp.MustCompile("[/+]json$"), json.Minify)
-
+func makeGzipFileHander(filePath string) http.Handler {
 	withoutGz := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mw := m.ResponseWriter(w, r)
 		defer mw.Close()
 		w = mw
 		setCache(&w)
-		http.ServeFile(w, r, raidFilePath)
+		http.ServeFile(w, r, filePath)
 	})
+	return gziphandler.GzipHandler(withoutGz)
+}
 
-	withGz := gziphandler.GzipHandler(withoutGz)
+// SetUpRoute set up endpoints for websocket and static files
+func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
 
 	router.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", 301)
+		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", 302)
 	})
 
-	router.Handler("GET", "/raid", withGz)
+	router.Handler("GET", "/raid", makeGzipFileHander(raidFilePath))
+	router.Handler("GET", "/category", makeGzipFileHander(categoryFilePath))
 
 	router.GET("/ws", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		conn, err := upgrader.Upgrade(w, r, nil)
