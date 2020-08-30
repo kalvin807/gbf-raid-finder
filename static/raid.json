@@ -339,7 +339,7 @@
 		"en": "Lvl 250 Beelzebub",
 		"jp": "Lv250 ベルゼバブ",
 		"image": "/img/raids/Beelzebub",
-		"category": "Impossible Rapture",
+		"category": "Impossible ★8 Rapture",
 		"element": "None"
 	},
 	{
@@ -836,7 +836,7 @@
 		"en": "Lvl 250 Lucilius",
 		"jp": "Lv250 ルシファー",
 		"image": "/img/raids/BattleRaid_Lucilius_ImpossibleHard",
-		"category": "Rapture",
+		"category": "Impossible ★8 Rapture",
 		"element": "Dark"
 	},
 	{

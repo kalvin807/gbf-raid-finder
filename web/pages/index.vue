@@ -40,6 +40,7 @@ export default {
   },
   created() {
     this.getRaids()
+    this.getCategory()
     this.interval = setInterval(this.time, 1000)
   },
   beforeDestroy() {
@@ -55,21 +56,22 @@ export default {
     this.checkWebpSupport()
   },
   methods: {
+    getCategory() {
+      this.$axios.$get('/category').then((res) => {
+        const category = Object.entries(res).map(([key, value]) => ({
+          en: key,
+          ja: value,
+        }))
+        this.$store.commit('setCategory', category)
+      })
+    },
     getRaids() {
       this.$axios.$get('/raid').then((res) => {
         const raids = res.map((v, idx) => ({
           ...v,
           index: idx,
         }))
-        const raidTypes = [...new Set(raids.map((v) => v.category))].sort(
-          function (a, b) {
-            if (a < b) return -1
-            else if (a > b) return 1
-            return 0
-          }
-        )
         this.$store.commit('setRaids', raids)
-        this.$store.commit('setTypes', raidTypes)
       })
     },
     updateFilter(selected) {

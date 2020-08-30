@@ -2,9 +2,9 @@ export const state = () => ({
   selected: [],
   raids: [],
   elements: ['fire', 'water', 'earth', 'wind', 'light', 'dark', 'none'],
-  types: [],
   msgFeed: [],
   webpSupport: true,
+  category: [],
 })
 
 export const mutations = {
@@ -14,8 +14,8 @@ export const mutations = {
   setElements(state, data) {
     state.elements = Object.freeze(data)
   },
-  setTypes(state, data) {
-    state.types = Object.freeze(data)
+  setCategory(state, data) {
+    state.category = Object.freeze(data)
   },
   toggleSelected(state, data) {
     const set = new Set(state.selected)

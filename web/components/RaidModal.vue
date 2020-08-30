@@ -51,8 +51,9 @@
                 <v-col>
                   <v-select
                     v-model="selectedTypes"
-                    item-value="string"
-                    :items="raidTypes"
+                    item-value="en"
+                    :item-text="$i18n.locale"
+                    :items="category"
                     :label="$t('modalRaidDropdownText')"
                     multiple
                     outlined
@@ -100,8 +101,8 @@ export default {
     raids() {
       return this.$store.state.raids
     },
-    raidTypes() {
-      return this.$store.state.types
+    category() {
+      return this.$store.state.category
     },
     raidElements() {
       return this.$store.state.elements
