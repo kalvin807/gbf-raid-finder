@@ -15,14 +15,16 @@
           <v-col cols="3">{{ msg.msg }}</v-col>
           <v-spacer></v-spacer>
           <v-col>
-            <div class="ma-2">
+            <div class="ma-2" style="height: 90px">
               <v-img
                 dark
-                height="80"
+                height="70"
                 contain
                 :src="makeImgUrl(msg.image)"
               ></v-img>
-              <div class="text-caption text-center">{{ durationStr }}</div>
+              <div class="text-caption text-center duration">
+                {{ durationStr }}
+              </div>
             </div>
           </v-col>
         </v-row>
@@ -108,5 +110,8 @@ export default {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+.duration {
+  margin: 0.2rem;
 }
 </style>

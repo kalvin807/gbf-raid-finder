@@ -3,8 +3,8 @@
     <v-banner dark>
       <v-chip
         v-for="raid in selectedRaids"
-        class="ma-1 blue-grey darken-1"
         :key="raid.index"
+        class="ma-1 blue-grey darken-1"
         close
         @click:close="selectRaid(raid)"
       >
@@ -26,7 +26,14 @@
     </v-avatar>
     {{ $t('motd') }}
     <template v-slot:actions>
-      <v-btn text color="teal lighten-2">{{ $t('supportBtn') }}</v-btn>
+      <v-btn
+        ref="noopener noreferrer"
+        href="https://forms.gle/KQ826MqKRCHRmANc9"
+        target="_blank"
+        color="teal lighten-2"
+        text
+        >{{ $t('supportBtn') }}</v-btn
+      >
     </template>
   </v-banner>
 </template>
@@ -166,10 +173,11 @@ export default {
 .raids-feed-enter-active,
 .raids-feed-leave-active {
   opacity: 1;
-  transition: opacity 0.5s ease-out;
+  transition: all 0.3s ease;
 }
 .raids-feed-enter,
 .raids-feed-leave-to {
+  transform: translateX(10px);
   opacity: 0;
 }
 </style>

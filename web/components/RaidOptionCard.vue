@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="12">
+  <v-col cols="12" class="dense">
     <v-card
       class="base"
       :class="{ selected: isSelected() }"
@@ -16,7 +16,8 @@
         <div class="ma-3">
           <v-img
             dark
-            max-height="100"
+            height="70"
+            max-height="70"
             contain
             :src="makeImgUrl(raid.image)"
           ></v-img>
@@ -67,5 +68,9 @@ export default {
 }
 .selected {
   background-color: #009688 !important;
+}
+.dense {
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
 }
 </style>

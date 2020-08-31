@@ -48,7 +48,7 @@
                         icon
                         class="blue-grey darken-4"
                       >
-                        <v-img cover :src="makeSpriteUri(ele)"></v-img>
+                        <v-img cover eager :src="makeSpriteUri(ele)"></v-img>
                       </v-btn>
                     </template>
                   </v-btn-toggle>
@@ -72,14 +72,14 @@
         </v-expand-transition>
         <v-container class="body">
           <!-- Card Body -->
-          <v-row dense>
+          <transition-group name="raids-feed" tag="v-row" class="dense">
             <RaidOptionCard
               v-for="raid in filterSearch"
               :key="raid.index"
               :raid="raid"
               @click="selectRaid(raid)"
             />
-          </v-row>
+          </transition-group>
         </v-container>
       </v-card>
     </v-dialog>
@@ -168,5 +168,15 @@ export default {
 }
 .card {
   overflow-y: hidden !important;
+}
+.raids-feed-enter-active,
+.raids-feed-leave-active {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+.raids-feed-enter,
+.raids-feed-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
