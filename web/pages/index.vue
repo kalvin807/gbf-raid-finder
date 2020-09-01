@@ -54,7 +54,7 @@ export default {
   computed: {
     reverseFeed() {
       return this.$store.state.msgFeed
-        .slice(Math.max(arr.length - 30, 0))
+        .slice(Math.max(this.$store.state.msgFeed.length - 30, 0))
         .reverse()
     },
     selected() {
