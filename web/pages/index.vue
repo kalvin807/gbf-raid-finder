@@ -53,7 +53,9 @@ export default {
   },
   computed: {
     reverseFeed() {
-      return this.$store.state.msgFeed.slice().reverse()
+      return this.$store.state.msgFeed
+        .slice(Math.max(arr.length - 30, 0))
+        .reverse()
     },
     selected() {
       return this.$store.state.selected
