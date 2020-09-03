@@ -51,6 +51,12 @@ export default {
         return {}
       },
     },
+    webpSupport: {
+      type: Boolean,
+      default() {
+        return false
+      },
+    },
   },
   data() {
     return {
@@ -58,11 +64,6 @@ export default {
       durationStr: '',
       timeStamp: dayjs(this.msg.timeStamp),
     }
-  },
-  computed: {
-    webpSupport() {
-      return this.$store.state.webpSupport
-    },
   },
   watch: {
     timeNow() {

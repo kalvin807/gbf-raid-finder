@@ -28,10 +28,14 @@ export const mutations = {
   },
   insertFeed(state, data) {
     const { timeStamp, data: msgRaw } = data
+    const { msgFeed, raids } = state
     const msg = JSON.parse(msgRaw)
     const raidID = msg.raid
-    const raid = state.raids[raidID]
-    state.msgFeed.push({
+    const raid = raids[raidID]
+    if (msgFeed.length > 30) {
+      msgFeed.pop()
+    }
+    msgFeed.unshift({
       ...raid,
       ...msg,
       timeStamp: msg.timestamp,

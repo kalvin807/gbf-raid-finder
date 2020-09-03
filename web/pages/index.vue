@@ -1,5 +1,5 @@
 <template>
-  <section v-if="reverseFeed.length > 0" class="raids-feed">
+  <section v-if="feed.length > 0" class="raids-feed">
     <v-banner dark>
       <v-chip
         v-for="raid in selectedRaids"
@@ -13,10 +13,11 @@
     </v-banner>
     <transition-group name="raids-feed" tag="div">
       <RaidMsgCard
-        v-for="msg in reverseFeed"
+        v-for="msg in feed"
         :key="msg.key"
         :msg="msg"
         :time-now="timeNow"
+        :webpSupport="webpSupport"
       />
     </transition-group>
   </section>
@@ -52,10 +53,8 @@ export default {
     }
   },
   computed: {
-    reverseFeed() {
+    feed() {
       return this.$store.state.msgFeed
-        .slice(Math.max(this.$store.state.msgFeed.length - 30, 0))
-        .reverse()
     },
     selected() {
       return this.$store.state.selected
@@ -67,6 +66,9 @@ export default {
     },
     raids() {
       return this.$store.state.raids
+    },
+    webpSupport() {
+      return this.$store.state.webpSupport
     },
   },
   watch: {

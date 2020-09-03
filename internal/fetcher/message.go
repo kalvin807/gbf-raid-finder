@@ -11,9 +11,8 @@ import (
 )
 
 var (
-	roomIDMsgRegex = regexp.MustCompile("(?P<Desc>.*)(?P<ID>[0-9A-Z]{8})")
-	raidRegex      = regexp.MustCompile(".*\n.*\n([^\n]+)")
-	raidFilePath   = GetFilePath("/static/raid.json")
+	tweetRegex   = regexp.MustCompile(`(?m)((?s).*?)([0-9A-F]{8}).*?\n.*?\n(.*?)$`)
+	raidFilePath = GetFilePath("/static/raid.json")
 )
 
 // RaidMsg is a struct of a raid tweet
@@ -43,7 +42,7 @@ func safeGetMsg(matches []string, id int) string {
 	if id > len(matches) {
 		return ""
 	}
-	return matches[id]
+	return strings.TrimSpace(matches[id])
 }
 
 // GetFilePath gives the path of the raid.json
@@ -57,20 +56,18 @@ func GetFilePath(dir string) string {
 
 // newRaidMsg create a raidmsg from a tweet
 func (m messageHandler) newRaidMsg(rawText string, timestamp time.Time) *RaidMsg {
-	idMsgMatch := roomIDMsgRegex.FindStringSubmatch(rawText)
-	raidMatch := raidRegex.FindStringSubmatch(rawText)
-	roomID, msg, raid := safeGetMsg(idMsgMatch, 2), safeGetMsg(idMsgMatch, 1), safeGetMsg(raidMatch, 1)
-	raid = strings.TrimSpace(raid)
+	tweetMatch := tweetRegex.FindStringSubmatch(rawText)
+	msg, roomID, raid := safeGetMsg(tweetMatch, 1), safeGetMsg(tweetMatch, 2), safeGetMsg(tweetMatch, 3)
 	raidID, found := m.nameIDMap[raid]
 
 	if !found && raid != "" {
-		log.Printf("%s: %s", "Unknown raid", rawText)
+		log.Printf("%s\n%s", "Unknown raid", rawText)
 		return nil
 	}
 
 	return &RaidMsg{
-		RoomID:    strings.TrimSpace(roomID),
-		Msg:       strings.TrimSpace(msg),
+		RoomID:    roomID,
+		Msg:       msg,
 		Raid:      raidID,
 		Timestamp: timestamp.Format(time.RFC3339),
 	}
