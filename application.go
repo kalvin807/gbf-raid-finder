@@ -45,8 +45,8 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	apiKey, apiSecert := os.Getenv("TWITTER_API_KEY"), os.Getenv("TWITTER_API_SECERT")
-	accessKey, accessSecert := os.Getenv("TWITTER_ACCESS_KEY"), os.Getenv("TWITTER_ACCESS_SECERT")
+	apiKey, apiSecert := os.Getenv("TWITTER_API_KEY"), os.Getenv("TWITTER_API_SECRET")
+	accessKey, accessSecert := os.Getenv("TWITTER_ACCESS_KEY"), os.Getenv("TWITTER_ACCESS_SECRET")
 
 	if apiKey == "" || apiSecert == "" || accessKey == "" || accessSecert == "" {
 		log.Fatal("Missing twitter credentials in .env)")
