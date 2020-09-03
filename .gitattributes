@@ -1,1 +1,8 @@
-* text=LF
+* text=auto eol=lf
+
+*.go text
+*.vue text
+*.js text
+
+*.jpg binary
+*.webp binary
