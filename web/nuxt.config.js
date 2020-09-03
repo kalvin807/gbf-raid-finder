@@ -35,6 +35,11 @@ export default {
         content:
           'gbf, グラブル, granblue, granblue fantasy, gbf raiders, raid finder, gbf tweetdeck',
       },
+      {
+        hid: 'google-site-verification',
+        name: 'google-site-verification',
+        content: 'URrBT3AYYuLvecizXhNywVxeDyBN-Odbw0xmV4cJZys',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
@@ -97,5 +102,10 @@ export default {
       useCookie: true,
     },
     baseUrl: 'https://gbf.kalvin.io/',
+  },
+  vue: {
+    config: {
+      performance: true, // you probably should detect dev mode here
+    },
   },
 }
