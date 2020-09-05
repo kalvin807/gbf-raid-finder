@@ -4,7 +4,7 @@
       class="base"
       :class="{ selected: isSelected() }"
       dark
-      @click="selectMe"
+      @click="$emit('click')"
     >
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
@@ -47,9 +47,6 @@ export default {
   methods: {
     isSelected() {
       return this.selected.includes(this.raid.index)
-    },
-    selectMe() {
-      this.$emit('click', this.fn)
     },
     makeImgUrl(uri) {
       if (this.webpSupport) {

@@ -8,6 +8,6 @@
   "modalFilter": "Filter",
   "modalSearchText": "Search",
   "modalRaidDropdownText": "Category",
-  "motd": "2020/9/3 Update! Fixed few bug at server, now correctly search all raids including Four Primarch!",
+  "motd": "2020/9/5 Another Update! Now Support Skyleap! Also auto-save/load last selected raid 🚀",
   "supportBtn": "Bug Report/Suggestion"
 }

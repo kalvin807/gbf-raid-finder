@@ -17,14 +17,22 @@ export const mutations = {
   setCategory(state, data) {
     state.category = Object.freeze(data)
   },
+  initSelected(state) {
+    if (localStorage) {
+      const fromLocalStorage = localStorage.getItem('selectedRaid')
+      state.selected = JSON.parse(fromLocalStorage) ?? []
+    }
+  },
   toggleSelected(state, data) {
     const set = new Set(state.selected)
     if (set.has(data)) set.delete(data)
     else set.add(data)
     state.selected = [...set]
+    localStorage.setItem('selectedRaid', JSON.stringify([...set]))
   },
   resetSelected(state) {
     state.selected = []
+    localStorage.removeItem('selectedRaid')
   },
   insertFeed(state, data) {
     const { timeStamp, data: msgRaw } = data

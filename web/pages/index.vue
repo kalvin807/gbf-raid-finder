@@ -1,5 +1,5 @@
 <template>
-  <section v-if="feed.length > 0" class="raids-feed">
+  <section v-if="selected.length > 0" class="raids-feed">
     <v-banner dark>
       <v-chip
         v-for="raid in selectedRaids"
@@ -17,7 +17,7 @@
         :key="msg.key"
         :msg="msg"
         :time-now="timeNow"
-        :webpSupport="webpSupport"
+        :webp-support="webpSupport"
       />
     </transition-group>
   </section>
@@ -92,6 +92,7 @@ export default {
   mounted() {
     this.initWebSocket()
     this.checkWebpSupport()
+    this.initSelectedRaid()
   },
   methods: {
     getCategory() {
@@ -135,6 +136,7 @@ export default {
     },
     onOpen() {
       console.log('websocket connected')
+      this.updateFilter(this.selected)
     },
     onError(err) {
       console.log('websocket err', err)
@@ -147,6 +149,9 @@ export default {
     },
     time() {
       this.timeNow = dayjs()
+    },
+    initSelectedRaid() {
+      this.$store.commit('initSelected')
     },
     async checkWebpSupport() {
       if (!self.createImageBitmap) {
