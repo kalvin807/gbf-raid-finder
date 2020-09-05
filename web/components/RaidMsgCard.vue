@@ -10,7 +10,7 @@
             <v-card-subtitle class="raid-feed-text"
               >{{ msg.en }}
             </v-card-subtitle>
-            <v-card-text class="text-h6" :ref="msg.roomId">{{
+            <v-card-text :ref="msg.roomId" class="text-h6">{{
               msg.roomId
             }}</v-card-text>
           </v-col>
@@ -78,21 +78,25 @@ export default {
   methods: {
     copy(event) {
       const roomId = event.roomId
-      if (navigator.clipboard) {
+      if (!navigator.clipboard) {
         navigator.clipboard.writeText(roomId).catch(() => {
           this.fallbackCopy(roomId)
         })
       } else {
         this.fallbackCopy(roomId)
       }
-
       this.clicked = true
     },
-    fallbackCopy(ref) {
-      const divToCopy = this.$refs[ref]
-      console.log(divToCopy)
-      divToCopy.select()
+    fallbackCopy(str) {
+      const el = document.createElement('textarea')
+      el.value = str
+      el.setAttribute('readonly', '')
+      el.style.position = 'absolute'
+      el.style.left = '-9999px'
+      document.body.appendChild(el)
+      el.select()
       document.execCommand('copy')
+      document.body.removeChild(el)
     },
     makeImgUrl(uri) {
       if (this.webpSupport) {
