@@ -2,9 +2,21 @@ package clients
 
 import (
 	"log"
+	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
+)
+
+const (
+	// Time allowed to write a message to the peer.
+	writeWait = 10 * time.Second
+
+	// Time allowed to read the next pong message from the peer.
+	pongWait = 60 * time.Second
+
+	// Send pings to peer with this period. Must be less than pongWait.
+	pingPeriod = (pongWait * 9) / 10
 )
 
 // ClientConfigMsg is a struct that server expected to receive from client
@@ -33,6 +45,8 @@ func (c *Client) readPump() {
 		c.hub.unregister <- c
 		c.conn.Close()
 	}()
+	c.conn.SetReadDeadline(time.Now().Add(pongWait))
+	c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
 		var msg clientConfigMsg
 		err := c.conn.ReadJSON(&msg)
@@ -52,7 +66,9 @@ func (c *Client) readPump() {
 
 // writePump pumps messages from the hub to the websocket connection.
 func (c *Client) writePump() {
+	ticker := time.NewTicker(pingPeriod)
 	defer func() {
+		ticker.Stop()
 		c.conn.Close()
 	}()
 	for {
@@ -65,6 +81,11 @@ func (c *Client) writePump() {
 			}
 			if c.raid[message.Raid] {
 				c.conn.WriteJSON(message)
+			}
+		case <-ticker.C:
+			c.conn.SetWriteDeadline(time.Now().Add(writeWait))
+			if err := c.conn.WriteMessage(websocket.PingMessage, nil); err != nil {
+				return
 			}
 		}
 	}
