@@ -20,7 +20,7 @@ export const mutations = {
   initSelected(state) {
     if (localStorage) {
       const fromLocalStorage = localStorage.getItem('selectedRaid')
-      state.selected = JSON.parse(fromLocalStorage) ?? []
+      state.selected = fromLocalStorage ? JSON.parse(fromLocalStorage) : []
     }
   },
   toggleSelected(state, data) {

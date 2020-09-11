@@ -8,6 +8,10 @@
   "modalFilter": "絞り込み",
   "modalSearchText": "バトル捜索",
   "modalRaidDropdownText": "カテゴリ選択",
-  "motd": "2020/9/5　アップデートーー！　Skyleapを支援しました。選択したバトルを自動セーブ／ロードできました。🚀",
-  "supportBtn": "バグみつけた/提案"
+  "motd": "2020/9/11　アップデート！ サーバーの安定性改善しました。🚀",
+  "supportBtn": "バグみつけた/提案",
+  "connected": "サーバーに接続しました",
+  "disconnected": "サーバーに接続しません",
+  "okBtn": "オーケー",
+  "reconnectBtn": "再接続"
 }

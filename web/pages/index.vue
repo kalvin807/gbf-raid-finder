@@ -1,42 +1,58 @@
 <template>
-  <section v-if="selected.length > 0" class="raids-feed">
-    <v-banner dark>
-      <v-chip
-        v-for="raid in selectedRaids"
-        :key="raid.index"
-        class="ma-1 blue-grey darken-1"
-        close
-        @click:close="selectRaid(raid)"
-      >
-        {{ $i18n.locale == 'en' ? raid.en : raid.jp }}
-      </v-chip>
+  <section>
+    <section v-if="selected.length > 0" class="raids-feed">
+      <v-banner dark>
+        <v-chip
+          v-for="raid in selectedRaids"
+          :key="raid.index"
+          class="ma-1 blue-grey darken-1"
+          close
+          @click:close="selectRaid(raid)"
+        >
+          {{ $i18n.locale == 'en' ? raid.en : raid.jp }}
+        </v-chip>
+      </v-banner>
+      <transition-group name="raids-feed" tag="div">
+        <RaidMsgCard
+          v-for="msg in feed"
+          :key="msg.key"
+          :msg="msg"
+          :time-now="timeNow"
+          :webp-support="webpSupport"
+        />
+      </transition-group>
+    </section>
+    <v-banner v-else class="notice-card" two-line dark>
+      <v-avatar slot="icon" color="teal lighten-2" size="40">
+        <v-icon icon="mdi-information" color="white"> mdi-information </v-icon>
+      </v-avatar>
+      {{ $t('motd') }}
+      <template v-slot:actions>
+        <v-btn
+          ref="noopener noreferrer"
+          href="https://forms.gle/KQ826MqKRCHRmANc9"
+          target="_blank"
+          color="teal lighten-2"
+          text
+          >{{ $t('supportBtn') }}</v-btn
+        >
+      </template>
     </v-banner>
-    <transition-group name="raids-feed" tag="div">
-      <RaidMsgCard
-        v-for="msg in feed"
-        :key="msg.key"
-        :msg="msg"
-        :time-now="timeNow"
-        :webp-support="webpSupport"
-      />
-    </transition-group>
+
+    <v-snackbar
+      v-model="snackbar"
+      :color="sbType"
+      :timeout="sbTimeOut"
+      transition="slide-y-reverse-transition"
+    >
+      {{ sbMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn color="white" text v-bind="attrs" @click="sbClose()">
+          {{ sbType == 'success' ? $t('okBtn') : $t('reconnectBtn') }}
+        </v-btn>
+      </template>
+    </v-snackbar>
   </section>
-  <v-banner v-else class="notice-card" two-line dark>
-    <v-avatar slot="icon" color="teal lighten-2" size="40">
-      <v-icon icon="mdi-information" color="white"> mdi-information </v-icon>
-    </v-avatar>
-    {{ $t('motd') }}
-    <template v-slot:actions>
-      <v-btn
-        ref="noopener noreferrer"
-        href="https://forms.gle/KQ826MqKRCHRmANc9"
-        target="_blank"
-        color="teal lighten-2"
-        text
-        >{{ $t('supportBtn') }}</v-btn
-      >
-    </template>
-  </v-banner>
 </template>
 
 <script>
@@ -49,7 +65,11 @@ export default {
   data() {
     return {
       ws: null,
-      timeNow: '',
+      timeNow: dayjs(),
+      snackbar: false,
+      sbMessage: '',
+      sbType: '',
+      sbTimeOut: -1,
     }
   },
   computed: {
@@ -137,12 +157,14 @@ export default {
     onOpen() {
       console.log('websocket connected')
       this.updateFilter(this.selected)
+      this.connectedToast()
     },
     onError(err) {
       console.log('websocket err', err)
     },
-    onClose() {
+    onClose(event) {
       console.log('websocket disconnected')
+      this.disconnectedToast()
     },
     wsSend(data) {
       this.ws.send(data)
@@ -167,6 +189,22 @@ export default {
         () => false
       )
       this.$store.commit('setWebpSupport', webpSupported)
+    },
+    connectedToast() {
+      this.sbMessage = this.$t('connected')
+      this.sbType = 'success'
+      this.sbTimeOut = 4000
+      this.snackbar = true
+    },
+    disconnectedToast() {
+      this.sbMessage = this.$t('disconnected')
+      this.sbType = 'error'
+      this.sbTimeOut = -1
+      this.snackbar = true
+    },
+    sbClose() {
+      this.snackbar = false
+      if (this.sbType !== 'success') this.initWebSocket()
     },
   },
 }
