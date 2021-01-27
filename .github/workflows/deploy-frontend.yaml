@@ -33,7 +33,7 @@ jobs:
           WEBSOCKET_URI: wss://gbf-raids-finder.herokuapp.com/ws
 
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@3.5.9
+        uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           ACCESS_TOKEN: ${{ secrets.api_key }}
           BRANCH: gh-pages
