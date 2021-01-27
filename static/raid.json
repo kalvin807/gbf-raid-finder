@@ -1,16 +1,30 @@
 [
 	{
+		"en": "Lvl 30 Ravening Raizo",
+		"jp": "Lv30 強欲のライゾウ",
+		"image": "/img/raids/Raizo",
+		"category": "Event",
+		"element": "Earth"
+	},
+	{
+		"en": "Lvl 50 Klesha-Wreathed Joya",
+		"jp": "Lv50 煩悩を纏うジョヤ",
+		"image": "/img/raids/Joya",
+		"category": "Event",
+		"element": "Earth"
+	},
+	{
 		"en": "Lvl 100 Spirit of Montague",
 		"jp": "Lv100 スピリット・オブ・モンタギュー",
 		"image": "/img/raids/SpiritofMontagueHL",
-		"category": "Current Event",
+		"category": "Event",
 		"element": "Fire"
 	},
 	{
 		"en": "Lvl 50 Spirit of Montague",
 		"jp": "Lv50 スピリット・オブ・モンタギュー",
 		"image": "/img/raids/SpiritofMontagueEX",
-		"category": "Current Event",
+		"category": "Event",
 		"element": "Fire"
 	},
 	{
