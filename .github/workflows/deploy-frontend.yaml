@@ -9,7 +9,6 @@ defaults:
   run:
     working-directory: web
 
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -27,10 +26,12 @@ jobs:
 
       - name: Generate Static 🔧
         run: yarn run generate
-        env: 
+        env:
           NODE_ENV: production
           BACKEND_URL: https://gbf-raids-finder.herokuapp.com
           WEBSOCKET_URI: wss://gbf-raids-finder.herokuapp.com/ws
+          GTAG_NAME: gbf-kalvin
+          GTAG_ID: ${{secrets.g_tag_id }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
