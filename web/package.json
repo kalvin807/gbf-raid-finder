@@ -15,7 +15,8 @@
     "@nuxtjs/axios": "^5.12.2",
     "dayjs": "^1.8.34",
     "nuxt": "^2.14.4",
-    "nuxt-i18n": "^6.13.12"
+    "nuxt-i18n": "^6.13.12",
+    "vue-gtag": "^1.11.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^5.0.0",
