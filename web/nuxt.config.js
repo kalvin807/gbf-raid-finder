@@ -2,11 +2,6 @@ import i18n from './configs/i18n'
 
 export default {
   /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
-  mode: 'universal',
-  /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
@@ -37,6 +32,13 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        async: true,
+        'data-goatcounter': 'https://gbf-kal.goatcounter.com/count',
+        src: '//gc.zgo.at/count.js',
+      },
+    ],
   },
   /*
    ** Global CSS
@@ -46,12 +48,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [
-    {
-      src: './plugins/googleTag.js',
-      mode: 'client',
-    },
-  ],
+  plugins: [],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
