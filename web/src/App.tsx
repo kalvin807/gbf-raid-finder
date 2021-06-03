@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import ThemedBackground from './components/ThemedBackground'
 import Header from './components/Header'
-import Raid from 'components/Raid'
+import Raid from './components/Raid'
 
 const App = () => {
   return (

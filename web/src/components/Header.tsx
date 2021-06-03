@@ -1,19 +1,22 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { Text } from 'rebass'
-import { ButtonSecondary } from './Button'
 import { darken } from 'polished'
 import { Moon, Sun, Search as SearchIcon } from 'react-feather'
+import useScrollPosition from '@react-hook/window-scroll'
+
+import { ButtonSecondary } from './Button'
 import Row, { RowFixed, RowBetween } from './Row'
 import Menu from './Menu'
-import { TYPE } from 'theme'
+import { TYPE } from '../theme'
 import SelectRaid from './SelectRaid'
-import { useConfig } from 'hooks/useConfig'
+import { useConfig } from '../hooks/useConfig'
 
 const Header = () => {
   const { state, dispatch } = useConfig()
+  const scrollY = useScrollPosition()
+
   return (
-    <HeaderFrame>
+    <HeaderFrame showBackground={scrollY > 45}>
       <HideMedium>
         <HeaderRow>
           <Title>
@@ -43,7 +46,7 @@ const Header = () => {
   )
 }
 
-const HeaderFrame = styled.div`
+const HeaderFrame = styled.div<{ showBackground: boolean }>`
   display: grid;
   grid-template-columns: 240px 1fr;
   align-items: center;
@@ -57,13 +60,21 @@ const HeaderFrame = styled.div`
   z-index: 21;
   position: relative;
 
+  /* Background slide effect on scroll. */
+  background-image: ${({ theme }) => `linear-gradient(to bottom, transparent 50%, ${theme.bg0} 50% )}}`}
+  background-position: ${({ showBackground }) => (showBackground ? '0 -100%' : '0 0')};
+  background-size: 100% 200%;
+  box-shadow: 0px 0px 0px 1px ${({ theme, showBackground }) => (showBackground ? theme.bg2 : 'transparent;')};
+  transition: background-position .1s, box-shadow .1s;
+
+
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    padding:  1rem;
+    padding: 0rem;
     grid-template-columns: 120px 1fr;
   `};
 
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-    padding: 1rem;
+    padding: 0rem;
   `}
 `
 const HeaderRow = styled(RowFixed)`

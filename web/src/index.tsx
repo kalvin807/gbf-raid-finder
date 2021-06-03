@@ -1,11 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'inter-ui/inter-hinted.css'
+import 'inter-ui'
 
 import App from './App'
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
-import { ConfigProvider } from 'hooks/useConfig'
-import { MessageProvider } from 'hooks/useMessage'
+import { ConfigProvider } from './hooks/useConfig'
+import { MessageProvider } from './hooks/useMessage'
 
 ReactDOM.render(
   <React.StrictMode>

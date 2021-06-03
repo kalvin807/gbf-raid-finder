@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
+import { useMessage } from '../../hooks/useMessage'
 import { AutoColumn } from '../Column'
 import CTACards from './CTACards'
 const Raid = () => {
+  const { state } = useMessage()
+  console.log(state)
   return (
     <>
       <PageWrapper>

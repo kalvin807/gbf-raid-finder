@@ -1,5 +1,5 @@
-import { useConfig } from 'hooks/useConfig'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useConfig } from '../hooks/useConfig'
+import React, { useMemo } from 'react'
 import { Text, TextProps } from 'rebass'
 import styled, {
   createGlobalStyle,
