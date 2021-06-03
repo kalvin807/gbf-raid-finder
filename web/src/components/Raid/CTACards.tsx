@@ -4,7 +4,7 @@ import { TYPE } from 'theme'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
 import { StyledLink } from '../../theme'
-import Agni from '../../assets/images/raids/Agni_ExtremePlus.jpg'
+import Agni from '../../statics/images/raids/Agni_ExtremePlus.jpg'
 import { Type } from 'react-feather'
 
 const CTASection = styled.section`

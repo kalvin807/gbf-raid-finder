@@ -18,7 +18,7 @@ export const MessageProvider = ({ children }: { children: any }) => {
   const ws = useRef<WebSocket | null>(null)
 
   useEffect(() => {
-    const URL = process.env.NODE_ENV === 'development' ? 'ws://localhost' : (process.env.WS_URL as string)
+    const URL = process.env.NODE_ENV === 'development' ? 'ws://localhost/ws' : (process.env.WS_URL as string)
     ws.current = new WebSocket(URL)
     ws.current.onopen = () => console.log('ws opened')
     ws.current.onclose = () => console.log('ws closed')
