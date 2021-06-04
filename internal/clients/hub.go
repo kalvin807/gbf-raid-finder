@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/dghubble/go-twitter/twitter"
-	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
+	"github.com/kalvin807/gbf-raid-finder/internal/fetcher/twitterFetcher"
 )
 
 // Hub maintains the set of active clients and broadcasts messages to the
@@ -14,7 +14,7 @@ type Hub struct {
 	clients map[*Client]bool
 
 	// Inbound messages from the clients.
-	broadcast chan *fetcher.RaidMsg
+	broadcast chan *twitterFetcher.RaidMsg
 
 	// Register requests from the clients.
 	register chan *Client
@@ -41,7 +41,7 @@ func NewHub(tweetClient *twitter.Client) *Hub {
 		register:          make(chan *Client),
 		unregister:        make(chan *Client),
 		clients:           make(map[*Client]bool),
-		broadcast:         make(chan *fetcher.RaidMsg),
+		broadcast:         make(chan *twitterFetcher.RaidMsg),
 		activeClientCount: 0,
 		tweetClient:       tweetClient,
 		tweetStatus:       false,
@@ -58,9 +58,9 @@ func (h *Hub) Run() {
 			// Start stream if stream is stopped
 			if !h.tweetStatus {
 				log.Println("New client connected but stream stopped, Stream now starts")
-				h.tweetStream = fetcher.MakeTweetStream(h.tweetClient)
+				h.tweetStream = twitterFetcher.MakeTweetStream(h.tweetClient)
 				h.tweetStatus = true
-				go fetcher.TweetStreamHandler(h.tweetStream, h.broadcast)
+				go twitterFetcher.TweetStreamHandler(h.tweetStream, h.broadcast)
 			}
 		case client := <-h.unregister:
 			if _, ok := h.clients[client]; ok {

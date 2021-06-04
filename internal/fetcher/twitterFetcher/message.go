@@ -1,4 +1,4 @@
-package fetcher
+package twitterFetcher
 
 import (
 	"encoding/json"
