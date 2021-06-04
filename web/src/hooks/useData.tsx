@@ -1,10 +1,11 @@
 import React, { createContext, useState, useRef, useContext, useEffect, useReducer } from 'react'
+import useFetch from './useFetch'
 
 interface Message {
   raidID: number
 }
 
-interface MessageStore {
+interface DataStore {
   connected: boolean
   msg: Message[]
   listen: Set<number>
@@ -17,7 +18,7 @@ interface Action {
   data: any
 }
 
-const initialState: MessageStore = {
+const initialState: DataStore = {
   connected: false,
   msg: [],
   listen: new Set([]),
@@ -25,7 +26,7 @@ const initialState: MessageStore = {
   catagoriesAvailable: {},
 }
 
-const reducer = (state: MessageStore, action: Action) => {
+const reducer = (state: DataStore, action: Action): DataStore => {
   switch (action.type) {
     case 'TOGGLE_CONNECT':
       return {
@@ -43,23 +44,50 @@ const reducer = (state: MessageStore, action: Action) => {
     case 'REMOVE_LISTEN':
       state.listen.delete(action.data)
       return state
+    case 'SET_RAID':
+      return {
+        ...state,
+        raidAvailable: action.data,
+      }
+    case 'SET_CATEGORIES':
+      return {
+        ...state,
+        catagoriesAvailable: action.data,
+      }
+    case 'REMOVE_LISTEN':
+      state.listen.delete(action.data)
+      return state
     default:
       throw new Error(`Invalid action type: ${action.type}`)
   }
 }
 
-const MsgStore = createContext<{
-  state: MessageStore
+const DataStore = createContext<{
+  state: DataStore
   dispatch: React.Dispatch<Action>
 }>({ state: initialState, dispatch: () => null })
 
-export const MessageProvider = ({ children }: { children: any }) => {
+const URLs =
+  process.env.NODE_ENV === 'development'
+    ? {
+        ws: 'ws://localhost:8080/ws',
+        raid: 'http://localhost:8080/raid',
+        category: 'http://localhost:8080/category',
+      }
+    : {
+        ws: process.env.WEBSOCKET_URI as string,
+        raid: process.env.BACKEND_URL + '/raid',
+        category: process.env.BACKEND_URL + '/raid',
+      }
+
+export const DataProvider = ({ children }: { children: any }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const ws = useRef<WebSocket | null>(null)
+  const { data: raid } = useFetch(URLs.raid)
+  const { data: category } = useFetch(URLs.category)
 
   useEffect(() => {
-    const URL = process.env.NODE_ENV === 'development' ? 'ws://localhost:8080/ws' : (process.env.WS_URL as string)
-    ws.current = new WebSocket(URL)
+    ws.current = new WebSocket(URLs.ws)
     ws.current.onopen = () => console.log('ws opened')
     ws.current.onclose = () => console.log('ws closed')
     ws.current.onmessage = (e) => {
@@ -76,12 +104,16 @@ export const MessageProvider = ({ children }: { children: any }) => {
   }, [])
 
   useEffect(() => {
-    if (ws.current !== null) {
-      dispatch({ type: 'TOGGLE_CONNECT', data: null })
-    } else {
-      dispatch({ type: 'TOGGLE_CONNECT', data: null })
+    if (raid) {
+      dispatch({ type: 'SET_RAID', data: raid })
     }
-  }, [ws])
+  }, [raid])
+
+  useEffect(() => {
+    if (category) {
+      dispatch({ type: 'SET_CATEGORIES', data: category })
+    }
+  }, [category])
 
   useEffect(() => {
     if (ws.current !== null && ws.current.readyState === 1) {
@@ -89,9 +121,17 @@ export const MessageProvider = ({ children }: { children: any }) => {
     }
   }, [state.listen])
 
-  return <MsgStore.Provider value={{ state, dispatch }}>{children}</MsgStore.Provider>
+  useEffect(() => {
+    if (ws.current !== null) {
+      dispatch({ type: 'TOGGLE_CONNECT', data: null })
+    } else {
+      dispatch({ type: 'TOGGLE_CONNECT', data: null })
+    }
+  }, [ws])
+
+  return <DataStore.Provider value={{ state, dispatch }}>{children}</DataStore.Provider>
 }
 
-export function useMessage() {
-  return useContext(MsgStore)
+export function useData() {
+  return useContext(DataStore)
 }

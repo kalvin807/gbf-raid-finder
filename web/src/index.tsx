@@ -5,19 +5,22 @@ import 'inter-ui'
 import App from './App'
 import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
 import { ConfigProvider } from './hooks/useConfig'
-import { MessageProvider } from './hooks/useMessage'
+import { DataProvider } from './hooks/useData'
 
 ReactDOM.render(
   <React.StrictMode>
-    <ConfigProvider>
-      <MessageProvider>
-        <FixedGlobalStyle />
-        <ThemeProvider>
-          <ThemedGlobalStyle />
-          <App />
-        </ThemeProvider>
-      </MessageProvider>
-    </ConfigProvider>
+    {/* {// TODO: Add fallback} */}
+    <React.Suspense fallback={() => <></>}>
+      <ConfigProvider>
+        <DataProvider>
+          <FixedGlobalStyle />
+          <ThemeProvider>
+            <ThemedGlobalStyle />
+            <App />
+          </ThemeProvider>
+        </DataProvider>
+      </ConfigProvider>
+    </React.Suspense>
   </React.StrictMode>,
   document.getElementById('root')
 )
