@@ -10,13 +10,14 @@ const ThemedBackground = styled.div<{ backgroundColor?: string | undefined }>`
   width: 200vw;
   height: 200vh;
   mix-blend-mode: color;
-  background: ${({ backgroundColor }) =>
-    `radial-gradient(50% 50% at 50% 50%, ${
-      backgroundColor ? backgroundColor : '#fc077d10'
-    } 0%, rgba(255, 255, 255, 0) 100%)`};
+  background: ${({ backgroundColor, theme }) => backgroundColor || theme.bg0};
   transform: translateY(-100vh);
   will-change: background;
-  transition: background 450ms ease;
+  -webkit-transition: background 200ms ease-out;
+  -ms-transition: background 200ms ease-out;
+  transition: background 200ms ease-out;
 `
 
 export default ThemedBackground
+
+// dark sky blue color : #fc077d10

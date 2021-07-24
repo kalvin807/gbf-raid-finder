@@ -1,11 +1,9 @@
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { useData } from '../../hooks/useData'
 import { AutoColumn } from '../Column'
 import CTACards from './CTACards'
+
 const Raid = () => {
-  const { state } = useData()
-  console.log(state)
   return (
     <>
       <PageWrapper>

@@ -1,4 +1,3 @@
-import { useConfig } from '../hooks/useConfig'
 import React, { useMemo } from 'react'
 import { Text, TextProps } from 'rebass'
 import styled, {
@@ -9,6 +8,8 @@ import styled, {
 } from 'styled-components'
 
 import { Colors } from './styled'
+import { themeAtom } from 'atoms/settingsAtom'
+import { useAtomValue } from 'jotai/utils'
 
 export * from './components'
 
@@ -125,8 +126,8 @@ export function theme(darkMode: boolean): DefaultTheme {
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const { state } = useConfig()
-  const themeObject = useMemo(() => theme(state.darkMode), [state.darkMode])
+  const isDarkMode = useAtomValue(themeAtom)
+  const themeObject = useMemo(() => theme(isDarkMode), [isDarkMode])
   return <StyledComponentsThemeProvider theme={themeObject}>{children}</StyledComponentsThemeProvider>
 }
 

@@ -9,10 +9,11 @@ import Row, { RowFixed, RowBetween } from './Row'
 import Menu from './Menu'
 import { TYPE } from '../theme'
 import SelectRaid from './SelectRaid'
-import { useConfig } from '../hooks/useConfig'
+import { themeAtom } from 'atoms/settingsAtom'
+import { useAtom } from 'jotai'
 
 const Header = () => {
-  const { state, dispatch } = useConfig()
+  const [darkMode, setTheme] = useAtom(themeAtom)
   const scrollY = useScrollPosition()
 
   return (
@@ -36,8 +37,8 @@ const Header = () => {
           </AccountElement>
         </HeaderElement>
         <HeaderElementWrap>
-          <StyledMenuButton onClick={() => dispatch({ ...state, darkMode: !state.darkMode })}>
-            {state.darkMode ? <Moon size={20} /> : <Sun size={20} />}
+          <StyledMenuButton onClick={() => setTheme((prev) => !prev)}>
+            {darkMode ? <Moon size={20} /> : <Sun size={20} />}
           </StyledMenuButton>
           <Menu />
         </HeaderElementWrap>
