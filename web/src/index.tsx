@@ -1,9 +1,10 @@
+import 'inter-ui'
+import '@reach/dialog/styles.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'inter-ui'
 
 import App from './App'
-import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
+import ThemeProvider, { ThemedGlobalStyle } from './theme'
 import { Provider as JotaiProvider } from 'jotai'
 import DataStore from 'components/DataStore'
 import LoadingScreen from 'components/LoadingScreen'
@@ -13,7 +14,6 @@ ReactDOM.render(
     {/* {// TODO: Add fallback} */}
     <JotaiProvider>
       <React.Suspense fallback={() => <LoadingScreen />}>
-        <FixedGlobalStyle />
         <ThemeProvider>
           <ThemedGlobalStyle />
           <App />

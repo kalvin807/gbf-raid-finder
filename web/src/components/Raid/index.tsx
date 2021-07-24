@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import styled, { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components/macro'
 import { AutoColumn } from '../Column'
 import CTACards from './CTACards'
 

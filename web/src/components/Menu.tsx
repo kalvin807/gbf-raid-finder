@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { BookOpen, Code, Info, MessageCircle, PieChart, MoreHorizontal as MenuIcon } from 'react-feather'
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components/macro'
 import { useOnClickOutside } from '../hooks/useOnClickOutside'
 
 import { ButtonPrimary } from './Button'

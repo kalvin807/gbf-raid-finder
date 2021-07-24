@@ -1,9 +1,8 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components/macro'
 import { animated, useTransition, useSpring } from 'react-spring'
 import { DialogOverlay, DialogContent } from '@reach/dialog'
 import { isMobile } from 'react-device-detect'
-import '@reach/dialog/styles.css'
 import { transparentize } from 'polished'
 import { useGesture } from 'react-use-gesture'
 
@@ -14,11 +13,9 @@ const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
     z-index: 2;
     background-color: transparent;
     overflow: hidden;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     background-color: ${({ theme }) => theme.modalBG};
   }
 `
@@ -31,20 +28,18 @@ const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...r
 )).attrs({
   'aria-label': 'dialog',
 })`
-  overflow-y: ${({ mobile }) => (mobile ? 'scroll' : 'hidden')};
-
+  overflow-y: auto;
   &[data-reach-dialog-content] {
     margin: 0 0 2rem 0;
     background-color: ${({ theme }) => theme.bg0};
     border: 1px solid ${({ theme }) => theme.bg1};
     box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadow1)};
     padding: 0px;
-    width: 70vw;
-    overflow-y: ${({ mobile }) => (mobile ? 'scroll' : 'hidden')};
+    width: 50vw;
+    overflow-y: auto;
     overflow-x: hidden;
-
     align-self: ${({ mobile }) => (mobile ? 'flex-end' : 'center')};
-
+    max-width: 420px;
     ${({ maxHeight }) =>
       maxHeight &&
       css`

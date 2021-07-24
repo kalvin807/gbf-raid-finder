@@ -1,13 +1,11 @@
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
-import React, { useCallback, useEffect, useRef, memo } from 'react'
+import React, { memo } from 'react'
 import Modal from '../Modal'
 import styled from 'styled-components/macro'
 import Column, { AutoColumn } from '../Column'
 import Row, { RowBetween, RowFixed } from '../Row'
 import { Text } from 'rebass'
-import { CloseIcon, TYPE, ButtonText, IconWrapper } from '../../theme'
-import { Edit } from 'react-feather'
-import useTheme from 'hooks/useTheme'
+import { CloseIcon, TYPE } from '../../theme'
 import SelectRaidFilter from './SelectRaidFilter'
 import { useAtomValue } from 'jotai/utils'
 import { raidAtom } from 'atoms/gbfAtom'
@@ -30,10 +28,21 @@ const ListRow = memo(function ListRow({ jp, en }: { jp: string; en: string }) {
   )
 })
 
-export default function SelectModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
-  const theme = useTheme()
+const RaidList = () => {
   const raid = useAtomValue(raidAtom)
   console.log(raid)
+  return (
+    <ListContainer>
+      <AutoColumn gap="md">
+        {raid.map((raid, id) => (
+          <ListRow key={id} en={raid.en} jp={raid.jp} />
+        ))}
+      </AutoColumn>
+    </ListContainer>
+  )
+}
+
+export default function SelectModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={80}>
       <ContentWrapper>
@@ -49,13 +58,7 @@ export default function SelectModal({ isOpen, onDismiss }: { isOpen: boolean; on
           </Row>
         </PaddedColumn>
         <Separator />
-        <ListContainer>
-          <AutoColumn gap="md">
-            {/* {raid.map((raid, id) => (
-              <ListRow key={id} en={raid.en} jp={raid.jp} />
-            ))} */}
-          </AutoColumn>
-        </ListContainer>
+        <RaidList />
       </ContentWrapper>
     </Modal>
   )

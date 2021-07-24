@@ -4,6 +4,16 @@ type Category = {
   [key: string]: string
 }
 
+type Raid = {
+  category: string
+  element: string
+  image: string
+  en: string
+  jp: string
+}
+
+type Raids = Array<Raid>
+
 const fetchJson = (endpoint: string) =>
   fetch('https://gbf-raids-finder.herokuapp.com/' + endpoint)
     .then((res) => {
@@ -20,4 +30,4 @@ export const fetchCategory = (): Promise<Category> => fetchJson('category')
 export const fetchRaid = (): Promise<any> => fetchJson('raid')
 
 export const categoryAtom = atom<Category>({})
-export const raidAtom = atom({})
+export const raidAtom = atom<Raids>([])

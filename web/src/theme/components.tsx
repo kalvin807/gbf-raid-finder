@@ -1,5 +1,5 @@
 import React, { HTMLProps, useCallback } from 'react'
-import styled, { keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components/macro'
 import { darken } from 'polished'
 import { ArrowLeft, X, ExternalLink as LinkIconFeather, Trash } from 'react-feather'
 
