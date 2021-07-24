@@ -5,6 +5,8 @@ import { AutoColumn } from '../Column'
 import { AutoRow, RowBetween } from '../Row'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { LightCard } from '../Card'
+import { useAtomValue } from 'jotai/utils'
+import { categoryAtom } from 'atoms/gbfAtom'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
   border: 1px solid ${({ theme, disable }) => (disable ? 'transparent' : theme.bg3)};
@@ -22,9 +24,47 @@ const BaseWrapper = styled.div<{ disable?: boolean }>`
   opacity: ${({ disable }) => disable && '0.4'};
 `
 
+const CategoryScroll = styled(AutoRow)`
+  max-height: 128px;
+  overflow-y: auto;
+`
+
+const ExpandedFilter = () => {
+  const category = useAtomValue(categoryAtom)
+  return (
+    <AutoRow gap="4px">
+      <SearchInput
+        type="text"
+        id="token-search-input"
+        placeholder="Search name or paste address"
+        autoComplete="off"
+        // value={searchQuery}
+        // ref={inputRef as RefObject<HTMLInputElement>}
+        // onChange={handleInput}
+        // onKeyDown={handleEnter}
+      />
+      <AutoRow>
+        <Text fontWeight={500} fontSize={14}>
+          Categories
+        </Text>
+      </AutoRow>
+      <CategoryScroll gap="4px">
+        {Object.keys(category).map((cata) => {
+          return (
+            <BaseWrapper disable={false} key={1}>
+              <Text fontWeight={500} fontSize={16}>
+                {cata}
+              </Text>
+            </BaseWrapper>
+          )
+        })}
+      </CategoryScroll>
+    </AutoRow>
+  )
+}
+
 export default function SelectRaidFilter() {
   const [expand, setExpand] = useState(false)
-  const bases = ['★8 Rapture', '★7 Dragon']
   return (
     <LightCard width="100%" padding="8px">
       <AutoColumn gap="sm" justify="center">
@@ -34,36 +74,7 @@ export default function SelectRaidFilter() {
           </Text>
           {expand ? <ChevronUp /> : <ChevronDown />}
         </RowBetween>
-        {expand ? (
-          <AutoRow gap="4px">
-            <SearchInput
-              type="text"
-              id="token-search-input"
-              placeholder="Search name or paste address"
-              autoComplete="off"
-              // value={searchQuery}
-              // ref={inputRef as RefObject<HTMLInputElement>}
-              // onChange={handleInput}
-              // onKeyDown={handleEnter}
-            />
-            <AutoRow>
-              <Text fontWeight={500} fontSize={14}>
-                Categories
-              </Text>
-            </AutoRow>
-            <AutoRow gap="4px">
-              {bases.map((cata) => {
-                return (
-                  <BaseWrapper disable={false} key={1}>
-                    <Text fontWeight={500} fontSize={16}>
-                      {cata}
-                    </Text>
-                  </BaseWrapper>
-                )
-              })}
-            </AutoRow>
-          </AutoRow>
-        ) : null}
+        {expand ? <ExpandedFilter /> : null}
       </AutoColumn>
     </LightCard>
   )

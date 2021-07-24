@@ -9,6 +9,8 @@ import { CloseIcon, TYPE, ButtonText, IconWrapper } from '../../theme'
 import { Edit } from 'react-feather'
 import useTheme from 'hooks/useTheme'
 import SelectRaidFilter from './SelectRaidFilter'
+import { useAtomValue } from 'jotai/utils'
+import { raidAtom } from 'atoms/gbfAtom'
 
 const ListRow = memo(function ListRow({ jp, en }: { jp: string; en: string }) {
   return (
@@ -30,14 +32,8 @@ const ListRow = memo(function ListRow({ jp, en }: { jp: string; en: string }) {
 
 export default function SelectModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
   const theme = useTheme()
-  const sortedLists = [
-    { jp: 'fdgdfg', en: '23424' },
-    { jp: 'fdgdfg', en: '23424' },
-    { jp: 'fdgdfg', en: '23424' },
-    { jp: 'fdgdfg', en: '23424' },
-    { jp: 'fdgdfg', en: '23424' },
-    { jp: 'fdgdfg', en: '23424' },
-  ]
+  const raid = useAtomValue(raidAtom)
+  console.log(raid)
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={80}>
       <ContentWrapper>
@@ -55,9 +51,9 @@ export default function SelectModal({ isOpen, onDismiss }: { isOpen: boolean; on
         <Separator />
         <ListContainer>
           <AutoColumn gap="md">
-            {sortedLists.map((raid, id) => (
+            {/* {raid.map((raid, id) => (
               <ListRow key={id} en={raid.en} jp={raid.jp} />
-            ))}
+            ))} */}
           </AutoColumn>
         </ListContainer>
       </ContentWrapper>

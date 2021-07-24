@@ -2,6 +2,8 @@ import React from 'react'
 import { useUpdateAtom } from 'jotai/utils'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { messageAtom, statusAtom } from 'atoms/wsAtoms'
+import { useEffect } from 'react'
+import { categoryAtom, fetchCategory, fetchRaid, raidAtom } from 'atoms/gbfAtom'
 
 /**
  * A Empty component to do data action within the react component root.
@@ -9,7 +11,8 @@ import { messageAtom, statusAtom } from 'atoms/wsAtoms'
 const DataStore = () => {
   const setMessage = useUpdateAtom(messageAtom)
   const setStatus = useUpdateAtom(statusAtom)
-
+  const setCategory = useUpdateAtom(categoryAtom)
+  const setRaid = useUpdateAtom(raidAtom)
   const addMessage = (e: MessageEvent) => {
     const msg = e.data
     setMessage((prev) => [...prev, msg])
@@ -18,10 +21,22 @@ const DataStore = () => {
   useWebSocket('wss://echo.websocket.org', {
     share: true,
     onMessage: addMessage,
-    onOpen: () => setStatus(ReadyState.OPEN),
+    onOpen: () => {
+      console.log('loaded')
+      setStatus(ReadyState.OPEN)
+    },
     onClose: () => setStatus(ReadyState.CLOSED),
   })
-  console.log('loaded')
+
+  useEffect(() => {
+    fetchCategory().then((res) => {
+      setCategory(res)
+    })
+    fetchRaid().then((res) => {
+      setRaid(res)
+    })
+  }, [setCategory, setRaid])
+
   return <></>
 }
 
