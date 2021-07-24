@@ -58,7 +58,7 @@ func main() {
 	go hub.Run()
 
 	c := cors.New(cors.Options{
-		AllowedOrigins: []string{os.Getenv("FRONT_END_URL")},
+		AllowedOrigins: ["*"],
 	})
 
 	r := httprouter.New()
