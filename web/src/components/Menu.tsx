@@ -14,6 +14,7 @@ const StyledMenuIcon = styled(MenuIcon)`
   path {
     stroke: ${({ theme }) => theme.text1};
   }
+  color: ${({ theme }) => theme.text1};
 `
 
 const StyledMenuButton = styled.button`

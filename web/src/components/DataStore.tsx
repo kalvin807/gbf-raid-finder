@@ -3,7 +3,8 @@ import { useUpdateAtom } from 'jotai/utils'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 import { messageAtom, statusAtom } from 'atoms/wsAtoms'
 import { useEffect } from 'react'
-import { categoryAtom, fetchCategory, fetchRaid, raidAtom } from 'atoms/gbfAtom'
+import { Raid, categoryAtom, fetchCategory, fetchRaid, raidAtom } from 'atoms/gbfAtom'
+import { atom, PrimitiveAtom } from 'jotai'
 
 /**
  * A Empty component to do data action within the react component root.
@@ -30,10 +31,12 @@ const DataStore = () => {
 
   useEffect(() => {
     fetchCategory().then((res) => {
-      setCategory(res)
+      const categories = Object.entries(res).map(([k, v]) => atom({ en: k, ja: v as string, isSelected: false }))
+      setCategory(categories)
     })
-    fetchRaid().then((res) => {
-      setRaid(res)
+    fetchRaid().then((res: Array<any>) => {
+      const atoms = res.map((obj: any) => atom({ ...obj, isSelected: false }))
+      setRaid(atoms)
     })
   }, [setCategory, setRaid])
 

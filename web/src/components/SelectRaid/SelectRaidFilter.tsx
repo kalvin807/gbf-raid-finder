@@ -6,59 +6,50 @@ import { AutoRow, RowBetween } from '../Row'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { LightCard } from '../Card'
 import { useAtomValue } from 'jotai/utils'
-import { categoryAtom } from 'atoms/gbfAtom'
+import { Category, categoryAtom, nameFilterAtom } from 'atoms/gbfAtom'
+import { PrimitiveAtom, useAtom } from 'jotai'
 
-const BaseWrapper = styled.div<{ disable?: boolean }>`
-  border: 1px solid ${({ theme, disable }) => (disable ? 'transparent' : theme.bg3)};
-  border-radius: 10px;
-  display: flex;
-  padding: 6px;
+const CategoryButton = ({ atom }: { atom: PrimitiveAtom<Category> }) => {
+  const [value, setValue] = useAtom(atom)
+  const toggle = () => setValue((state) => ({ ...state, isSelected: !state.isSelected }))
+  return (
+    <BaseWrapper active={value.isSelected} onClick={toggle}>
+      <Text fontWeight={500} fontSize={16}>
+        {value.en}
+      </Text>
+    </BaseWrapper>
+  )
+}
 
-  align-items: center;
-  :hover {
-    cursor: ${({ disable }) => !disable && 'pointer'};
-    background-color: ${({ theme, disable }) => !disable && theme.bg2};
-  }
-
-  background-color: ${({ theme, disable }) => disable && theme.bg3};
-  opacity: ${({ disable }) => disable && '0.4'};
-`
-
-const CategoryScroll = styled(AutoRow)`
-  max-height: 128px;
-  overflow-y: auto;
-`
+const CategoriesFilter = () => {
+  const category = useAtomValue(categoryAtom)
+  return (
+    <CategoryScroll gap="4px">
+      {category.map((atom, key) => {
+        return <CategoryButton key={key} atom={atom} />
+      })}
+    </CategoryScroll>
+  )
+}
 
 const ExpandedFilter = () => {
-  const category = useAtomValue(categoryAtom)
+  const [value, setValue] = useAtom(nameFilterAtom)
   return (
     <AutoRow gap="4px">
       <SearchInput
         type="text"
         id="token-search-input"
-        placeholder="Search name or paste address"
+        placeholder="Search name in English/Japanese"
         autoComplete="off"
-        // value={searchQuery}
-        // ref={inputRef as RefObject<HTMLInputElement>}
-        // onChange={handleInput}
-        // onKeyDown={handleEnter}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
       <AutoRow>
         <Text fontWeight={500} fontSize={14}>
           Categories
         </Text>
       </AutoRow>
-      <CategoryScroll gap="4px">
-        {Object.keys(category).map((cata) => {
-          return (
-            <BaseWrapper disable={false} key={1}>
-              <Text fontWeight={500} fontSize={16}>
-                {cata}
-              </Text>
-            </BaseWrapper>
-          )
-        })}
-      </CategoryScroll>
+      <CategoriesFilter />
     </AutoRow>
   )
 }
@@ -79,6 +70,26 @@ export default function SelectRaidFilter() {
     </LightCard>
   )
 }
+
+const BaseWrapper = styled.div<{ active?: boolean }>`
+  border: 1px solid ${({ theme, active }) => (active ? 'transparent' : theme.bg3)};
+  border-radius: 10px;
+  display: flex;
+  padding: 6px;
+  cursor: pointer;
+
+  align-items: center;
+  :hover {
+    background-color: ${({ theme, active }) => !active && theme.bg2};
+  }
+
+  background-color: ${({ theme, active }) => active && theme.primary1};
+`
+
+const CategoryScroll = styled(AutoRow)`
+  max-height: 128px;
+  overflow-y: auto;
+`
 
 export const SearchInput = styled.input`
   position: relative;

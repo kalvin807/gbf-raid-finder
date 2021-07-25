@@ -91,9 +91,13 @@ export function colors(darkMode: boolean): Colors {
     success: '#27AE60',
     warning: '#ff8f00',
 
-    // dont wanna forget these blue yet
-    // blue4: darkMode ? '#153d6f70' : '#C4D9F8',
-    // blue5: darkMode ? '#153d6f70' : '#EBF4FF',
+    //elements
+    fire: '#d32f2f',
+    water: '#1976d2',
+    earth: '#5d4037',
+    wind: '#2e7d32',
+    light: '#c17900',
+    dark: '#6a1b9a',
   }
 }
 

@@ -53,6 +53,13 @@ export interface Colors {
   error: Color
   success: Color
   warning: Color
+
+  fire: Color
+  water: Color
+  earth: Color
+  wind: Color
+  light: Color
+  dark: Color
 }
 
 export interface Grids {

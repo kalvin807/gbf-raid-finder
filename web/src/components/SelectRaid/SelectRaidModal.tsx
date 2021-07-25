@@ -1,4 +1,3 @@
-import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import React, { memo } from 'react'
 import Modal from '../Modal'
 import styled from 'styled-components/macro'
@@ -8,19 +7,38 @@ import { Text } from 'rebass'
 import { CloseIcon, TYPE } from '../../theme'
 import SelectRaidFilter from './SelectRaidFilter'
 import { useAtomValue } from 'jotai/utils'
-import { raidAtom } from 'atoms/gbfAtom'
+import { filteredRaidAtom, Raid } from 'atoms/gbfAtom'
+import { PrimitiveAtom, useAtom } from 'jotai'
+import useTheme from 'hooks/useTheme'
+import { transparentize } from 'polished'
 
-const ListRow = memo(function ListRow({ jp, en }: { jp: string; en: string }) {
+const RaidSelect = memo(function RaidSelect({ atom }: { atom: PrimitiveAtom<Raid> }) {
+  const [item, setItem] = useAtom(atom)
+  const theme = useTheme()
+  const colorMap: { [key: string]: string } = {
+    Fire: theme.fire,
+    Water: theme.water,
+    Wind: theme.wind,
+    Earth: theme.earth,
+    Light: theme.light,
+    Dark: theme.dark,
+  }
+
+  const toggleSelected = () => {
+    // eslint-disable-next-line react/prop-types
+    setItem((props) => ({ ...props, isSelected: !props.isSelected }))
+  }
+  const color = colorMap[item.element] || 'grey'
   return (
-    <RowWrapper active={false} bgColor={''} key={'3'} id={'3'}>
+    <RowWrapper active={item.isSelected} bgColor={color || 'white'} key={'3'} id={'3'} onClick={toggleSelected}>
       <div style={{ width: '24px', height: '24px', marginRight: '1rem' }} />
       <Column style={{ flex: '1' }}>
         <Row>
-          <StyledTitleText active={false}>{jp}</StyledTitleText>
+          <StyledTitleText active={item.isSelected}>{item.jp}</StyledTitleText>
         </Row>
         <RowFixed mt="4px">
-          <StyledListUrlText active={false} mr="6px">
-            {en}
+          <StyledListUrlText active={item.isSelected} mr="6px">
+            {item.en}
           </StyledListUrlText>
         </RowFixed>
       </Column>
@@ -29,13 +47,12 @@ const ListRow = memo(function ListRow({ jp, en }: { jp: string; en: string }) {
 })
 
 const RaidList = () => {
-  const raid = useAtomValue(raidAtom)
-  console.log(raid)
+  const raids = useAtomValue(filteredRaidAtom)
   return (
     <ListContainer>
       <AutoColumn gap="md">
-        {raid.map((raid, id) => (
-          <ListRow key={id} en={raid.en} jp={raid.jp} />
+        {raids.map((atom, index) => (
+          <RaidSelect atom={atom} key={index} />
         ))}
       </AutoColumn>
     </ListContainer>
@@ -189,7 +206,8 @@ const ListContainer = styled.div`
 `
 
 const RowWrapper = styled(Row)<{ bgColor: string; active: boolean }>`
-  background-color: ${({ bgColor, active, theme }) => (active ? bgColor ?? 'transparent' : theme.bg2)};
+  background-color: ${({ bgColor, active, theme }) =>
+    active ? bgColor ?? 'transparent' : transparentize(0.8, bgColor)};
   transition: 200ms;
   align-items: center;
   padding: 1rem;
