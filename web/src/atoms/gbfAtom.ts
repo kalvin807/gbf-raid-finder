@@ -1,12 +1,15 @@
 import { atom, PrimitiveAtom } from 'jotai'
+import { boardAtom } from './wsAtoms'
 
 export interface Category {
+  id: number
   en: string
   ja: string
   isSelected: boolean
 }
 
 export interface Raid {
+  id: number
   category: string
   element: string
   image: string
@@ -32,8 +35,20 @@ export const fetchRaid = (): Promise<any> => fetchJson('raid')
 
 export const categoryAtom = atom<PrimitiveAtom<Category>[]>([])
 export const raidAtom = atom<PrimitiveAtom<Raid>[]>([])
-
 export const nameFilterAtom = atom<string>('')
+
+export const writeRaidAtom = atom(null, (get, set, update: Raid[]) => {
+  const board = get(boardAtom)
+  const activeId = new Set(board.map(({ id }) => id))
+  const atoms = update.map((raid) => {
+    if (activeId.has(raid.id)) {
+      raid.isSelected = true
+    }
+    return atom(raid)
+  })
+  set(raidAtom, atoms)
+})
+
 export const filteredRaidAtom = atom<PrimitiveAtom<Raid>[]>((get) => {
   const categoryFilter = get(categoryAtom).filter((atom) => get(atom).isSelected)
   const nameFilter = get(nameFilterAtom)

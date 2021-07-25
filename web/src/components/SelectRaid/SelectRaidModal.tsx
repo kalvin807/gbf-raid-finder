@@ -6,14 +6,16 @@ import Row, { RowBetween, RowFixed } from '../Row'
 import { Text } from 'rebass'
 import { CloseIcon, TYPE } from '../../theme'
 import SelectRaidFilter from './SelectRaidFilter'
-import { useAtomValue } from 'jotai/utils'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { filteredRaidAtom, Raid } from 'atoms/gbfAtom'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import useTheme from 'hooks/useTheme'
 import { transparentize } from 'polished'
+import { updateBoardAtom } from 'atoms/wsAtoms'
 
 const RaidSelect = memo(function RaidSelect({ atom }: { atom: PrimitiveAtom<Raid> }) {
   const [item, setItem] = useAtom(atom)
+  const updateBoard = useUpdateAtom(updateBoardAtom)
   const theme = useTheme()
   const colorMap: { [key: string]: string } = {
     Fire: theme.fire,
@@ -27,6 +29,7 @@ const RaidSelect = memo(function RaidSelect({ atom }: { atom: PrimitiveAtom<Raid
   const toggleSelected = () => {
     // eslint-disable-next-line react/prop-types
     setItem((props) => ({ ...props, isSelected: !props.isSelected }))
+    updateBoard(item)
   }
   const color = colorMap[item.element] || 'grey'
   return (
@@ -81,7 +84,7 @@ export default function SelectModal({ isOpen, onDismiss }: { isOpen: boolean; on
   )
 }
 
-const ContentWrapper = styled(Column)`
+export const ContentWrapper = styled(Column)`
   width: 100%;
   flex: 1 1;
   position: relative;
@@ -198,14 +201,14 @@ export const SeparatorDark = styled.div`
   background-color: ${({ theme }) => theme.bg3};
 `
 
-const ListContainer = styled.div`
+export const ListContainer = styled.div`
   padding: 1rem;
   height: 100%;
   overflow: auto;
   padding-bottom: 80px;
 `
 
-const RowWrapper = styled(Row)<{ bgColor: string; active: boolean }>`
+export const RowWrapper = styled(Row)<{ bgColor: string; active: boolean }>`
   background-color: ${({ bgColor, active, theme }) =>
     active ? bgColor ?? 'transparent' : transparentize(0.8, bgColor)};
   transition: 200ms;
@@ -214,7 +217,7 @@ const RowWrapper = styled(Row)<{ bgColor: string; active: boolean }>`
   border-radius: 20px;
 `
 
-const StyledTitleText = styled.div<{ active: boolean }>`
+export const StyledTitleText = styled.div<{ active: boolean }>`
   font-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -222,7 +225,7 @@ const StyledTitleText = styled.div<{ active: boolean }>`
   color: ${({ theme, active }) => (active ? theme.white : theme.text2)};
 `
 
-const StyledListUrlText = styled(TYPE.main)<{ active: boolean }>`
+export const StyledListUrlText = styled(TYPE.main)<{ active: boolean }>`
   font-size: 12px;
   color: ${({ theme, active }) => (active ? theme.white : theme.text2)};
 `

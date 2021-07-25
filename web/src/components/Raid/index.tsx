@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components/macro'
 import { AutoColumn } from '../Column'
-import CTACards from './CTACards'
+import Board from './Board'
 
 const Raid = () => {
   return (
@@ -9,7 +9,7 @@ const Raid = () => {
       <PageWrapper>
         <AutoColumn gap="lg" justify="center">
           <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <CTACards />
+            <Board />
           </AutoColumn>
         </AutoColumn>
       </PageWrapper>
