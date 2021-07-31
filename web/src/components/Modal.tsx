@@ -131,7 +131,6 @@ export default function Modal({
                 maxHeight={maxHeight}
                 mobile={isMobile}
               >
-                {/* prevents the automatic focusing of inputs on mobile by the reach dialog */}
                 {!initialFocusRef && isMobile ? <div tabIndex={1} /> : null}
                 {children}
               </StyledDialogContent>

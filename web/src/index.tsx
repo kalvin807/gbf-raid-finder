@@ -11,15 +11,14 @@ import LoadingScreen from 'components/LoadingScreen'
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* {// TODO: Add fallback} */}
     <JotaiProvider>
-      <React.Suspense fallback={() => <LoadingScreen />}>
-        <ThemeProvider>
+      <ThemeProvider>
+        <React.Suspense fallback={() => <LoadingScreen />}>
+          <DataStore />
           <ThemedGlobalStyle />
           <App />
-        </ThemeProvider>
-        <DataStore />
-      </React.Suspense>
+        </React.Suspense>
+      </ThemeProvider>
     </JotaiProvider>
   </React.StrictMode>,
   document.getElementById('root')

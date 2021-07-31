@@ -1,34 +1,27 @@
-import React, { useContext } from 'react'
-import styled, { ThemeContext } from 'styled-components/macro'
+import React from 'react'
+import styled from 'styled-components/macro'
 import { AutoColumn } from '../Column'
-import Board from './Board'
+import Boards from './Board'
 
-const Raid = () => {
+const RaidBoards = () => {
   return (
-    <>
-      <PageWrapper>
-        <AutoColumn gap="lg" justify="center">
-          <AutoColumn gap="lg" style={{ width: '100%' }}>
-            <Board />
-          </AutoColumn>
-        </AutoColumn>
-      </PageWrapper>
-    </>
+    <PageWrapper>
+      <Boards />
+    </PageWrapper>
   )
 }
 
 const PageWrapper = styled(AutoColumn)`
-  max-width: 870px;
   width: 100%;
-
+  margin-bottom: 8px;
+  padding: 0 16px 0 16px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
-    max-width: 800px;
     margin-bottom: 80px;
+    padding: 0 8px 0 8px;
   `};
-
   ${({ theme }) => theme.mediaWidth.upToSmall`
-    max-width: 500px;
+  padding: 0 4px 0 4px;
   `};
 `
 
-export default Raid
+export default RaidBoards

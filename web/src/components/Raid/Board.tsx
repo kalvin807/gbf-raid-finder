@@ -1,137 +1,85 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import styled from 'styled-components/macro'
 import { Text } from 'rebass'
-import { TYPE } from 'theme'
 import Column, { AutoColumn } from '../Column'
-import { RowBetween } from '../Row'
-import { StyledLink } from '../../theme'
+import { RowBetween, RowFixed } from '../Row'
 import { Bell, BellOff, Clipboard, Circle, X } from 'react-feather'
-import { Separator } from 'components/SelectRaid/SelectRaidModal'
-import { useAtomValue } from 'jotai/utils'
-import { boardAtomsAtom, Board as BoardType } from 'atoms/wsAtoms'
+import { Separator } from '../../theme/components'
+import { selectAtom, useAtomValue } from 'jotai/utils'
+import { boardAtomsAtom, Board as BoardType, readMsgStoreAtom } from 'atoms/wsAtoms'
 import { PrimitiveAtom, useAtom } from 'jotai'
+import deepEquals from 'fast-deep-equal'
+import TweetRow from 'components/TweetRow'
 
-const CTASection = styled.section`
+const BoardGrid = styled.div`
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fit, minmax(min(600px, 100%), 1fr));
+  grid-gap: 16px;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
   gap: 8px;
+`};
 `
 
 const StyledBoard = styled(Column)`
+  min-width: min(600px, 100%);
   background-color: ${({ theme }) => theme.bg1};
   display: flex;
   position: relative;
   border-radius: 20px;
   border: 1px solid ${({ theme }) => theme.bg3};
-  padding: 1rem;
+  padding: 0.5rem 1rem 1.125rem 1rem;
   * {
     color: ${({ theme }) => theme.text1};
     text-decoration: none !important;
-  }
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    gap: 4px;
-  `};
-`
-
-const ClickableRow = styled(StyledLink)`
-  background-size: 40px 40px;
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 8px;
-  justify-content: space-between;
-  position: relative;
-  padding: 1rem;
-  * {
-    color: ${({ theme }) => theme.text1};
-    text-decoration: none !important;
-  }
-  :hover {
-    background-color: ${({ theme }) => theme.bg2};
-    text-decoration: none;
-    * {
-      text-decoration: none !important;
-    }
   }
 `
 
 const HeaderColumn = styled(AutoColumn)`
-  padding: 8px;
-`
-
-const IDText = styled(TYPE.label)`
-  align-items: center;
-  display: flex;
-  margin-bottom: 24px;
-  font-weight: 400;
-  font-size: 20px;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    font-size: 20px;
-  `};
-`
-const ResponsiveText = styled(TYPE.main)`
-  font-weight: 400;
-  align-items: center;
-  display: flex;
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-    font-size: 14px;
-  `};
-`
-const HeaderWrap = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  padding: 1rem 0.125rem 0.5rem 0.125rem;
+  width: 100%;
 `
 
 export const StyledButton = styled.button`
-  position: relative;
+  height: 24px;
+  width: 24px;
   border: none;
   background-color: transparent;
+  margin: 2px 8px 2px 8px;
   padding: 0;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.5rem;
-
   :hover,
   :focus {
     cursor: pointer;
     outline: none;
-    background-color: ${({ theme }) => theme.bg4};
-  }
-
-  svg {
-    margin-top: 2px;
+    opacity: 0.7;
   }
   > * {
     stroke: ${({ theme }) => theme.text1};
   }
 `
 
-const Twitter = () => {
-  return (
-    <ClickableRow>
-      <ResponsiveText>{'As we have discussed in the first tutorial'}</ResponsiveText>
-      <IDText>{'2A3A61ED'}</IDText>
-    </ClickableRow>
-  )
-}
+const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
+  const [boardInfo, setBoard] = useAtom(atom)
+  const { id, en, isAlert, isAutoCopy } = boardInfo
 
-const TwitterBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
-  const [value, setValue] = useAtom(atom)
-  const toggleCopy = () => setValue((prev) => ({ ...prev, isAutoCopy: !prev.isAutoCopy }))
-  const toggleAlert = () => setValue((prev) => ({ ...prev, isAlert: !prev.isAlert }))
+  const raidMsgAtom = useMemo(() => selectAtom(readMsgStoreAtom, (store) => store[id], deepEquals), [id])
+  const msgs = useAtomValue(raidMsgAtom) || []
+
+  const toggleCopy = () => setBoard((prev) => ({ ...prev, isAutoCopy: !prev.isAutoCopy }))
+  const toggleAlert = () => setBoard((prev) => ({ ...prev, isAlert: !prev.isAlert }))
+
   return (
     <StyledBoard>
       <HeaderColumn gap="16px" justify="center">
         <RowBetween>
-          <Text fontWeight={500} fontSize={16}>
-            {value.en}
-          </Text>
-          <HeaderWrap>
-            <StyledButton onClick={toggleAlert}>
-              {value.isAlert ? <Bell size={20} /> : <BellOff size={20} />}
-            </StyledButton>
+          <RowFixed>
+            <Text fontWeight={500} fontSize={16}>
+              {en}
+            </Text>
+          </RowFixed>
+          <RowFixed>
+            <StyledButton onClick={toggleAlert}>{isAlert ? <Bell size={20} /> : <BellOff size={20} />}</StyledButton>
             <StyledButton onClick={toggleCopy}>
-              {value.isAutoCopy ? <Clipboard size={20} /> : <Circle size={20} />}
+              {isAutoCopy ? <Clipboard size={20} /> : <Circle size={20} />}
             </StyledButton>
             <StyledButton
               onClick={() => {
@@ -140,24 +88,24 @@ const TwitterBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
             >
               <X size={20} />
             </StyledButton>
-          </HeaderWrap>
+          </RowFixed>
         </RowBetween>
       </HeaderColumn>
       <Separator />
-      <Twitter key={1} />
-      <Twitter key={1} />
-      <Twitter key={1} />
+      {msgs.map((m, index) => {
+        return <TweetRow message={m} key={`${id}-${index}`} />
+      })}
     </StyledBoard>
   )
 }
 
-export default function Board() {
-  const boards = useAtomValue(boardAtomsAtom)
+export default function Boards() {
+  const boards = useAtomValue(boardAtomsAtom) || []
   return (
-    <CTASection>
+    <BoardGrid>
       {boards.map((board, index) => (
-        <TwitterBoard atom={board} key={index} />
+        <TweetsBoard atom={board} key={index} />
       ))}
-    </CTASection>
+    </BoardGrid>
   )
 }

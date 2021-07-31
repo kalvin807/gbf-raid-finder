@@ -1,9 +1,9 @@
-import React, { lazy, useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 import styled from 'styled-components/macro'
 import { ButtonSecondary } from '../Button'
 import { darken } from 'polished'
 
-const LazySelectRaidModal = lazy(() => import('./SelectRaidModal'))
+import SelectRaidModal from './SelectRaidModal'
 
 const SelectRaid = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -14,7 +14,7 @@ const SelectRaid = () => {
   return (
     <>
       <SelectRaidButton onClick={() => setModalOpen(true)}>Select Raid</SelectRaidButton>
-      <LazySelectRaidModal isOpen={modalOpen} onDismiss={handleDismiss} />
+      <SelectRaidModal isOpen={modalOpen} onDismiss={handleDismiss} />
     </>
   )
 }

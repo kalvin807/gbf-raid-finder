@@ -1,19 +1,14 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { darken } from 'polished'
-import { Moon, Sun, Search as SearchIcon } from 'react-feather'
+import { Search as SearchIcon } from 'react-feather'
 import useScrollPosition from '@react-hook/window-scroll'
 
-import { ButtonSecondary } from './Button'
-import Row, { RowFixed, RowBetween } from './Row'
+import { RowFixed, RowBetween } from './Row'
 import Menu from './Menu'
 import { TYPE } from '../theme'
 import SelectRaid from './SelectRaid'
-import { themeAtom } from 'atoms/settingsAtom'
-import { useAtom } from 'jotai'
 
 const Header = () => {
-  const [darkMode, setTheme] = useAtom(themeAtom)
   const scrollY = useScrollPosition()
 
   return (
@@ -21,25 +16,22 @@ const Header = () => {
       <HideMedium>
         <HeaderRow>
           <Title>
-            <UniIcon>
+            <WebIcon>
               <RowBetween>
                 <StyledIcon />
                 <TYPE.mediumHeader pl="0.75rem">GBF Raid Finder</TYPE.mediumHeader>
               </RowBetween>
-            </UniIcon>
+            </WebIcon>
           </Title>
         </HeaderRow>
       </HideMedium>
       <HeaderControls>
         <HeaderElement>
-          <AccountElement active={false} style={{ pointerEvents: 'auto' }}>
+          <SelectRaidButton active={false} style={{ pointerEvents: 'auto' }}>
             <SelectRaid />
-          </AccountElement>
+          </SelectRaidButton>
         </HeaderElement>
         <HeaderElementWrap>
-          <StyledMenuButton onClick={() => setTheme((prev) => !prev)}>
-            {darkMode ? <Moon size={20} /> : <Sun size={20} />}
-          </StyledMenuButton>
           <Menu />
         </HeaderElementWrap>
       </HeaderControls>
@@ -62,12 +54,12 @@ const HeaderFrame = styled.div<{ showBackground: boolean }>`
   position: relative;
 
   /* Background slide effect on scroll. */
-  background-image: ${({ theme }) => `linear-gradient(to bottom, transparent 50%, ${theme.bg0} 50% )}}`}
+  background-image: ${({ theme }) => `linear-gradient(to bottom, transparent 50%, ${theme.bg0} 50% )}}`};
   background-position: ${({ showBackground }) => (showBackground ? '0 -100%' : '0 0')};
   background-size: 100% 200%;
   box-shadow: 0px 0px 0px 1px ${({ theme, showBackground }) => (showBackground ? theme.bg2 : 'transparent;')};
-  transition: background-position .1s, box-shadow .1s;
-
+  transition: background-position 0.1s, box-shadow 0.1s;
+  background-blend-mode: hard-light;
 
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 0rem;
@@ -114,20 +106,8 @@ const HeaderControls = styled.div`
     z-index: 99;
     height: 72px;
     border-radius: 12px 12px 0 0;
-    background-color: ${({ theme }) => theme.bg1};
-  `};
-`
-const HeaderLinks = styled(Row)`
-  justify-self: center;
-  width: fit-content;
-  padding: 4px;
-  border-radius: 16px;
-  display: grid;
-  grid-auto-flow: column;
-  grid-gap: 10px;
-  overflow: auto;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    justify-self: flex-end;
+    box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.bg2};
+    background-color: ${({ theme }) => theme.bg0};
   `};
 `
 
@@ -151,7 +131,7 @@ const HeaderElementWrap = styled.div`
   align-items: center;
 `
 
-const UniIcon = styled.div`
+const WebIcon = styled.div`
   transition: transform 0.3s ease;
   :hover {
     transform: rotate(-5deg);
@@ -164,7 +144,7 @@ const StyledIcon = styled(SearchIcon)`
   }
 `
 
-const AccountElement = styled.div<{ active: boolean }>`
+const SelectRaidButton = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -207,39 +187,6 @@ export const StyledMenuButton = styled.button`
     stroke: ${({ theme }) => theme.text1};
   }
 `
-
-const TabGeneric = styled(ButtonSecondary)`
-  ${({ theme }) => theme.flexRowNoWrap}
-  width: 100%;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  user-select: none;
-  :focus {
-    outline: none;
-  }
-`
-
-const Web3StatusConnect = styled(TabGeneric)`
-  font-weight: 500;
-  background-color: ${({ theme }) => theme.primary5};
-  border: 1px solid ${({ theme }) => theme.primary5};
-  color: ${({ theme }) => theme.primaryText1};
-
-  :hover,
-  :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-    color: ${({ theme }) => darken(0.05, theme.primaryText1)};
-  }
-`
-const Web3StatusConnected = styled(TabGeneric)`
-  background-color: ${({ theme }) => theme.bg1};
-  border: 1px solid ${({ theme }) => theme.bg2};
-  color: ${({ theme }) => theme.text1};
-  font-weight: 500;
-`
-
 const HideMedium = styled.span`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     display: none;

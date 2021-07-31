@@ -1,7 +1,6 @@
-import React, { HTMLProps, useCallback } from 'react'
 import styled, { keyframes } from 'styled-components/macro'
 import { darken } from 'polished'
-import { ArrowLeft, X, ExternalLink as LinkIconFeather, Trash } from 'react-feather'
+import { X, ExternalLink as LinkIconFeather, Trash } from 'react-feather'
 
 export const ButtonText = styled.button`
   outline: none;
@@ -53,6 +52,9 @@ export const Button = styled.button.attrs<{ warning: boolean }, { backgroundColo
 
 export const CloseIcon = styled(X)<{ onClick: () => void }>`
   cursor: pointer;
+  :hover {
+    opacity: 0.8;
+  }
 `
 
 // for wrapper react feather icons
@@ -113,26 +115,10 @@ export const StyledLink = styled.a`
   }
 `
 
-const LinkIconWrapper = styled.a`
-  text-decoration: none;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-
-  :hover {
-    text-decoration: none;
-    opacity: 0.7;
-  }
-
-  :focus {
-    outline: none;
-    text-decoration: none;
-  }
-
-  :active {
-    text-decoration: none;
-  }
+export const Separator = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${({ theme }) => theme.bg2};
 `
 
 export const LinkIcon = styled(LinkIconFeather)`
