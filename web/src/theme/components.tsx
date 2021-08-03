@@ -53,7 +53,7 @@ export const Button = styled.button.attrs<{ warning: boolean }, { backgroundColo
 export const CloseIcon = styled(X)<{ onClick: () => void }>`
   cursor: pointer;
   :hover {
-    opacity: 0.8;
+    opacity: 0.6;
   }
 `
 

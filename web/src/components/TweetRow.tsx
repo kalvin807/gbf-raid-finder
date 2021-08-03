@@ -5,6 +5,7 @@ import { StyledLink } from '../theme'
 import { useAtomValue } from 'jotai/utils'
 import { Message } from 'atoms/wsAtoms'
 import { clockAtom } from 'atoms/settingsAtom'
+import { copy } from 'utils/copy'
 
 const IDText = styled(TYPE.label)`
   margin-bottom: 24px;
@@ -68,7 +69,7 @@ const ElapsedTime = ({ timestamp }: { timestamp: Date }) => {
 const TweetRow = ({ message }: { message: Message }) => {
   const { msg, roomId, timestamp } = message
   return (
-    <StyledTweetRow>
+    <StyledTweetRow onClick={() => copy(roomId)}>
       <IDText>{roomId}</IDText>
       <ResponsiveText>{msg}</ResponsiveText>
       <ElapsedTime timestamp={timestamp} />

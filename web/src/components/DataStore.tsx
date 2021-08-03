@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
-import { boardAtom, statusAtom, writeMessageAtom } from 'atoms/wsAtoms'
+import { boardAtom, statusAtom, writeMsgStoreAtom } from 'atoms/wsAtoms'
 import { useEffect } from 'react'
 import { categoryAtom, fetchCategory, fetchRaid, writeRaidAtom } from 'atoms/gbfAtom'
 import { atom } from 'jotai'
@@ -13,7 +13,7 @@ import { clockAtom } from 'atoms/settingsAtom'
 const DataStore = () => {
   const board = useAtomValue(boardAtom)
 
-  const setMessage = useUpdateAtom(writeMessageAtom)
+  const setMessage = useUpdateAtom(writeMsgStoreAtom)
   const setStatus = useUpdateAtom(statusAtom)
   const setCategory = useUpdateAtom(categoryAtom)
   const setRaid = useUpdateAtom(writeRaidAtom)
@@ -23,14 +23,14 @@ const DataStore = () => {
     setClock(Date.now())
   }, [setClock])
 
+  const onMessage = (e: MessageEvent) => setMessage(e)
+  const onOpen = () => setStatus(ReadyState.OPEN)
+  const onClose = () => setStatus(ReadyState.CLOSED)
+
   const { sendJsonMessage } = useWebSocket('ws://gbf-raids-finder.herokuapp.com/ws', {
-    share: true,
-    onMessage: useCallback((e) => setMessage(e), [setMessage]),
-    onOpen: useCallback(() => {
-      console.log('loaded')
-      setStatus(ReadyState.OPEN)
-    }, [setStatus]),
-    onClose: useCallback(() => setStatus(ReadyState.CLOSED), [setStatus]),
+    onMessage: onMessage,
+    onOpen: onOpen,
+    onClose: onClose,
   })
 
   useEffect(() => {

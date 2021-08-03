@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React from 'react'
 import Modal from '../Modal'
 import styled from 'styled-components/macro'
 import Column, { AutoColumn } from '../Column'
@@ -6,48 +6,10 @@ import Row, { RowBetween, RowFixed } from '../Row'
 import { Text } from 'rebass'
 import { CloseIcon, TYPE } from '../../theme'
 import SelectRaidFilter from './SelectRaidFilter'
-import { useAtomValue, useUpdateAtom } from 'jotai/utils'
-import { filteredRaidAtom, Raid } from 'atoms/gbfAtom'
-import { PrimitiveAtom, useAtom } from 'jotai'
-import useTheme from 'hooks/useTheme'
+import { useAtomValue } from 'jotai/utils'
+import { filteredRaidAtom } from 'atoms/gbfAtom'
 import { transparentize } from 'polished'
-import { updateBoardAtom } from 'atoms/wsAtoms'
-
-const RaidSelect = memo(function RaidSelect({ atom }: { atom: PrimitiveAtom<Raid> }) {
-  const [item, setItem] = useAtom(atom)
-  const updateBoard = useUpdateAtom(updateBoardAtom)
-  const theme = useTheme()
-  const colorMap: { [key: string]: string } = {
-    Fire: theme.fire,
-    Water: theme.water,
-    Wind: theme.wind,
-    Earth: theme.earth,
-    Light: theme.light,
-    Dark: theme.dark,
-  }
-
-  const toggleSelected = () => {
-    // eslint-disable-next-line react/prop-types
-    setItem((props) => ({ ...props, isSelected: !props.isSelected }))
-    updateBoard(item)
-  }
-  const color = colorMap[item.element] || 'grey'
-  return (
-    <RowWrapper active={item.isSelected} bgColor={color || 'white'} key={'3'} id={'3'} onClick={toggleSelected}>
-      <div style={{ width: '24px', height: '24px', marginRight: '1rem' }} />
-      <Column style={{ flex: '1' }}>
-        <Row>
-          <StyledTitleText active={item.isSelected}>{item.jp}</StyledTitleText>
-        </Row>
-        <RowFixed mt="4px">
-          <StyledListUrlText active={item.isSelected} mr="6px">
-            {item.en}
-          </StyledListUrlText>
-        </RowFixed>
-      </Column>
-    </RowWrapper>
-  )
-})
+import Option from './Options'
 
 const RaidList = () => {
   const raids = useAtomValue(filteredRaidAtom)
@@ -55,7 +17,7 @@ const RaidList = () => {
     <ListContainer>
       <AutoColumn gap="md">
         {raids.map((atom, index) => (
-          <RaidSelect atom={atom} key={index} />
+          <Option atom={atom} key={index} />
         ))}
       </AutoColumn>
     </ListContainer>

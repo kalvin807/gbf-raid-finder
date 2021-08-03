@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { atomWithImmer } from 'jotai/immer'
+import { atomWithImmer, withImmer } from 'jotai/immer'
 import { atomWithStorage, splitAtom } from 'jotai/utils'
 import { ReadyState } from 'react-use-websocket'
 import { Raid } from './gbfAtom'
@@ -26,24 +26,38 @@ interface MessagesStore {
   [raidID: string]: Message[]
 }
 
+type Action = 'add' | 'remove'
+
 export const statusAtom = atom<ReadyState>(ReadyState.CLOSED)
 
 export const boardAtom = atomWithStorage<Board[]>('board', [])
 export const boardAtomsAtom = splitAtom(boardAtom)
-export const updateBoardAtom = atom(null, (get, set, raid: Raid) => {
-  const prev = get(boardAtom)
-  if (prev.findIndex((board) => board.id === raid.id) >= 0) {
-    return set(
-      boardAtom,
-      prev.filter((board) => board.id !== raid.id)
-    )
-  }
-  set(boardAtom, [...prev, { ...raid, ...defaultConfig }])
+export const updateBoardAtom = atom(null, (get, set, update: { raid: Raid; action: Action }) => {
+  const { raid, action } = update
+  const boardImmer = withImmer(boardAtom)
+  set(boardImmer, (draft) => {
+    const prevIdx = draft.findIndex((b) => b.id === raid.id)
+    if (action === 'add' && prevIdx === -1) {
+      draft.push({ ...raid, ...defaultConfig })
+      set(messageStoreAtom, (draft) => {
+        draft[raid.id] = []
+        return draft
+      })
+    }
+    if (action === 'remove' && prevIdx !== -1) {
+      draft.splice(prevIdx, 1)
+      set(messageStoreAtom, (draft) => {
+        delete draft[raid.id]
+        return draft
+      })
+    }
+    return draft
+  })
 })
 
 export const messageStoreAtom = atomWithImmer<MessagesStore>({})
 export const readMsgStoreAtom = atom((get) => get(messageStoreAtom))
-export const writeMessageAtom = atom(null, (get, set, update: MessageEvent<string>) => {
+export const writeMsgStoreAtom = atom(null, (get, set, update: MessageEvent<string>) => {
   set(messageStoreAtom, (draft) => {
     const raidMessage: Message = JSON.parse(update.data)
     const { raid, timestamp } = raidMessage

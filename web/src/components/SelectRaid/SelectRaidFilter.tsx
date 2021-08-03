@@ -82,7 +82,7 @@ const BaseWrapper = styled.div<{ active?: boolean }>`
   :hover {
     background-color: ${({ theme, active }) => !active && theme.bg2};
   }
-
+  color: ${({ theme, active }) => (active ? theme.white : theme.text1)};
   background-color: ${({ theme, active }) => active && theme.primary1};
 `
 
