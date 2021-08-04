@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components/macro'
+import styled, { keyframes } from 'styled-components'
 import { darken } from 'polished'
 import { X, ExternalLink as LinkIconFeather, Trash } from 'react-feather'
 

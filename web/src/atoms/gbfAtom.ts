@@ -19,7 +19,7 @@ export interface Raid {
 }
 
 const fetchJson = (endpoint: string) =>
-  fetch('https://gbf-raids-finder.herokuapp.com/' + endpoint)
+  fetch(`https://gbf-raids-finder.herokuapp.com/${endpoint}`)
     .then((res) => {
       if (res.status === 200) {
         return res.json()

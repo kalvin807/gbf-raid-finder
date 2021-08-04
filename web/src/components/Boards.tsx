@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { Text } from 'rebass'
 import Column, { AutoColumn } from './Column'
 import { RowBetween, RowFixed } from './Row'
@@ -9,8 +9,8 @@ import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { boardAtomsAtom, Board as BoardType, readMsgStoreAtom, updateBoardAtom } from 'atoms/wsAtoms'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import deepEquals from 'fast-deep-equal'
-import { TweetRow, LatestTweetRow } from 'components/TweetRow'
-import { LightCard } from 'components/Card'
+import { TweetRow, LatestTweetRow } from './TweetRow'
+import { LightCard } from './Card'
 
 const BoardGrid = styled.div`
   display: grid;

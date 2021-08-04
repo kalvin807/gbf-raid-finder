@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from '../Modal'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import Column, { AutoColumn } from '../Column'
 import Row, { RowBetween, RowFixed } from '../Row'
 import { Text } from 'rebass'

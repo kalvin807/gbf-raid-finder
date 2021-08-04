@@ -1,46 +1,49 @@
-# Getting Started with Create React App
+# GBF-Raid-Finder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A realtime twitter message filter that use to fetch all GBF raid message in twitter written in Go and Vue.js
 
-## Available Scripts
+> Very very welcome any kind of involvement (PR, issues...)  
 
-In the project directory, you can run:
+> Idea wanted for the name of this raid finder :smile:
 
-### `yarn start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+0. Clone this project to your local environment.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Prepare your Twitter API key
 
-### `yarn test`
+1. Apply a Twitter Developer Account [here](https://developer.twitter.com/en/apply-for-access).
+2. Create a project
+3. Generate and save both access key/secret and api key/secret
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Backend
 
-### `yarn build`
+1. Install go in your system
+2. At project root create a .env with following content
+```env
+    FRONT_END_URL=<Url to the frontend for CORS setting>
+    TWITTER_ACCESS_KEY=<access key>
+    TWITTER_ACCESS_SECRET=<access secret>
+    TWITTER_API_KEY=<api key>
+    TWITTER_API_SECRET=<api secret>
+```
+3. Fetch go modules by `go get`
+4. Start the backend server by `go run`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Frontend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Switch to directory `/web/`
+2. Create a .env file in `/web/`
+```env
+    WEBSOCKET_URI=<Url to the websocket endpoint>
+    BACKEND_URL=<Url to the backend>
+```
+3. Download node modules with `yarn install`
+4. Start the frontend server with `yarn start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Thanks to
+- GBF Raiders, Granblue Raid Finder... etc to giving me ideas and raid information
+- GBF Wiki
+- Every who used this tool!
+- KMR and Cygames for creating this farm - granblue fantasy

@@ -4,7 +4,7 @@ import { PrimitiveAtom, useAtom } from 'jotai'
 import { useUpdateAtom } from 'jotai/utils'
 import { transparentize } from 'polished'
 import React, { useCallback } from 'react'
-import styled, { useTheme } from 'styled-components/macro'
+import styled, { useTheme } from 'styled-components'
 
 const InfoCard = styled.button<{ bgColor: string; active?: boolean }>`
   background-color: ${({ bgColor, active }) => (active ? bgColor : transparentize(0.8, bgColor))};
@@ -63,8 +63,8 @@ const IconWrapper = styled.div<{ size?: number | null }>`
   justify-content: center;
   & > img,
   span {
-    height: ${({ size }) => (size ? size + 'px' : '24px')};
-    width: ${({ size }) => (size ? size + 'px' : '24px')};
+    height: ${({ size }) => (size ? `${size}px` : '24px')};
+    width: ${({ size }) => (size ? `${size}px` : '24px')};
   }
   ${({ theme }) => theme.mediaWidth.upToMedium`
     align-items: flex-end;

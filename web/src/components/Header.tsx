@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { Search as SearchIcon } from 'react-feather'
 import useScrollPosition from '@react-hook/window-scroll'
 

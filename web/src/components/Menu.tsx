@@ -3,7 +3,7 @@ import { useAtom } from 'jotai'
 import React, { useEffect, useRef, useState } from 'react'
 import { Code, Moon, Sun, ChevronRight, ChevronLeft, Check, MoreHorizontal as MenuIcon } from 'react-feather'
 import { SupportedLocale, LOCALE_LABEL, SUPPORTED_LOCALES } from 'statics/constant'
-import styled, { css } from 'styled-components/macro'
+import styled, { css } from 'styled-components'
 import { useOnClickOutside } from '../hooks/useOnClickOutside'
 
 export enum FlyoutAlignment {

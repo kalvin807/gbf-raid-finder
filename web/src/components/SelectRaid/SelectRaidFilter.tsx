@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text } from 'rebass'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { AutoColumn } from '../Column'
 import { AutoRow, RowBetween } from '../Row'
 import { ChevronDown, ChevronUp } from 'react-feather'

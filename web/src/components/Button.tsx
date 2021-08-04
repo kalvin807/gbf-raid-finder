@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import styled from 'styled-components'
 import { darken } from 'polished'
 
 import { RowBetween } from './Row'
@@ -324,17 +324,15 @@ export function ButtonConfirmed({
 }: { confirmed?: boolean; altDisabledStyle?: boolean } & ButtonProps) {
   if (confirmed) {
     return <ButtonConfirmedStyle {...rest} />
-  } else {
-    return <ButtonPrimary {...rest} altDisabledStyle={altDisabledStyle} />
   }
+  return <ButtonPrimary {...rest} altDisabledStyle={altDisabledStyle} />
 }
 
 export function ButtonError({ error, ...rest }: { error?: boolean } & ButtonProps) {
   if (error) {
     return <ButtonErrorStyle {...rest} />
-  } else {
-    return <ButtonPrimary {...rest} />
   }
+  return <ButtonPrimary {...rest} />
 }
 
 export function ButtonDropdown({ disabled = false, children, ...rest }: { disabled?: boolean } & ButtonProps) {
@@ -373,9 +371,8 @@ export function ButtonDropdownLight({ disabled = false, children, ...rest }: { d
 export function ButtonRadio({ active, ...rest }: { active?: boolean } & ButtonProps) {
   if (!active) {
     return <ButtonWhite {...rest} />
-  } else {
-    return <ButtonPrimary {...rest} />
   }
+  return <ButtonPrimary {...rest} />
 }
 
 const ActiveOutlined = styled(ButtonOutlined)`
@@ -414,20 +411,19 @@ export function ButtonRadioChecked({ active = false, children, ...rest }: { acti
         {<RowBetween>{children}</RowBetween>}
       </ButtonOutlined>
     )
-  } else {
-    return (
-      <ActiveOutlined {...rest} padding="12px 8px" borderRadius="12px">
-        {
-          <RowBetween>
-            {children}
-            <CheckboxWrapper>
-              <Circle>
-                <ResponsiveCheck size={13} stroke={theme.white} />
-              </Circle>
-            </CheckboxWrapper>
-          </RowBetween>
-        }
-      </ActiveOutlined>
-    )
   }
+  return (
+    <ActiveOutlined {...rest} padding="12px 8px" borderRadius="12px">
+      {
+        <RowBetween>
+          {children}
+          <CheckboxWrapper>
+            <Circle>
+              <ResponsiveCheck size={13} stroke={theme.white} />
+            </Circle>
+          </CheckboxWrapper>
+        </RowBetween>
+      }
+    </ActiveOutlined>
+  )
 }

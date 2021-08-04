@@ -53,3 +53,5 @@ pnpm-debug.log*
 # Binary file folder
 bin
 build
+
+web/stats.html

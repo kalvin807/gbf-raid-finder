@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GBF Raids Finder Omega</title>
+    <style>
+      * {
+        font-family: 'Inter', sans-serif;
+        box-sizing: border-box;
+      }
+
+      @supports (font-variation-settings: normal) {
+        * {
+          font-family: 'Inter var', sans-serif;
+        }
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      button {
+        user-select: none;
+      }
+
+      html {
+        font-size: 16px;
+        font-variant: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
+      }
+
+      html {
+        min-height: 100%;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html {
+          background-color: #121212;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        html {
+          background-color: #f7f8fa;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <div style="visibility: hidden">X</div>
+    </div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>
