@@ -1,11 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
 import { Search as SearchIcon } from 'react-feather'
 import useScrollPosition from '@react-hook/window-scroll'
+import styled from 'styled-components'
 
-import { RowFixed, RowBetween } from './Row'
-import Menu from './Menu'
 import { TYPE } from '../theme'
+
+import Menu from './Menu'
+import { RowBetween, RowFixed } from './Row'
 import SelectRaid from './SelectRaid'
 
 const Header = () => {

@@ -1,15 +1,18 @@
 import React from 'react'
-import Modal from '../Modal'
-import styled from 'styled-components'
-import Column, { AutoColumn } from '../Column'
-import Row, { RowBetween, RowFixed } from '../Row'
-import { Text } from 'rebass'
-import { CloseIcon, TYPE } from '../../theme'
-import SelectRaidFilter from './SelectRaidFilter'
 import { useAtomValue } from 'jotai/utils'
-import { filteredRaidAtom } from 'atoms/gbfAtom'
 import { transparentize } from 'polished'
+import { Text } from 'rebass'
+import styled from 'styled-components'
+
+import { filteredRaidAtom } from 'atoms/gbfAtom'
+
+import { CloseIcon, TYPE } from '../../theme'
+import Column, { AutoColumn } from '../Column'
+import Modal from '../Modal'
+import Row, { RowBetween, RowFixed } from '../Row'
+
 import Option from './Options'
+import SelectRaidFilter from './SelectRaidFilter'
 
 const RaidList = () => {
   const raids = useAtomValue(filteredRaidAtom)

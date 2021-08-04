@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { useAtomValue } from 'jotai/utils'
 import { Text, TextProps as TextPropsOriginal } from 'rebass'
 import styled, {
   createGlobalStyle,
@@ -7,9 +8,9 @@ import styled, {
   ThemeProvider as StyledComponentsThemeProvider,
 } from 'styled-components'
 
+import { themeAtom } from '../atoms/settingsAtom'
+
 import { Colors } from './styled'
-import { themeAtom } from 'atoms/settingsAtom'
-import { useAtomValue } from 'jotai/utils'
 
 export * from './components'
 

@@ -1,16 +1,19 @@
 import React, { useMemo } from 'react'
-import styled from 'styled-components'
+import { Bell, BellOff, Circle, Clipboard, X } from 'react-feather'
+import deepEquals from 'fast-deep-equal'
+import { PrimitiveAtom, useAtom } from 'jotai'
+import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { Text } from 'rebass'
+import styled from 'styled-components'
+
+import { Board as BoardType, boardAtomsAtom, readMsgStoreAtom, updateBoardAtom } from 'atoms/wsAtoms'
+
+import { Separator } from '../theme/components'
+
+import { LightCard } from './Card'
 import Column, { AutoColumn } from './Column'
 import { RowBetween, RowFixed } from './Row'
-import { Bell, BellOff, Clipboard, Circle, X } from 'react-feather'
-import { Separator } from '../theme/components'
-import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
-import { boardAtomsAtom, Board as BoardType, readMsgStoreAtom, updateBoardAtom } from 'atoms/wsAtoms'
-import { PrimitiveAtom, useAtom } from 'jotai'
-import deepEquals from 'fast-deep-equal'
-import { TweetRow, LatestTweetRow } from './TweetRow'
-import { LightCard } from './Card'
+import { LatestTweetRow, TweetRow } from './TweetRow'
 
 const BoardGrid = styled.div`
   display: grid;

@@ -1,10 +1,10 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
-import { animated, useTransition, useSpring } from 'react-spring'
-import { DialogOverlay, DialogContent } from '@reach/dialog'
 import { isMobile } from 'react-device-detect'
-import { transparentize } from 'polished'
+import { animated, useSpring, useTransition } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
+import { DialogContent, DialogOverlay } from '@reach/dialog'
+import { transparentize } from 'polished'
+import styled, { css } from 'styled-components'
 
 const AnimatedDialogOverlay = animated(DialogOverlay)
 

@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
+import { ChevronDown, ChevronUp } from 'react-feather'
+import { PrimitiveAtom, useAtom } from 'jotai'
+import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass'
 import styled from 'styled-components'
+
+import { Category, categoryAtom, nameFilterAtom } from 'atoms/gbfAtom'
+
+import { LightCard } from '../Card'
 import { AutoColumn } from '../Column'
 import { AutoRow, RowBetween } from '../Row'
-import { ChevronDown, ChevronUp } from 'react-feather'
-import { LightCard } from '../Card'
-import { useAtomValue } from 'jotai/utils'
-import { Category, categoryAtom, nameFilterAtom } from 'atoms/gbfAtom'
-import { PrimitiveAtom, useAtom } from 'jotai'
 
 const CategoryButton = ({ atom }: { atom: PrimitiveAtom<Category> }) => {
   const [value, setValue] = useAtom(atom)

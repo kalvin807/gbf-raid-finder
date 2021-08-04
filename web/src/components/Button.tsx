@@ -1,11 +1,12 @@
 import React from 'react'
-import styled from 'styled-components'
+import { Check, ChevronDown } from 'react-feather'
 import { darken } from 'polished'
+import { Button as RebassButton, ButtonProps as ButtonPropsOriginal } from 'rebass/styled-components'
+import styled from 'styled-components'
+
+import useTheme from '../hooks/useTheme'
 
 import { RowBetween } from './Row'
-import { ChevronDown, Check } from 'react-feather'
-import { Button as RebassButton, ButtonProps as ButtonPropsOriginal } from 'rebass/styled-components'
-import useTheme from '../hooks/useTheme'
 
 type ButtonProps = Omit<ButtonPropsOriginal, 'css'>
 

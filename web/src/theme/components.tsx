@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components'
+import { ExternalLink as LinkIconFeather, Trash, X } from 'react-feather'
 import { darken } from 'polished'
-import { X, ExternalLink as LinkIconFeather, Trash } from 'react-feather'
+import styled, { keyframes } from 'styled-components'
 
 export const ButtonText = styled.button`
   outline: none;

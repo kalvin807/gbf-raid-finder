@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect } from 'react'
-import styled from 'styled-components'
-import { TYPE } from 'theme'
-import { StyledLink } from '../theme'
-import { useAtomValue } from 'jotai/utils'
-import { Message } from 'atoms/wsAtoms'
-import { clockAtom } from 'atoms/settingsAtom'
-import { copy } from 'utils/copy'
 import { PrimitiveAtom } from 'jotai'
 import { useImmerAtom } from 'jotai/immer'
+import { useAtomValue } from 'jotai/utils'
+import styled from 'styled-components'
+
+import { clockAtom } from 'atoms/settingsAtom'
+import { Message } from 'atoms/wsAtoms'
+import { TYPE } from 'theme'
+import { copy } from 'utils/copy'
+
 import notiSfx from '../statics/sounds/noti.mp3'
+import { StyledLink } from '../theme'
 
 const sound = new Audio(notiSfx)
 

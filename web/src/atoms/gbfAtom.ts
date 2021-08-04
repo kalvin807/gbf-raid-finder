@@ -1,4 +1,5 @@
 import { atom, PrimitiveAtom } from 'jotai'
+
 import { boardAtom } from './wsAtoms'
 
 export interface Category {

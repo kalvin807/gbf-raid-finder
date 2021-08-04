@@ -1,9 +1,11 @@
-import { themeAtom } from 'atoms/settingsAtom'
-import { useAtom } from 'jotai'
 import React, { useEffect, useRef, useState } from 'react'
-import { Code, Moon, Sun, ChevronRight, ChevronLeft, Check, MoreHorizontal as MenuIcon } from 'react-feather'
-import { SupportedLocale, LOCALE_LABEL, SUPPORTED_LOCALES } from 'statics/constant'
+import { Check, ChevronLeft, ChevronRight, Code, Moon, MoreHorizontal as MenuIcon, Sun } from 'react-feather'
+import { useAtom } from 'jotai'
 import styled, { css } from 'styled-components'
+
+import { themeAtom } from 'atoms/settingsAtom'
+import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale } from 'statics/constant'
+
 import { useOnClickOutside } from '../hooks/useOnClickOutside'
 
 export enum FlyoutAlignment {

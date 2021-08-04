@@ -1,10 +1,11 @@
-import { Raid } from 'atoms/gbfAtom'
-import { updateBoardAtom } from 'atoms/wsAtoms'
+import React, { useCallback } from 'react'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import { useUpdateAtom } from 'jotai/utils'
 import { transparentize } from 'polished'
-import React, { useCallback } from 'react'
 import styled, { useTheme } from 'styled-components'
+
+import { Raid } from 'atoms/gbfAtom'
+import { updateBoardAtom } from 'atoms/wsAtoms'
 
 const InfoCard = styled.button<{ bgColor: string; active?: boolean }>`
   background-color: ${({ bgColor, active }) => (active ? bgColor : transparentize(0.8, bgColor))};

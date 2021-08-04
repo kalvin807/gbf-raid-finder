@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react'
-import styled from 'styled-components'
-import { ButtonSecondary } from '../Button'
+import React, { useCallback, useState } from 'react'
 import { darken } from 'polished'
+import styled from 'styled-components'
+
+import { ButtonSecondary } from '../Button'
 
 import SelectRaidModal from './SelectRaidModal'
 

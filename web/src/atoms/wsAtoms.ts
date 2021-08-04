@@ -1,7 +1,8 @@
+import { ReadyState } from 'react-use-websocket'
 import { Atom, atom, PrimitiveAtom } from 'jotai'
 import { atomWithImmer, withImmer } from 'jotai/immer'
 import { atomWithStorage, splitAtom } from 'jotai/utils'
-import { ReadyState } from 'react-use-websocket'
+
 import { Raid } from './gbfAtom'
 import { maxMessageAtom } from './settingsAtom'
 

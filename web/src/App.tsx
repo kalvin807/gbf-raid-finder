@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import ThemedBackground from './components/ThemedBackground'
-import Header from './components/Header'
+
 import Boards from './components/Boards'
+import Header from './components/Header'
+import ThemedBackground from './components/ThemedBackground'
 
 const App = () => {
   return (

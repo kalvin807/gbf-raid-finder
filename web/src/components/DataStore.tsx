@@ -1,10 +1,11 @@
 import { useCallback, useEffect } from 'react'
-import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
-import { boardAtom, statusAtom, writeMsgStoreAtom } from 'atoms/wsAtoms'
-import { categoryAtom, fetchCategory, fetchRaid, writeRaidAtom } from 'atoms/gbfAtom'
 import { atom } from 'jotai'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+
+import { categoryAtom, fetchCategory, fetchRaid, writeRaidAtom } from 'atoms/gbfAtom'
 import { clockAtom } from 'atoms/settingsAtom'
+import { boardAtom, statusAtom, writeMsgStoreAtom } from 'atoms/wsAtoms'
 
 /**
  * A Empty component to do data action within the react component root.
