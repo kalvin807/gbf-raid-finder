@@ -1,4 +1,4 @@
-package twitterFetcher
+package fetcher
 
 import (
 	"html"

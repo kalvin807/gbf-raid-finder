@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/kalvin807/gbf-raid-finder/internal/fetcher/twitterFetcher"
+	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 )
 
 const (
@@ -33,7 +33,7 @@ type Client struct {
 	conn *websocket.Conn
 
 	// Buffered channel of outbound messages.
-	send chan *twitterFetcher.RaidMsg
+	send chan *fetcher.RaidMsg
 
 	// Set of raid this client listen to
 	raid map[int]bool
@@ -93,7 +93,7 @@ func (c *Client) writePump() {
 
 // MakeWsClient starts a client connect from websocket
 func MakeWsClient(hub *Hub, conn *websocket.Conn) {
-	client := &Client{hub: hub, conn: conn, send: make(chan *twitterFetcher.RaidMsg, 256), raid: make(map[int]bool)}
+	client := &Client{hub: hub, conn: conn, send: make(chan *fetcher.RaidMsg, 256), raid: make(map[int]bool)}
 	client.hub.register <- client
 
 	// Allow collection of memory referenced by the caller by doing all work in

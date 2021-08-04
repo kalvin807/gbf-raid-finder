@@ -1,18 +1,16 @@
 package router
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
 	"github.com/NYTimes/gziphandler"
-	"github.com/fabioberger/airtable-go"
 	"github.com/gorilla/websocket"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
-	airTableFetcher "github.com/kalvin807/gbf-raid-finder/internal/fetcher/airtable"
+	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 	"github.com/tdewolff/minify"
 )
 
@@ -20,20 +18,25 @@ var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 2048,
 	CheckOrigin: func(r *http.Request) bool {
-		return checkOrigin(r)
+// 		if checkOrigin(r) {
+// 			return true
+// 		}
+		return true
 	},
 }
 
 var (
-	cacheSince = time.Now().Format(http.TimeFormat)
-	cacheUntil = time.Now().AddDate(0, 0, 1).Format(http.TimeFormat)
-	m          = minify.New()
+	raidFilePath     = fetcher.GetFilePath("/static/raid.json")
+	categoryFilePath = fetcher.GetFilePath("/static/category.json")
+	cacheSince       = time.Now().Format(http.TimeFormat)
+	cacheUntil       = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
+	m                = minify.New()
 )
 
 func setCache(w *http.ResponseWriter) {
 	// Must revalidate
 	header := (*w).Header()
-	header.Set("Cache-Control", "no-cache")
+	header.Set("Cache-Control", "no-cache, max-age=0")
 	header.Set("Last-Modified", cacheSince)
 	header.Set("Expires", cacheUntil)
 }
@@ -47,35 +50,26 @@ func checkOrigin(r *http.Request) bool {
 	return false
 }
 
-func serveAirTable(table string, client airtable.Client) http.Handler {
-	fetchAirTable := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+func makeGzipFileHander(filePath string) http.Handler {
+	withoutGz := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mw := m.ResponseWriter(w, r)
 		defer mw.Close()
 		w = mw
 		setCache(&w)
-		w.Header().Set("Content-Type", "application/json")
-		var jsonData []byte
-		if table == "raid" {
-			data := airTableFetcher.FetchRaid(client)
-			jsonData, _ = json.Marshal(data)
-		} else {
-			data := airTableFetcher.FetchCategory(client)
-			jsonData, _ = json.Marshal(data)
-		}
-		w.Write(jsonData)
+		http.ServeFile(w, r, filePath)
 	})
-	return gziphandler.GzipHandler(fetchAirTable)
+	return gziphandler.GzipHandler(withoutGz)
 }
 
 // SetUpRoute set up endpoints for websocket and static files
 func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
-	airTableClient := airTableFetcher.GetClient()
+
 	router.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", http.StatusTemporaryRedirect)
+		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", 302)
 	})
 
-	router.Handler("GET", "/raid", serveAirTable("raid", *airTableClient))
-	router.Handler("GET", "/category", serveAirTable("category", *airTableClient))
+	router.Handler("GET", "/raid", makeGzipFileHander(raidFilePath))
+	router.Handler("GET", "/category", makeGzipFileHander(categoryFilePath))
 
 	router.GET("/ws", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		conn, err := upgrader.Upgrade(w, r, nil)
