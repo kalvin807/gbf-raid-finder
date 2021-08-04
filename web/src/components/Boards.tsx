@@ -13,7 +13,7 @@ import { Separator } from 'theme/components'
 import { LightCard } from './Card'
 import { AutoColumn } from './Column'
 import { IconWrapper } from './Icon'
-import { Motd } from './Motd'
+import { EnMotd, JpMotd } from './Motd'
 import { RowBetween, RowFixed } from './Row'
 import { LatestTweetRow, TweetRow } from './TweetRow'
 
@@ -101,11 +101,10 @@ const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
 }
 
 const MotdBoard = () => {
+  const { i18n } = useTranslation()
   return (
     <PageWrapper>
-      <StyledBoard>
-        <Motd />
-      </StyledBoard>
+      <StyledBoard>{i18n.language === 'en' ? <EnMotd /> : <JpMotd />}</StyledBoard>
     </PageWrapper>
   )
 }
