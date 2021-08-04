@@ -1,20 +1,49 @@
-# gbf-raider-nuxt
+# GBF-Raid-Finder
 
-## Build Setup
+A realtime twitter message filter that use to fetch all GBF raid message in twitter written in Go and Vue.js
 
-```bash
-# install dependencies
-$ yarn install
+> Very very welcome any kind of involvement (PR, issues...)  
 
-# serve with hot reload at localhost:3000
-$ yarn dev
+> Idea wanted for the name of this raid finder :smile:
 
-# build for production and launch server
-$ yarn build
-$ yarn start
+## Installation
 
-# generate static project
-$ yarn generate
+0. Clone this project to your local environment.
+
+### Prepare your Twitter API key
+
+1. Apply a Twitter Developer Account [here](https://developer.twitter.com/en/apply-for-access).
+2. Create a project
+3. Generate and save both access key/secret and api key/secret
+
+### Backend
+
+1. Install go in your system
+2. At project root create a .env with following content
+```env
+    FRONT_END_URL=<Url to the frontend for CORS setting>
+    TWITTER_ACCESS_KEY=<access key>
+    TWITTER_ACCESS_SECRET=<access secret>
+    TWITTER_API_KEY=<api key>
+    TWITTER_API_SECRET=<api secret>
 ```
+3. Fetch go modules by `go get`
+4. Start the backend server by `go run`
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+### Frontend
+
+1. Switch to directory `/web/`
+2. Create a .env file in `/web/`
+```env
+    WEBSOCKET_URI=<Url to the websocket endpoint>
+    BACKEND_URL=<Url to the backend>
+```
+3. Download node modules with `yarn install`
+4. Start the frontend server with `yarn start`
+
+
+## Thanks to
+- GBF Raiders, Granblue Raid Finder... etc to giving me ideas and raid information
+- GBF Wiki
+- Every who used this tool!
+- KMR and Cygames for creating this farm - granblue fantasy

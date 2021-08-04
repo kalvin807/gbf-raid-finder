@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    "paths": {
+      "atoms/*": ["atoms/*"],
+      "components/*": ["components/*"],
+      "hooks/*": ["hooks/*"],
+      "statics/*": ["statics/*"],
+      "theme/*": ["theme/*"],
+      "utils/*": ["utils/*"]
+    }
+  },
+  "include": ["src"]
+}

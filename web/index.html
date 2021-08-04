@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GBF Raids Finder Omega</title>
+    <meta name="description" content="Granblue Fantasy Raid finder グラブルTwitter救援検索ツール" />
+    <meta name="keywords" content="gbf raid finder, グラブルレイドファインダー, gbf raiders, raid finder, 救援検索" />
+
+    <!-- {/* OpenGraph tags */} -->
+    <meta property="og:url" content="https://gbf.kalvin.io/" />
+    <meta name="og:title" content="GBF Raids Finder 救援検索・マグナ" />
+    <meta property="og:description" content="Granblue Fantasy Raid finder グラブルTwitter救援検索ツール" />
+
+    <!-- {/* Twitter Card tags */} -->
+    <meta name="twitter:title" content="GBF Raids Finder 救援検索・マグナ" />
+    <meta name="twitter:description" content="Granblue Fantasy Raid finder グラブルTwitter救援検索ツール" />
+
+    <style>
+      * {
+        font-family: 'Inter', sans-serif;
+        box-sizing: border-box;
+      }
+
+      @supports (font-variation-settings: normal) {
+        * {
+          font-family: 'Inter var', sans-serif;
+        }
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      button {
+        user-select: none;
+      }
+
+      html {
+        font-size: 16px;
+        font-variant: none;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
+      }
+
+      html {
+        min-height: 100%;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        html {
+          background-color: #121212;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        html {
+          background-color: #f7f8fa;
+        }
+      }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-880PLS4QXL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'G-880PLS4QXL')
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <div style="visibility: hidden">X</div>
+    </div>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>
