@@ -19,5 +19,3 @@ const ThemedBackground = styled.div<{ backgroundColor?: string | undefined }>`
 `
 
 export default ThemedBackground
-
-// dark sky blue color : #fc077d10

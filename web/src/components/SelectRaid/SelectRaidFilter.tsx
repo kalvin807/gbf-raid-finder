@@ -102,7 +102,7 @@ const CategoryScroll = styled(AutoRow)`
   overflow-y: auto;
 `
 
-export const SearchInput = styled.input`
+const SearchInput = styled.input`
   position: relative;
   display: flex;
   padding: 16px;

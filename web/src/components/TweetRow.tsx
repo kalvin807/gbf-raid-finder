@@ -32,7 +32,7 @@ const TimeText = styled(TYPE.main)`
   `};
 `
 
-const ResponsiveText = styled(TYPE.main)`
+const MessageText = styled(TYPE.main)`
   text-overflow: ellipsis;
   overflow: hidden;
   align-items: center;
@@ -43,7 +43,7 @@ const ResponsiveText = styled(TYPE.main)`
   `};
 `
 
-export const StyledTweetRow = styled(StyledLink)`
+const StyledTweetRow = styled(StyledLink)`
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 8px;
@@ -113,7 +113,7 @@ export const TweetRow = ({ atom }: { atom: PrimitiveAtom<Message> }) => {
   return (
     <StyledTweetRow onClick={() => copyAtom()}>
       <IDText>{isCopied ? 'copied' : roomId}</IDText>
-      <ResponsiveText>{msg}</ResponsiveText>
+      <MessageText>{msg}</MessageText>
       <ElapsedTime timestamp={timestamp} />
     </StyledTweetRow>
   )
