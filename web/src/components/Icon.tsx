@@ -11,7 +11,9 @@ export const IconWrapper = styled.button<{ stroke?: string; size?: string; margi
   > * {
     stroke: ${({ theme }) => theme.text1};
   }
-  :hover,
+  :active {
+    transform: scale(0.9);
+  }
   :focus {
     cursor: pointer;
     outline: none;

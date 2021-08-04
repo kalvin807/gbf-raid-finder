@@ -38,6 +38,7 @@ const StyledMenuButton = styled.button`
     cursor: pointer;
     outline: none;
     border: 1px solid ${({ theme }) => theme.bg3};
+    transform: scale(0.99);
   }
   svg {
     margin-top: 2px;

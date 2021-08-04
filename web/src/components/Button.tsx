@@ -40,6 +40,9 @@ const Base = styled(RebassButton)<
   &:hover {
     transform: scale(0.99);
   }
+  :active {
+    transform: scale(0.94);
+  }
 
   > * {
     user-select: none;

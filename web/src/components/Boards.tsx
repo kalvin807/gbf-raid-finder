@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
-import { Bell, BellOff, Circle, Clipboard, X } from 'react-feather'
+import { Bell, BellOff, Clipboard, X, XCircle } from 'react-feather'
 import { useTranslation } from 'react-i18next'
+import ReactMarkdown from 'react-markdown'
 import deepEquals from 'fast-deep-equal'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
@@ -8,11 +9,12 @@ import { Text } from 'rebass'
 import styled from 'styled-components'
 
 import { Board as BoardType, boardAtomsAtom, readMsgStoreAtom, updateBoardAtom } from 'atoms/wsAtoms'
-
-import { Separator } from '../theme/components'
+import motd from 'statics/motd'
+import { Separator } from 'theme/components'
 
 import { LightCard } from './Card'
 import { AutoColumn } from './Column'
+import { IconWrapper } from './Icon'
 import { RowBetween, RowFixed } from './Row'
 import { LatestTweetRow, TweetRow } from './TweetRow'
 
@@ -37,22 +39,8 @@ const HeaderColumn = styled(AutoColumn)`
   width: 100%;
 `
 
-export const StyledButton = styled.button`
-  height: 24px;
-  width: 24px;
-  border: none;
-  background-color: transparent;
+export const StyledButton = styled(IconWrapper)`
   margin: 2px 8px 2px 8px;
-  padding: 0;
-  :hover,
-  :focus {
-    cursor: pointer;
-    outline: none;
-    opacity: 0.7;
-  }
-  > * {
-    stroke: ${({ theme }) => theme.text1};
-  }
 `
 
 const PageWrapper = styled(AutoColumn)`
@@ -93,7 +81,7 @@ const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
           <RowFixed>
             <StyledButton onClick={toggleAlert}>{isAlert ? <Bell size={20} /> : <BellOff size={20} />}</StyledButton>
             <StyledButton onClick={toggleCopy}>
-              {isAutoCopy ? <Clipboard size={20} /> : <Circle size={20} />}
+              {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
             </StyledButton>
             <StyledButton onClick={onClose}>
               <X size={20} />
@@ -113,14 +101,23 @@ const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
   )
 }
 
+const MotdBoard = () => {
+  return (
+    <PageWrapper>
+      <StyledBoard>
+        <ReactMarkdown>{motd}</ReactMarkdown>
+      </StyledBoard>
+    </PageWrapper>
+  )
+}
+
 export default function Boards() {
   const boards = useAtomValue(boardAtomsAtom) || []
+
   return (
     <PageWrapper>
       <BoardGrid>
-        {boards.map((board, index) => (
-          <TweetsBoard atom={board} key={index} />
-        ))}
+        {boards.length ? boards.map((board, index) => <TweetsBoard atom={board} key={index} />) : <MotdBoard />}
       </BoardGrid>
     </PageWrapper>
   )

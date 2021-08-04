@@ -2,27 +2,28 @@ import React, { useCallback, useEffect } from 'react'
 import { PrimitiveAtom } from 'jotai'
 import { useImmerAtom } from 'jotai/immer'
 import { useAtomValue } from 'jotai/utils'
+import { Text } from 'rebass'
 import styled from 'styled-components'
 
 import { clockAtom } from 'atoms/settingsAtom'
 import { Message } from 'atoms/wsAtoms'
 import notiSfx from 'statics/sounds/noti.mp3'
-import { TYPE } from 'theme'
 import { copy } from 'utils/copy'
 
 import { StyledLink } from './Button'
 
 const sound = new Audio(notiSfx)
 
-const IDText = styled(TYPE.label)`
+const IDText = styled(Text)`
   margin-bottom: 24px;
   font-size: 20px;
+  font-weight: 600;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 16px;
   `};
 `
 
-const TimeText = styled(TYPE.main)`
+const TimeText = styled(Text)`
   align-items: center;
   display: flex;
   margin-bottom: 24px;
@@ -30,9 +31,10 @@ const TimeText = styled(TYPE.main)`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 12px;
   `};
+  font-weight: 300;
 `
 
-const MessageText = styled(TYPE.main)`
+const MessageText = styled(Text)`
   text-overflow: ellipsis;
   overflow: hidden;
   align-items: center;
@@ -43,7 +45,7 @@ const MessageText = styled(TYPE.main)`
   `};
 `
 
-const StyledTweetRow = styled(StyledLink)`
+const StyledTweetRow = styled(StyledLink)<{ copied: boolean }>`
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 8px;
@@ -51,7 +53,8 @@ const StyledTweetRow = styled(StyledLink)`
   position: relative;
   padding: 1rem;
   * {
-    color: ${({ theme }) => theme.text1};
+    font-style: ${({ copied }) => (copied ? 'italic' : 'normal')};
+    color: ${({ theme, copied }) => (copied ? theme.text4 : theme.text1)};
     text-decoration: none !important;
   }
   :hover {
@@ -111,8 +114,8 @@ export const TweetRow = ({ atom }: { atom: PrimitiveAtom<Message> }) => {
     setAtom((prev) => ({ ...prev, isCopied: true }))
   }
   return (
-    <StyledTweetRow onClick={() => copyAtom()}>
-      <IDText>{isCopied ? 'copied' : roomId}</IDText>
+    <StyledTweetRow onClick={() => copyAtom()} copied={isCopied}>
+      <IDText>{roomId}</IDText>
       <MessageText>{msg}</MessageText>
       <ElapsedTime timestamp={timestamp} />
     </StyledTweetRow>
