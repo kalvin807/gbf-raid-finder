@@ -1,4 +1,4 @@
-import { atom } from 'jotai'
+import { Atom, atom, PrimitiveAtom } from 'jotai'
 import { atomWithImmer, withImmer } from 'jotai/immer'
 import { atomWithStorage, splitAtom } from 'jotai/utils'
 import { ReadyState } from 'react-use-websocket'
@@ -20,10 +20,11 @@ export interface Message {
   msg: string
   roomId: string
   timestamp: Date
+  isCopied: false
 }
 
 interface MessagesStore {
-  [raidID: string]: Message[]
+  [raidID: string]: PrimitiveAtom<Message>[]
 }
 
 type Action = 'add' | 'remove'
@@ -61,7 +62,7 @@ export const writeMsgStoreAtom = atom(null, (get, set, update: MessageEvent<stri
   set(messageStoreAtom, (draft) => {
     const raidMessage: Message = JSON.parse(update.data)
     const { raid, timestamp } = raidMessage
-    const msg = { ...raidMessage, timestamp: new Date(timestamp) }
+    const msg = atom<Message>({ ...raidMessage, timestamp: new Date(timestamp), isCopied: false })
     if (raid in draft) {
       const maxLength = get(maxMessageAtom)
       if (draft[raid].length >= maxLength) {

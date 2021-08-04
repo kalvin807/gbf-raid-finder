@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import styled from 'styled-components/macro'
 import { TYPE } from 'theme'
 import { StyledLink } from '../theme'
@@ -6,6 +6,10 @@ import { useAtomValue } from 'jotai/utils'
 import { Message } from 'atoms/wsAtoms'
 import { clockAtom } from 'atoms/settingsAtom'
 import { copy } from 'utils/copy'
+import { PrimitiveAtom } from 'jotai'
+import { useImmerAtom } from 'jotai/immer'
+import useSound from 'use-sound'
+import notiSfx from '../statics/sounds/noti.mp3'
 
 const IDText = styled(TYPE.label)`
   margin-bottom: 24px;
@@ -66,15 +70,51 @@ const ElapsedTime = ({ timestamp }: { timestamp: Date }) => {
   return <TimeText>{parseElapsedTime(now - timestamp.getTime())} </TimeText>
 }
 
-const TweetRow = ({ message }: { message: Message }) => {
-  const { msg, roomId, timestamp } = message
+export const LatestTweetRow = ({
+  atom,
+  isAutoCopy,
+  isAlert,
+}: {
+  atom: PrimitiveAtom<Message>
+  isAutoCopy: boolean
+  isAlert: boolean
+}) => {
+  const [{ roomId, isCopied }, setAtom] = useImmerAtom(atom)
+  const [play] = useSound(notiSfx)
+
+  const copyAtom = useCallback(() => {
+    copy(roomId)
+    setAtom((draft) => ({ ...draft, isCopied: true }))
+  }, [roomId, setAtom])
+
+  useEffect(() => {
+    if (isAutoCopy && !isCopied) {
+      copyAtom()
+    }
+  }, [roomId, isCopied, copyAtom, isAutoCopy])
+
+  useEffect(() => {
+    if (isAlert) play()
+  }, [roomId, isAlert, play])
+
+  return <TweetRow atom={atom} />
+}
+
+export const TweetRow = ({ atom }: { atom: PrimitiveAtom<Message> }) => {
+  const [value, setAtom] = useImmerAtom(atom)
+  const [play] = useSound(notiSfx, { interrupt: true })
+
+  const { msg, roomId, timestamp, isCopied } = value
+  const copyAtom = () => {
+    play()
+    copy(roomId)
+    setAtom((prev) => ({ ...prev, isCopied: true }))
+  }
   return (
-    <StyledTweetRow onClick={() => copy(roomId)}>
-      <IDText>{roomId}</IDText>
+    <StyledTweetRow onClick={() => copyAtom()}>
+      <IDText>{isCopied ? 'copied' : roomId}</IDText>
       <ResponsiveText>{msg}</ResponsiveText>
       <ElapsedTime timestamp={timestamp} />
     </StyledTweetRow>
   )
 }
-
-export default TweetRow

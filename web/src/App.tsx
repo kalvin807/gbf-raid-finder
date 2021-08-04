@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import ThemedBackground from './components/ThemedBackground'
 import Header from './components/Header'
-import Raid from './components/Raid'
+import Boards from './components/Boards'
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       </HeaderWrapper>
       <BodyWrapper>
         <ThemedBackground />
-        <Raid />
+        <Boards />
       </BodyWrapper>
     </AppWrapper>
   )

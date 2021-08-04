@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components/macro'
 import { Text } from 'rebass'
-import Column, { AutoColumn } from '../Column'
-import { RowBetween, RowFixed } from '../Row'
+import Column, { AutoColumn } from './Column'
+import { RowBetween, RowFixed } from './Row'
 import { Bell, BellOff, Clipboard, Circle, X } from 'react-feather'
-import { Separator } from '../../theme/components'
+import { Separator } from '../theme/components'
 import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { boardAtomsAtom, Board as BoardType, readMsgStoreAtom, updateBoardAtom } from 'atoms/wsAtoms'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import deepEquals from 'fast-deep-equal'
-import TweetRow from 'components/TweetRow'
+import { TweetRow, LatestTweetRow } from 'components/TweetRow'
 import { LightCard } from 'components/Card'
 
 const BoardGrid = styled.div`
@@ -51,6 +51,19 @@ export const StyledButton = styled.button`
   }
 `
 
+const PageWrapper = styled(AutoColumn)`
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 0 16px 0 16px;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+    margin-bottom: 80px;
+    padding: 0 8px 0 8px;
+  `};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  padding: 0 4px 0 4px;
+  `};
+`
+
 const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
   const [boardInfo, setBoard] = useAtom(atom)
   const { id, en, isAlert, isAutoCopy } = boardInfo
@@ -85,7 +98,11 @@ const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
       </HeaderColumn>
       <Separator />
       {msgs.map((m, index) => {
-        return <TweetRow message={m} key={`${id}-${index}`} />
+        return index === 0 ? (
+          <LatestTweetRow atom={m} key={`${id}-${index}`} isAlert={isAlert} isAutoCopy={isAutoCopy} />
+        ) : (
+          <TweetRow atom={m} key={`${id}-${index}`} />
+        )
       })}
     </StyledBoard>
   )
@@ -94,10 +111,12 @@ const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
 export default function Boards() {
   const boards = useAtomValue(boardAtomsAtom) || []
   return (
-    <BoardGrid>
-      {boards.map((board, index) => (
-        <TweetsBoard atom={board} key={index} />
-      ))}
-    </BoardGrid>
+    <PageWrapper>
+      <BoardGrid>
+        {boards.map((board, index) => (
+          <TweetsBoard atom={board} key={index} />
+        ))}
+      </BoardGrid>
+    </PageWrapper>
   )
 }
