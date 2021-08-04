@@ -25,6 +25,7 @@
   "rules": {
     "object-shorthand": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/no-explicit-any": 0,
     "simple-import-sort/imports": [
       "error",
       {

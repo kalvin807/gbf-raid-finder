@@ -12,3 +12,4 @@ const isPreferDark = (): boolean => {
 export const themeAtom = atomWithStorage('darkTheme', isPreferDark())
 export const maxMessageAtom = atomWithStorage('maxMessage', 5)
 export const clockAtom = atom(0)
+export const modalAtom = atom(false)

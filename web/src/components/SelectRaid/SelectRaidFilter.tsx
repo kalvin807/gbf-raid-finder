@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
+import { Trans, useTranslation } from 'react-i18next'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass'
@@ -12,12 +13,14 @@ import { AutoColumn } from '../Column'
 import { AutoRow, RowBetween } from '../Row'
 
 const CategoryButton = ({ atom }: { atom: PrimitiveAtom<Category> }) => {
+  const { i18n } = useTranslation()
+
   const [value, setValue] = useAtom(atom)
   const toggle = () => setValue((state) => ({ ...state, isSelected: !state.isSelected }))
   return (
     <BaseWrapper active={value.isSelected} onClick={toggle}>
       <Text fontWeight={500} fontSize={16}>
-        {value.en}
+        {i18n.language === 'en' ? value.en : value.ja}
       </Text>
     </BaseWrapper>
   )
@@ -36,19 +39,22 @@ const CategoriesFilter = () => {
 
 const ExpandedFilter = () => {
   const [value, setValue] = useAtom(nameFilterAtom)
+  const { t } = useTranslation()
   return (
     <AutoRow gap="4px">
       <SearchInput
         type="text"
         id="token-search-input"
-        placeholder="Search name in English/Japanese"
+        placeholder={t('search_placeholder')}
         autoComplete="off"
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
       <AutoRow>
         <Text fontWeight={500} fontSize={14}>
-          Categories
+          <Trans t={t} i18nKey="categories">
+            Categories
+          </Trans>
         </Text>
       </AutoRow>
       <CategoriesFilter />
@@ -58,12 +64,15 @@ const ExpandedFilter = () => {
 
 export default function SelectRaidFilter() {
   const [expand, setExpand] = useState(false)
+  const { t } = useTranslation()
   return (
     <LightCard width="100%" padding="8px">
       <AutoColumn gap="sm" justify="center">
         <RowBetween padding="8px" onClick={() => setExpand(!expand)}>
           <Text fontWeight={500} fontSize={16}>
-            Filter
+            <Trans t={t} i18nKey="filter">
+              Filter
+            </Trans>
           </Text>
           {expand ? <ChevronUp /> : <ChevronDown />}
         </RowBetween>

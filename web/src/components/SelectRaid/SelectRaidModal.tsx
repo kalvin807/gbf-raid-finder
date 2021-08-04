@@ -1,12 +1,17 @@
 import React from 'react'
-import { useAtomValue } from 'jotai/utils'
+import { X } from 'react-feather'
+import { Trans, useTranslation } from 'react-i18next'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { transparentize } from 'polished'
 import { Text } from 'rebass'
 import styled from 'styled-components'
 
 import { filteredRaidAtom } from 'atoms/gbfAtom'
+import { updateBoardAtom } from 'atoms/wsAtoms'
+import { IconWrapper } from 'components/Icon'
+import { TYPE } from 'theme'
 
-import { CloseIcon, TYPE } from '../../theme'
+import { LinkStyledButton } from '../Button'
 import Column, { AutoColumn } from '../Column'
 import Modal from '../Modal'
 import Row, { RowBetween, RowFixed } from '../Row'
@@ -27,16 +32,29 @@ const RaidList = () => {
   )
 }
 
-export default function SelectModal({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) {
+const SelectModal = ({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) => {
+  const { t } = useTranslation()
+  const setBoard = useUpdateAtom(updateBoardAtom)
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={80}>
       <ContentWrapper>
         <PaddedColumn gap="16px">
           <RowBetween>
             <Text fontWeight={500} fontSize={16}>
-              Select Raids
+              <Trans i18nKey="add_raid" t={t}>
+                Add Raid
+              </Trans>
             </Text>
-            <CloseIcon onClick={onDismiss} />
+            <RowFixed>
+              <LinkStyledButton onClick={() => setBoard({ action: 'reset' })}>
+                <Trans i18nKey="clear_all" t={t}>
+                  Clear all
+                </Trans>
+              </LinkStyledButton>
+              <IconWrapper marginLeft="1rem" onClick={onDismiss}>
+                <X />
+              </IconWrapper>
+            </RowFixed>
           </RowBetween>
           <Row>
             <SelectRaidFilter />
@@ -174,8 +192,7 @@ export const ListContainer = styled.div`
 `
 
 export const RowWrapper = styled(Row)<{ bgColor: string; active: boolean }>`
-  background-color: ${({ bgColor, active, theme }) =>
-    active ? bgColor ?? 'transparent' : transparentize(0.8, bgColor)};
+  background-color: ${({ bgColor, active }) => (active ? bgColor ?? 'transparent' : transparentize(0.8, bgColor))};
   transition: 200ms;
   align-items: center;
   padding: 1rem;
@@ -194,3 +211,5 @@ export const StyledListUrlText = styled(TYPE.main)<{ active: boolean }>`
   font-size: 12px;
   color: ${({ theme, active }) => (active ? theme.white : theme.text2)};
 `
+
+export default SelectModal

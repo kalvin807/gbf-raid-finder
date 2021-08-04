@@ -1,6 +1,6 @@
 import { atom, PrimitiveAtom } from 'jotai'
 
-import { boardAtom } from './wsAtoms'
+import { boardsAtom } from './wsAtoms'
 
 export interface Category {
   id: number
@@ -39,7 +39,7 @@ export const raidAtom = atom<PrimitiveAtom<Raid>[]>([])
 export const nameFilterAtom = atom<string>('')
 
 export const writeRaidAtom = atom(null, (get, set, update: Raid[]) => {
-  const board = get(boardAtom)
+  const board = get(boardsAtom)
   const activeId = new Set(board.map(({ id }) => id))
   const atoms = update.map((raid) => {
     if (activeId.has(raid.id)) {
@@ -56,7 +56,7 @@ export const filteredRaidAtom = atom<PrimitiveAtom<Raid>[]>((get) => {
   const raids = get(raidAtom)
   if (categoryFilter.length === 0 && !nameFilter) return raids
   const categoryKeys = categoryFilter.map((atom) => get(atom).en)
-  return raids.filter((atom) => {
+  const filtered = raids.filter((atom) => {
     const item = get(atom)
     const nameMatch = nameFilter
       ? item.en.toLowerCase().includes(nameFilter.toLowerCase()) ||
@@ -65,4 +65,5 @@ export const filteredRaidAtom = atom<PrimitiveAtom<Raid>[]>((get) => {
     const categoryMatch = categoryKeys.length ? categoryKeys.includes(item.category) : true
     return nameMatch && categoryMatch
   })
+  return filtered
 })

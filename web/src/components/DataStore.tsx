@@ -1,20 +1,19 @@
 import { useCallback, useEffect } from 'react'
-import useWebSocket, { ReadyState } from 'react-use-websocket'
-import { atom } from 'jotai'
+import { atom, useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 
 import { categoryAtom, fetchCategory, fetchRaid, writeRaidAtom } from 'atoms/gbfAtom'
 import { clockAtom } from 'atoms/settingsAtom'
-import { boardAtom, statusAtom, writeMsgStoreAtom } from 'atoms/wsAtoms'
+import { boardsAtom, writeMsgStoreAtom, ws, wsState } from 'atoms/wsAtoms'
 
 /**
  * A Empty component to do data action within the react component root.
  **/
 const DataStore = () => {
-  const board = useAtomValue(boardAtom)
+  const board = useAtomValue(boardsAtom)
+  const [state, setWsState] = useAtom(wsState)
 
   const setMessage = useUpdateAtom(writeMsgStoreAtom)
-  const setStatus = useUpdateAtom(statusAtom)
   const setCategory = useUpdateAtom(categoryAtom)
   const setRaid = useUpdateAtom(writeRaidAtom)
   const setClock = useUpdateAtom(clockAtom)
@@ -22,16 +21,6 @@ const DataStore = () => {
   const updateClock = useCallback(() => {
     setClock(Date.now())
   }, [setClock])
-
-  const onMessage = (e: MessageEvent) => setMessage(e)
-  const onOpen = () => setStatus(ReadyState.OPEN)
-  const onClose = () => setStatus(ReadyState.CLOSED)
-
-  const { sendJsonMessage } = useWebSocket('ws://gbf-raids-finder.herokuapp.com/ws', {
-    onMessage: onMessage,
-    onOpen: onOpen,
-    onClose: onClose,
-  })
 
   useEffect(() => {
     fetchCategory().then((res) => {
@@ -47,11 +36,11 @@ const DataStore = () => {
   }, [setRaid, setCategory])
 
   useEffect(() => {
-    if (sendJsonMessage) {
+    if (state === WebSocket.OPEN) {
       const activeId = board.filter((atom) => atom.id).map(({ id }) => id)
-      sendJsonMessage({ raid: activeId })
+      ws.send(JSON.stringify({ raid: activeId }))
     }
-  }, [sendJsonMessage, board])
+  }, [board, state])
 
   useEffect(() => {
     const clock = setInterval(updateClock, 1000)
@@ -59,6 +48,21 @@ const DataStore = () => {
       clearInterval(clock)
     }
   }, [updateClock])
+
+  useEffect(() => {
+    const onMessage = (e: MessageEvent) => setMessage(e)
+    const onOpen = () => {
+      console.log('Ws connected')
+      setWsState(WebSocket.OPEN)
+    }
+    const onClose = () => {
+      console.log('Ws closed')
+      setWsState(WebSocket.CLOSED)
+    }
+    ws.onmessage = onMessage
+    ws.onclose = onClose
+    ws.onopen = onOpen
+  }, [setMessage, setWsState])
 
   return null
 }

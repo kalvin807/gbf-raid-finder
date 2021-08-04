@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { Bell, BellOff, Circle, Clipboard, X } from 'react-feather'
+import { useTranslation } from 'react-i18next'
 import deepEquals from 'fast-deep-equal'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
@@ -11,7 +12,7 @@ import { Board as BoardType, boardAtomsAtom, readMsgStoreAtom, updateBoardAtom }
 import { Separator } from '../theme/components'
 
 import { LightCard } from './Card'
-import Column, { AutoColumn } from './Column'
+import { AutoColumn } from './Column'
 import { RowBetween, RowFixed } from './Row'
 import { LatestTweetRow, TweetRow } from './TweetRow'
 
@@ -68,8 +69,9 @@ const PageWrapper = styled(AutoColumn)`
 `
 
 const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
+  const { i18n } = useTranslation()
   const [boardInfo, setBoard] = useAtom(atom)
-  const { id, en, isAlert, isAutoCopy } = boardInfo
+  const { id, en, jp, isAlert, isAutoCopy } = boardInfo
   const updateBoard = useUpdateAtom(updateBoardAtom)
 
   const raidMsgAtom = useMemo(() => selectAtom(readMsgStoreAtom, (store) => store[id], deepEquals), [id])
@@ -85,7 +87,7 @@ const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
         <RowBetween>
           <RowFixed>
             <Text fontWeight={500} fontSize={16}>
-              {en}
+              {i18n.language === 'en' ? en : jp}
             </Text>
           </RowFixed>
           <RowFixed>

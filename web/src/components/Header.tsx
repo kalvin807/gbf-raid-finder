@@ -1,17 +1,23 @@
 import React from 'react'
 import { Search as SearchIcon } from 'react-feather'
+import { Trans, useTranslation } from 'react-i18next'
 import useScrollPosition from '@react-hook/window-scroll'
+import { useUpdateAtom } from 'jotai/utils'
+import { darken } from 'polished'
 import styled from 'styled-components'
+
+import { modalAtom } from 'atoms/settingsAtom'
 
 import { TYPE } from '../theme'
 
+import { ButtonSecondary } from './Button'
 import Menu from './Menu'
 import { RowBetween, RowFixed } from './Row'
-import SelectRaid from './SelectRaid'
 
 const Header = () => {
   const scrollY = useScrollPosition()
-
+  const setModal = useUpdateAtom(modalAtom)
+  const { t } = useTranslation()
   return (
     <HeaderFrame showBackground={scrollY > 45}>
       <HideMedium>
@@ -20,7 +26,9 @@ const Header = () => {
             <WebIcon>
               <RowBetween>
                 <StyledIcon />
-                <TYPE.mediumHeader pl="0.75rem">GBF Raid Finder</TYPE.mediumHeader>
+                <Trans i18nKey="title" t={t}>
+                  <TYPE.mediumHeader pl="0.75rem">GBF Raid Finder!</TYPE.mediumHeader>{' '}
+                </Trans>
               </RowBetween>
             </WebIcon>
           </Title>
@@ -28,9 +36,13 @@ const Header = () => {
       </HideMedium>
       <HeaderControls>
         <HeaderElement>
-          <SelectRaidButton active={false} style={{ pointerEvents: 'auto' }}>
-            <SelectRaid />
-          </SelectRaidButton>
+          <SelectRaid active={false} style={{ pointerEvents: 'auto' }}>
+            <SelectRaidButton onClick={() => setModal(true)}>
+              <Trans i18nKey="add_raid" t={t}>
+                Add Raid
+              </Trans>
+            </SelectRaidButton>
+          </SelectRaid>
         </HeaderElement>
         <HeaderElementWrap>
           <Menu />
@@ -145,7 +157,7 @@ const StyledIcon = styled(SearchIcon)`
   }
 `
 
-const SelectRaidButton = styled.div<{ active: boolean }>`
+const SelectRaid = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -192,6 +204,31 @@ const HideMedium = styled.span`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     display: none;
   `};
+`
+const TabGeneric = styled(ButtonSecondary)`
+  ${({ theme }) => theme.flexRowNoWrap}
+  width: 100%;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 12px;
+  cursor: pointer;
+  user-select: none;
+  :focus {
+    outline: none;
+  }
+`
+
+const SelectRaidButton = styled(TabGeneric)`
+  font-weight: 500;
+  background-color: ${({ theme }) => theme.primary5};
+  border: 1px solid ${({ theme }) => theme.primary5};
+  color: ${({ theme }) => theme.primaryText1};
+
+  :hover,
+  :focus {
+    border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
+    color: ${({ theme }) => darken(0.05, theme.primaryText1)};
+  }
 `
 
 export default Header

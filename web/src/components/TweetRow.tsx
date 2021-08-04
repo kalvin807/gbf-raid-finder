@@ -6,11 +6,11 @@ import styled from 'styled-components'
 
 import { clockAtom } from 'atoms/settingsAtom'
 import { Message } from 'atoms/wsAtoms'
+import notiSfx from 'statics/sounds/noti.mp3'
 import { TYPE } from 'theme'
 import { copy } from 'utils/copy'
 
-import notiSfx from '../statics/sounds/noti.mp3'
-import { StyledLink } from '../theme'
+import { StyledLink } from './Button'
 
 const sound = new Audio(notiSfx)
 

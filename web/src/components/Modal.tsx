@@ -1,8 +1,8 @@
 import React from 'react'
 import { isMobile } from 'react-device-detect'
-import { animated, useSpring, useTransition } from 'react-spring'
 import { useGesture } from 'react-use-gesture'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
+import { animated, useSpring, useTransition } from '@react-spring/web'
 import { transparentize } from 'polished'
 import styled, { css } from 'styled-components'
 

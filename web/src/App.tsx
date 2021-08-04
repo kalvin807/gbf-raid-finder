@@ -1,21 +1,25 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Boards from './components/Boards'
-import Header from './components/Header'
-import ThemedBackground from './components/ThemedBackground'
+import Boards from 'components/Boards'
+import Header from 'components/Header'
+import SelectRaid from 'components/SelectRaid'
+import ThemedBackground from 'components/ThemedBackground'
 
 const App = () => {
   return (
-    <AppWrapper>
-      <HeaderWrapper>
-        <Header />
-      </HeaderWrapper>
-      <BodyWrapper>
-        <ThemedBackground />
-        <Boards />
-      </BodyWrapper>
-    </AppWrapper>
+    <>
+      <AppWrapper>
+        <HeaderWrapper>
+          <Header />
+        </HeaderWrapper>
+        <BodyWrapper>
+          <ThemedBackground />
+          <Boards />
+        </BodyWrapper>
+      </AppWrapper>
+      <SelectRaid />
+    </>
   )
 }
 

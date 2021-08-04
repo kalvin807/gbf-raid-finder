@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
-import { PrimitiveAtom, useAtom } from 'jotai'
-import { useUpdateAtom } from 'jotai/utils'
-import { transparentize } from 'polished'
+import { PrimitiveAtom } from 'jotai'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import { lighten, transparentize } from 'polished'
 import styled, { useTheme } from 'styled-components'
 
 import { Raid } from 'atoms/gbfAtom'
@@ -38,42 +38,29 @@ const OptionCardLeft = styled.div`
   height: 100%;
 `
 
-const OptionCardClickable = styled(OptionCard)<{ click: string }>`
+const OptionCardClickable = styled(OptionCard)<{ bgColor: string; click: string }>`
   margin-top: 0;
-  border: ${({ theme }) => `2px solid ${theme.bg1}`};
+  border: ${({ bgColor }) => `1px solid ${lighten(0.2, bgColor)}`};
   &:hover {
     cursor: pointer;
-    border: ${({ click }) => (click ? `2px solid ${click}` : ``)};
+    border: ${({ click }) => (click ? `1px solid ${click}` : ``)};
   }
 `
 
 const HeaderText = styled.div`
   text-align: left;
-  font-size: 1rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 400;
 `
 
 const SubHeader = styled.div`
   margin-top: 10px;
-  font-size: 12px;
-`
-
-const IconWrapper = styled.div<{ size?: number | null }>`
-  ${({ theme }) => theme.flexColumnNoWrap};
-  align-items: center;
-  justify-content: center;
-  & > img,
-  span {
-    height: ${({ size }) => (size ? `${size}px` : '24px')};
-    width: ${({ size }) => (size ? `${size}px` : '24px')};
-  }
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    align-items: flex-end;
-  `};
+  font-size: 1rem;
+  font-weight: 500;
 `
 
 export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
-  const [item, setItem] = useAtom(atom)
+  const item = useAtomValue(atom)
   const { isSelected, element, en, jp } = item
   const updateBoard = useUpdateAtom(updateBoardAtom)
   const theme = useTheme()
@@ -87,10 +74,8 @@ export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
   }
 
   const toggleSelected = useCallback(() => {
-    // eslint-disable-next-line react/prop-types
-    setItem((props) => ({ ...props, isSelected: !isSelected }))
     updateBoard({ raid: item, action: isSelected ? 'remove' : 'add' })
-  }, [setItem, updateBoard, item, isSelected])
+  }, [updateBoard, item, isSelected])
 
   const color = colorMap[element] || theme.bg5
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Check, ChevronLeft, ChevronRight, Code, Moon, MoreHorizontal as MenuIcon, Sun } from 'react-feather'
+import { Trans, useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
 import styled, { css } from 'styled-components'
 
@@ -169,15 +170,19 @@ const ToggleMenuItem = styled.button`
   }
 `
 
-const CODE_LINK = 'https://github.com/Uniswap/uniswap-interface'
+const CODE_LINK = 'https://github.com/kalvin807/gbf-raid-finder'
 
-function LanguageMenuItem({ locale, active, key }: { locale: SupportedLocale; active: boolean; key: string }) {
-  // const { to, onClick } = useLocationLinkProps(locale)
-
-  // if (!to) return null
-
+function LanguageMenuItem({
+  locale,
+  active,
+  onClick,
+}: {
+  locale: SupportedLocale
+  active: boolean
+  onClick: () => Promise<any>
+}) {
   return (
-    <InternalLinkMenuItem key={key}>
+    <InternalLinkMenuItem onClick={onClick}>
       <div>{LOCALE_LABEL[locale]}</div>
       {active && <Check opacity={0.6} size={16} />}
     </InternalLinkMenuItem>
@@ -185,7 +190,7 @@ function LanguageMenuItem({ locale, active, key }: { locale: SupportedLocale; ac
 }
 
 function LanguageMenu({ close }: { close: () => void }) {
-  // const activeLocale = useActiveLocale()
+  const { i18n } = useTranslation()
 
   return (
     <MenuFlyout>
@@ -193,7 +198,12 @@ function LanguageMenu({ close }: { close: () => void }) {
         <ChevronLeft size={16} />
       </ToggleMenuItem>
       {SUPPORTED_LOCALES.map((locale) => (
-        <LanguageMenuItem locale={locale} active={false} key={locale} />
+        <LanguageMenuItem
+          locale={locale}
+          active={locale === i18n.language}
+          key={locale}
+          onClick={() => i18n.changeLanguage(locale)}
+        />
       ))}
     </MenuFlyout>
   )
@@ -211,6 +221,7 @@ export default function Menu() {
         }
       : undefined
   )
+  const { t } = useTranslation()
 
   const [menu, setMenu] = useState<'main' | 'lang' | 'settings'>('main')
 
@@ -230,26 +241,36 @@ export default function Menu() {
           switch (menu) {
             case 'lang':
               return <LanguageMenu close={() => setMenu('main')} />
-            case 'settings':
-              return <LanguageMenu close={() => setMenu('main')} />
             case 'main':
             default:
               return (
                 <MenuFlyout>
                   <MenuItem href={CODE_LINK}>
-                    <div>Code</div>
+                    <div>
+                      <Trans i18nKey="code" t={t}>
+                        Code
+                      </Trans>
+                    </div>
                     <Code opacity={0.6} size={16} />
                   </MenuItem>
                   <ToggleMenuItem onClick={() => setMenu('lang')}>
-                    <div>Language</div>
+                    <div>
+                      <Trans i18nKey="language" t={t}>
+                        Language
+                      </Trans>
+                    </div>
                     <ChevronRight size={16} opacity={0.6} />
                   </ToggleMenuItem>
-                  <ToggleMenuItem onClick={() => setMenu('lang')}>
-                    <div>Settings</div>
+                  {/* <ToggleMenuItem onClick={() => setMenu('lang')}>
+                    <div>
+                      <Trans i18nKey="setting" t={t}>
+                        Setting
+                      </Trans>
+                    </div>
                     <ChevronRight size={16} opacity={0.6} />
-                  </ToggleMenuItem>
+                  </ToggleMenuItem> */}
                   <ToggleMenuItem onClick={() => setDarkMode((prev) => !prev)}>
-                    <div>{isDarkMode ? 'Light Theme' : 'Dark Theme'}</div>
+                    <div>{isDarkMode ? t('light_theme') : t('dark_theme')}</div>
                     {isDarkMode ? <Moon opacity={0.6} size={16} /> : <Sun opacity={0.6} size={16} />}
                   </ToggleMenuItem>
                 </MenuFlyout>

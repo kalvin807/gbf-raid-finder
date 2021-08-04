@@ -1,9 +1,8 @@
-import { ReadyState } from 'react-use-websocket'
-import { Atom, atom, PrimitiveAtom } from 'jotai'
+import { atom, PrimitiveAtom } from 'jotai'
 import { atomWithImmer, withImmer } from 'jotai/immer'
 import { atomWithStorage, splitAtom } from 'jotai/utils'
 
-import { Raid } from './gbfAtom'
+import { Raid, raidAtom } from './gbfAtom'
 import { maxMessageAtom } from './settingsAtom'
 
 export interface Board extends Raid {
@@ -28,33 +27,55 @@ interface MessagesStore {
   [raidID: string]: PrimitiveAtom<Message>[]
 }
 
-type Action = 'add' | 'remove'
+type Action = 'add' | 'remove' | 'reset'
 
-export const statusAtom = atom<ReadyState>(ReadyState.CLOSED)
+export const ws = new WebSocket('wss://gbf-raids-finder.herokuapp.com/ws')
+export const wsState = atom(WebSocket.CLOSED)
 
-export const boardAtom = atomWithStorage<Board[]>('board', [])
-export const boardAtomsAtom = splitAtom(boardAtom)
-export const updateBoardAtom = atom(null, (get, set, update: { raid: Raid; action: Action }) => {
+export const boardsAtom = atomWithStorage<Board[]>('board', [])
+export const activeBoardsIdAtom = atom((get) => {
+  const boards = get(boardsAtom)
+  return boards.map((b) => b.id)
+})
+export const boardAtomsAtom = splitAtom(boardsAtom)
+export const updateBoardAtom = atom(null, (get, set, update: { raid?: Raid; action: Action }) => {
   const { raid, action } = update
-  const boardImmer = withImmer(boardAtom)
-  set(boardImmer, (draft) => {
-    const prevIdx = draft.findIndex((b) => b.id === raid.id)
-    if (action === 'add' && prevIdx === -1) {
-      draft.push({ ...raid, ...defaultConfig })
-      set(messageStoreAtom, (draft) => {
-        draft[raid.id] = []
-        return draft
-      })
-    }
-    if (action === 'remove' && prevIdx !== -1) {
+  const prev = get(boardsAtom)
+  const boardImmer = withImmer(boardsAtom)
+  const prevIdx = raid ? prev.findIndex((b) => b.id === raid.id) : -1
+
+  if (raid && action === 'add' && prevIdx === -1) {
+    set(boardImmer, (draft) => {
+      if (prevIdx === -1) draft.push({ ...raid, ...defaultConfig })
+    })
+    set(messageStoreAtom, (draft) => {
+      draft[raid.id] = []
+    })
+    const raidIdx = get(raidAtom).findIndex((i) => get(i).id === raid.id)
+    const r = get(raidAtom)[raidIdx]
+    set(r, (prev) => ({ ...prev, isSelected: true }))
+  }
+
+  if (raid && action === 'remove' && prevIdx !== -1) {
+    set(boardImmer, (draft) => {
       draft.splice(prevIdx, 1)
-      set(messageStoreAtom, (draft) => {
-        delete draft[raid.id]
-        return draft
-      })
-    }
-    return draft
-  })
+    })
+    const raidIdx = get(raidAtom).findIndex((i) => get(i).id === raid.id)
+    const r = get(raidAtom)[raidIdx]
+    set(r, (prev) => ({ ...prev, isSelected: false }))
+  }
+
+  if (action === 'reset') {
+    set(boardImmer, () => {
+      return []
+    })
+    set(messageStoreAtom, () => {
+      return {}
+    })
+    get(raidAtom).forEach((r) => {
+      set(r, (prev) => ({ ...prev, isSelected: false }))
+    })
+  }
 })
 
 export const messageStoreAtom = atomWithImmer<MessagesStore>({})

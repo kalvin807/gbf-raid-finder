@@ -1,49 +1,17 @@
-import React, { useCallback, useState } from 'react'
-import { darken } from 'polished'
-import styled from 'styled-components'
+import React, { useCallback, useMemo } from 'react'
+import { useAtom } from 'jotai'
 
-import { ButtonSecondary } from '../Button'
+import { modalAtom } from 'atoms/settingsAtom'
 
 import SelectRaidModal from './SelectRaidModal'
 
 const SelectRaid = () => {
-  const [modalOpen, setModalOpen] = useState(false)
+  const [modalOpen, setModalOpen] = useAtom(modalAtom)
   const handleDismiss = useCallback(() => {
     setModalOpen(false)
   }, [setModalOpen])
 
-  return (
-    <>
-      <SelectRaidButton onClick={() => setModalOpen(true)}>Select Raid</SelectRaidButton>
-      <SelectRaidModal isOpen={modalOpen} onDismiss={handleDismiss} />
-    </>
-  )
+  return useMemo(() => <SelectRaidModal isOpen={modalOpen} onDismiss={handleDismiss} />, [modalOpen, handleDismiss])
 }
-
-const TabGeneric = styled(ButtonSecondary)`
-  ${({ theme }) => theme.flexRowNoWrap}
-  width: 100%;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 12px;
-  cursor: pointer;
-  user-select: none;
-  :focus {
-    outline: none;
-  }
-`
-
-const SelectRaidButton = styled(TabGeneric)`
-  font-weight: 500;
-  background-color: ${({ theme }) => theme.primary5};
-  border: 1px solid ${({ theme }) => theme.primary5};
-  color: ${({ theme }) => theme.primaryText1};
-
-  :hover,
-  :focus {
-    border: 1px solid ${({ theme }) => darken(0.05, theme.primary4)};
-    color: ${({ theme }) => darken(0.05, theme.primaryText1)};
-  }
-`
 
 export default SelectRaid
