@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import { Bell, BellOff, Clipboard, X, XCircle } from 'react-feather'
 import { useTranslation } from 'react-i18next'
-import ReactMarkdown from 'react-markdown'
 import deepEquals from 'fast-deep-equal'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
@@ -9,12 +8,12 @@ import { Text } from 'rebass'
 import styled from 'styled-components'
 
 import { Board as BoardType, boardAtomsAtom, readMsgStoreAtom, updateBoardAtom } from 'atoms/wsAtoms'
-import motd from 'statics/motd'
 import { Separator } from 'theme/components'
 
 import { LightCard } from './Card'
 import { AutoColumn } from './Column'
 import { IconWrapper } from './Icon'
+import { Motd } from './Motd'
 import { RowBetween, RowFixed } from './Row'
 import { LatestTweetRow, TweetRow } from './TweetRow'
 
@@ -105,7 +104,7 @@ const MotdBoard = () => {
   return (
     <PageWrapper>
       <StyledBoard>
-        <ReactMarkdown>{motd}</ReactMarkdown>
+        <Motd />
       </StyledBoard>
     </PageWrapper>
   )
