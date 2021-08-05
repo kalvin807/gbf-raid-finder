@@ -41,6 +41,7 @@
     "eslint-plugin-react-hooks": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "prettier": "^2.3.2",
+    "rollup-plugin-prerender-spa-plugin": "^0.0.6",
     "rollup-plugin-visualizer": "^5.5.2",
     "typescript": "^4.3.5",
     "vite": "^2.4.4",
@@ -52,8 +53,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "format": "prettier --write \"src/**/*.+(ts|tsx|js|jsx|json|css|md)\"",
-    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src",
-    "deduplicate": "npx yarn-deduplicate yarn.lock"
+    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx src"
   },
   "eslintConfig": {
     "extends": [
