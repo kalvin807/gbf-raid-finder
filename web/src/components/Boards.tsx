@@ -78,11 +78,13 @@ const TweetsBoard = ({ atom }: { atom: PrimitiveAtom<BoardType> }) => {
             </Text>
           </RowFixed>
           <RowFixed>
-            <StyledButton onClick={toggleAlert}>{isAlert ? <Bell size={20} /> : <BellOff size={20} />}</StyledButton>
-            <StyledButton onClick={toggleCopy}>
+            <StyledButton onClick={toggleAlert} aria-label="auto-alert">
+              {isAlert ? <Bell size={20} /> : <BellOff size={20} />}
+            </StyledButton>
+            <StyledButton onClick={toggleCopy} aria-label="auto-copy">
               {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
             </StyledButton>
-            <StyledButton onClick={onClose}>
+            <StyledButton onClick={onClose} aria-label="close-twitter-board">
               <X size={20} />
             </StyledButton>
           </RowFixed>

@@ -233,7 +233,7 @@ export default function Menu() {
   const toggleMenu = () => (open ? setOpen(false) : setOpen(true))
   return (
     <StyledMenu ref={node as any}>
-      <StyledMenuButton onClick={toggleMenu}>
+      <StyledMenuButton onClick={toggleMenu} aria-label="menu">
         <StyledMenuIcon />
       </StyledMenuButton>
 

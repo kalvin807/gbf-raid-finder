@@ -63,19 +63,19 @@ export function colors(darkMode: boolean): Colors {
     advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
 
     //primary colors
-    primary1: darkMode ? '#2172E5' : '#0077b6',
+    primary1: darkMode ? '#2172E5' : '#275DAD',
     primary2: darkMode ? '#3680E7' : '#48CAE4',
     primary3: darkMode ? '#4D8FEA' : '#90E0EF',
-    primary4: darkMode ? '#376bad70' : '#ADE8F4',
-    primary5: darkMode ? '#153d6f70' : '#CAF0F8',
+    primary4: darkMode ? '#376bad70' : '#C2EAFF',
+    primary5: darkMode ? '#153d6f70' : '#EBF8FF',
 
     // color text
-    primaryText1: darkMode ? '#6da8ff' : '#0077b6',
+    primaryText1: darkMode ? '#6da8ff' : '#275DAD',
 
     // secondary colors
-    secondary1: darkMode ? '#2172E5' : '#0077b6',
-    secondary2: darkMode ? '#17000b26' : '#ADE8F4',
-    secondary3: darkMode ? '#17000b26' : '#CAF0F8',
+    secondary1: darkMode ? '#2172E5' : '#275DAD',
+    secondary2: darkMode ? '#17000b26' : '#C2EAFF',
+    secondary3: darkMode ? '#17000b26' : '#EBF8FF',
 
     // other
     red1: '#FD4040',
@@ -200,6 +200,6 @@ html {
 }
 
 a {
-  color: ${({ theme }) => theme.blue1}; 
+  color: ${({ theme }) => theme.primaryText1}; 
  }
 `

@@ -50,7 +50,7 @@ const SelectModal = ({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => 
                   Clear all
                 </Trans>
               </LinkStyledButton>
-              <IconWrapper marginLeft="1rem" onClick={onDismiss}>
+              <IconWrapper marginLeft="1rem" onClick={onDismiss} aria-label="close-modal">
                 <X />
               </IconWrapper>
             </RowFixed>

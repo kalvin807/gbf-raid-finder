@@ -68,7 +68,7 @@ export default function SelectRaidFilter() {
   return (
     <LightCard width="100%" padding="8px">
       <AutoColumn gap="sm" justify="center">
-        <RowBetween padding="8px" onClick={() => setExpand(!expand)}>
+        <RowBetween padding="8px" onClick={() => setExpand(!expand)} aria-label="toggle-filter">
           <Text fontWeight={500} fontSize={16}>
             <Trans t={t} i18nKey="filter">
               Filter
