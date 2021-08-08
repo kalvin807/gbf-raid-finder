@@ -10,7 +10,7 @@ import { RaidMessage as RaidMessageRaw } from 'utils/messages'
 
 import WebsocketWorker from '../services/worker?worker'
 
-const worker = new WebsocketWorker()
+export const worker = new WebsocketWorker()
 /**
  * A Empty component to do data action within the react component root.
  **/
@@ -69,7 +69,6 @@ const DataStore = () => {
       }
     }
     worker.onmessage = onWorkerResponse
-    console.log(worker)
     setWorkerReady(true)
   }, [setWsState, setMessage])
 

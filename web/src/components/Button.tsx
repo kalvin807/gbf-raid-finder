@@ -1,4 +1,3 @@
-import { darken } from 'polished'
 import { Button as RebassButton, ButtonProps as ButtonPropsOriginal } from 'rebass/styled-components'
 import styled from 'styled-components'
 

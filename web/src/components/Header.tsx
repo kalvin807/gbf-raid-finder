@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Search as SearchIcon } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
 import useScrollPosition from '@react-hook/window-scroll'
-import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import { useAtom } from 'jotai'
+import { useUpdateAtom } from 'jotai/utils'
 import { darken } from 'polished'
+import { WorkerRequest } from 'services/worker.type'
 import styled from 'styled-components'
 
 import { modalAtom } from 'atoms/settingsAtom'
@@ -12,17 +14,23 @@ import { wsStateAtom } from 'atoms/wsAtoms'
 import { getGlowPreset, TYPE } from '../theme'
 
 import { ButtonErrorStyle, ButtonSecondary } from './Button'
+import { worker } from './DataStore'
 import Menu from './Menu'
 import { RowBetween, RowFixed } from './Row'
 
 const WebsocketStatus = () => {
-  const wsStatus = useAtomValue(wsStateAtom)
+  const [wsStatus, setStatus] = useAtom(wsStateAtom)
   const colorPreset = getGlowPreset(wsStatus)
   const { t } = useTranslation()
+  const reconnect = useCallback(() => {
+    worker.postMessage({ type: 'start' } as WorkerRequest)
+    setStatus(WebSocket.CONNECTING)
+  }, [setStatus])
+
   return (
     <>
       {wsStatus === WebSocket.CLOSED && (
-        <ButtonErrorStyle>
+        <ButtonErrorStyle onClick={reconnect}>
           <Trans i18nKey="reconnect" t={t}>
             Reconnect
           </Trans>
