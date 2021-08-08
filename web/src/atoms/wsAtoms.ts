@@ -2,6 +2,8 @@ import { atom, PrimitiveAtom } from 'jotai'
 import { atomWithImmer, withImmer } from 'jotai/immer'
 import { atomWithStorage, splitAtom } from 'jotai/utils'
 
+import { RaidMessage as RaidMessageRaw } from 'utils/messages'
+
 import { Raid, raidAtom } from './gbfAtom'
 import { maxMessageAtom } from './settingsAtom'
 
@@ -23,13 +25,20 @@ export interface Message {
   isCopied: false
 }
 
+export interface MessageRaw {
+  raid: string
+  msg: string
+  roomId: string
+  timestamp: Date
+}
+
 interface MessagesStore {
   [raidID: string]: PrimitiveAtom<Message>[]
 }
 
 type Action = 'add' | 'remove' | 'reset'
-
-export const ws = new WebSocket('wss://gbf-raids-finder.herokuapp.com/ws')
+export const ws = new WebSocket('wss://gbf-api.kalvin.io/ws')
+ws.binaryType = 'arraybuffer'
 export const wsState = atom(WebSocket.CLOSED)
 
 export const boardsAtom = atomWithStorage<Board[]>('board', [])
@@ -80,11 +89,13 @@ export const updateBoardAtom = atom(null, (get, set, update: { raid?: Raid; acti
 
 export const messageStoreAtom = atomWithImmer<MessagesStore>({})
 export const readMsgStoreAtom = atom((get) => get(messageStoreAtom))
-export const writeMsgStoreAtom = atom(null, (get, set, update: MessageEvent<string>) => {
+export const writeMsgStoreAtom = atom(null, (get, set, update: MessageEvent<ArrayBuffer>) => {
+  const rawData = update.data as ArrayBuffer
+  const rawMsg = RaidMessageRaw.fromBinary(new Uint8Array(rawData))
+
   set(messageStoreAtom, (draft) => {
-    const raidMessage: Message = JSON.parse(update.data)
-    const { raid, timestamp } = raidMessage
-    const msg = atom<Message>({ ...raidMessage, timestamp: new Date(timestamp), isCopied: false })
+    const { raid, timestamp } = rawMsg
+    const msg = atom<Message>({ ...rawMsg, raid: raid.toString(), timestamp: new Date(timestamp), isCopied: false })
     if (raid in draft) {
       const maxLength = get(maxMessageAtom)
       if (draft[raid].length >= maxLength) {

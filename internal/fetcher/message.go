@@ -17,10 +17,10 @@ var (
 
 // RaidMsg is a struct of a raid tweet
 type RaidMsg struct {
-	Raid      int    `json:"raid"`
-	RoomID    string `json:"roomId"`
-	Msg       string `json:"msg"`
-	Timestamp string `json:"timestamp"`
+	Raid      int       `json:"raid"`
+	RoomId    string    `json:"roomId"`
+	Msg       string    `json:"msg"`
+	Timestamp time.Time `json:"timestamp"`
 }
 
 // raid is a struct of a raid config
@@ -57,19 +57,19 @@ func GetFilePath(dir string) string {
 // newRaidMsg create a raidmsg from a tweet
 func (m messageHandler) newRaidMsg(rawText string, timestamp time.Time) *RaidMsg {
 	tweetMatch := tweetRegex.FindStringSubmatch(rawText)
-	msg, roomID, raid := safeGetMsg(tweetMatch, 1), safeGetMsg(tweetMatch, 2), safeGetMsg(tweetMatch, 3)
-	raidID, found := m.nameIDMap[raid]
+	msg, roomId, raidStr := safeGetMsg(tweetMatch, 1), safeGetMsg(tweetMatch, 2), safeGetMsg(tweetMatch, 3)
+	raidInt, found := m.nameIDMap[raidStr]
 
-	if !found && raid != "" {
+	if !found && raidStr != "" {
 		//log.Printf("%s\n%s", "Unknown raid", rawText)
 		return nil
 	}
 
 	return &RaidMsg{
-		RoomID:    roomID,
+		RoomId:    roomId,
 		Msg:       msg,
-		Raid:      raidID,
-		Timestamp: timestamp.Format(time.RFC3339),
+		Raid:      raidInt,
+		Timestamp: timestamp,
 	}
 }
 

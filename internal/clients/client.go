@@ -6,6 +6,7 @@ import (
 
 	"github.com/gorilla/websocket"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
+	"github.com/kalvin807/gbf-raid-finder/internal/serialize"
 )
 
 const (
@@ -18,12 +19,6 @@ const (
 	// Send pings to peer with this period. Must be less than pongWait.
 	pingPeriod = pongWait * 9 / 10
 )
-
-// ClientConfigMsg is a struct that server expected to receive from client
-type clientConfigMsg struct {
-	Config string `json:"config"`
-	Raid   []int  `json:"raid"`
-}
 
 // Client is a middleman between the websocket connection and the hub.
 type Client struct {
@@ -48,17 +43,19 @@ func (c *Client) readPump() {
 	c.conn.SetReadDeadline(time.Now().Add(pongWait))
 	c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 	for {
-		var msg clientConfigMsg
-		err := c.conn.ReadJSON(&msg)
+		_, buf, err := c.conn.ReadMessage()
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				log.Printf("error: %v", err)
 			}
 			break
 		}
+
+		msg, _ := serialize.DeserializeSubscribeRequest(buf)
+
 		var tempRaidConfig = make(map[int]bool)
 		for _, raidID := range msg.Raid {
-			tempRaidConfig[raidID] = true
+			tempRaidConfig[int(raidID)] = true
 		}
 		c.raid = tempRaidConfig
 	}
@@ -85,7 +82,11 @@ func (c *Client) writePump() {
 				return
 			}
 			if c.raid[message.Raid] {
-				c.conn.WriteJSON(message)
+				buf, err := serialize.SerializeMessage(message)
+				if err != nil {
+					continue
+				}
+				c.conn.WriteMessage(websocket.BinaryMessage, buf)
 			}
 		}
 	}
