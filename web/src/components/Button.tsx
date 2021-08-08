@@ -1,3 +1,4 @@
+import { darken } from 'polished'
 import { Button as RebassButton, ButtonProps as ButtonPropsOriginal } from 'rebass/styled-components'
 import styled from 'styled-components'
 
@@ -102,6 +103,21 @@ export const LinkStyledButton = styled.button<{ disabled?: boolean }>`
   :active {
     text-decoration: none;
   }
+`
+export const ButtonErrorStyle = styled(Base)`
+  font-size: 0.825rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  border-radius: 8px;
+  color: ${({ theme }) => theme.red1};
+  border: 1px solid ${({ theme }) => theme.red1};
+  text-transform: uppercase;
+  background-color: transparent;
+  :hover {
+    text-decoration: none;
+    opacity: 0.8;
+  }
+  margin: 0 8px 0 8px;
 `
 
 export const StyledLink = styled.a`

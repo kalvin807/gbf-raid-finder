@@ -2,17 +2,36 @@ import React from 'react'
 import { Search as SearchIcon } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
 import useScrollPosition from '@react-hook/window-scroll'
-import { useUpdateAtom } from 'jotai/utils'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { darken } from 'polished'
 import styled from 'styled-components'
 
 import { modalAtom } from 'atoms/settingsAtom'
+import { wsStateAtom } from 'atoms/wsAtoms'
 
-import { TYPE } from '../theme'
+import { getGlowPreset, TYPE } from '../theme'
 
-import { ButtonSecondary } from './Button'
+import { ButtonErrorStyle, ButtonSecondary } from './Button'
 import Menu from './Menu'
 import { RowBetween, RowFixed } from './Row'
+
+const WebsocketStatus = () => {
+  const wsStatus = useAtomValue(wsStateAtom)
+  const colorPreset = getGlowPreset(wsStatus)
+  const { t } = useTranslation()
+  return (
+    <>
+      {wsStatus === WebSocket.CLOSED && (
+        <ButtonErrorStyle>
+          <Trans i18nKey="reconnect" t={t}>
+            Reconnect
+          </Trans>
+        </ButtonErrorStyle>
+      )}
+      <Dot color={colorPreset.color} shadow={colorPreset.shadow} />
+    </>
+  )
+}
 
 const Header = () => {
   const scrollY = useScrollPosition()
@@ -45,6 +64,7 @@ const Header = () => {
           </SelectRaid>
         </HeaderElement>
         <HeaderElementWrap>
+          <WebsocketStatus />
           <Menu />
         </HeaderElementWrap>
       </HeaderControls>
@@ -203,4 +223,11 @@ const SelectRaidButton = styled(TabGeneric)`
   }
 `
 
+const Dot = styled.div<{ color: string; shadow: string }>`
+  padding: 5px;
+  margin: 16px;
+  border-radius: 100%;
+  background: ${({ color }) => color};
+  box-shadow: ${({ shadow }) => shadow};
+`
 export default Header

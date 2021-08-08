@@ -9,5 +9,6 @@
   "filter": "条件指定",
   "clear_all": "すべてクリア",
   "categories": "選択枠",
-  "search_placeholder": "EN/日本語を入力"
+  "search_placeholder": "EN/日本語を入力",
+  "reconnect": "再接続"
 }
