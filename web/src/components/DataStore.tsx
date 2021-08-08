@@ -1,19 +1,25 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { atom, useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import { WorkerResponse } from 'services/worker.type'
 
 import { categoryAtom, fetchCategory, fetchRaid, writeRaidAtom } from 'atoms/gbfAtom'
 import { clockAtom } from 'atoms/settingsAtom'
-import { boardsAtom, writeMsgStoreAtom, ws, wsState } from 'atoms/wsAtoms'
-import { SubscribeRequest } from 'utils/messages'
+import { boardsAtom, writeMsgStoreAtom, wsStateAtom } from 'atoms/wsAtoms'
+import { RaidMessage as RaidMessageRaw } from 'utils/messages'
 
+import WebsocketWorker from '../services/worker?worker'
+
+const worker = new WebsocketWorker()
 /**
  * A Empty component to do data action within the react component root.
  **/
 const DataStore = () => {
-  const board = useAtomValue(boardsAtom)
-  const [state, setWsState] = useAtom(wsState)
+  const [workerReady, setWorkerReady] = useState(false)
 
+  const board = useAtomValue(boardsAtom)
+
+  const [wsState, setWsState] = useAtom(wsStateAtom)
   const setMessage = useUpdateAtom(writeMsgStoreAtom)
   const setCategory = useUpdateAtom(categoryAtom)
   const setRaid = useUpdateAtom(writeRaidAtom)
@@ -35,14 +41,6 @@ const DataStore = () => {
   }, [setRaid, setCategory])
 
   useEffect(() => {
-    if (state === WebSocket.OPEN) {
-      const activeId = board.filter((atom) => atom.id).map(({ id }) => id)
-      const buf = SubscribeRequest.toBinary({ raid: activeId, config: '' })
-      ws.send(buf)
-    }
-  }, [board, state])
-
-  useEffect(() => {
     const clock = setInterval(updateClock, 1000)
     return () => {
       clearInterval(clock)
@@ -50,19 +48,30 @@ const DataStore = () => {
   }, [updateClock])
 
   useEffect(() => {
-    const onMessage = (e: MessageEvent) => setMessage(e)
-    const onOpen = () => {
-      console.log('Ws connected')
-      setWsState(WebSocket.OPEN)
+    if (window.Worker && workerReady && wsState === WebSocket.OPEN) {
+      const activeId = board.filter((atom) => atom.id).map(({ id }) => id)
+      worker.postMessage({ type: 'send', value: { raid: activeId } })
     }
-    const onClose = () => {
-      console.log('Ws closed')
-      setWsState(WebSocket.CLOSED)
+  }, [board, workerReady, wsState])
+
+  useEffect(() => {
+    const onWorkerResponse = (res: MessageEvent<WorkerResponse>) => {
+      const { type, value } = res.data
+      switch (type) {
+        case 'status':
+          setWsState(value as number)
+          break
+        case 'message':
+          setMessage(value as RaidMessageRaw)
+          break
+        default:
+          console.log(`Unknown worker response: ${type}`)
+      }
     }
-    ws.onmessage = onMessage
-    ws.onclose = onClose
-    ws.onopen = onOpen
-  }, [setMessage, setWsState])
+    worker.onmessage = onWorkerResponse
+    console.log(worker)
+    setWorkerReady(true)
+  }, [setWsState, setMessage])
 
   return null
 }
