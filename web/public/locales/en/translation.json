@@ -9,5 +9,6 @@
     "filter": "Filter",
     "clear_all": "Clear All",
     "categories": "Categories",
-    "search_placeholder": "Search in English/Japanese"
+    "search_placeholder": "Search in English/Japanese",
+    "reconnect": "Reconnect"
 }

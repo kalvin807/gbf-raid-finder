@@ -40,7 +40,7 @@ interface MessagesStore {
 type Action = 'add' | 'remove' | 'reset'
 export const ws = new WebSocket(WS_URL)
 ws.binaryType = 'arraybuffer'
-export const wsState = atom(WebSocket.CLOSED)
+export const wsStateAtom = atom(WebSocket.CONNECTING)
 
 export const boardsAtom = atomWithStorage<Board[]>('board', [])
 export const activeBoardsIdAtom = atom((get) => {
@@ -90,13 +90,10 @@ export const updateBoardAtom = atom(null, (get, set, update: { raid?: Raid; acti
 
 export const messageStoreAtom = atomWithImmer<MessagesStore>({})
 export const readMsgStoreAtom = atom((get) => get(messageStoreAtom))
-export const writeMsgStoreAtom = atom(null, (get, set, update: MessageEvent<ArrayBuffer>) => {
-  const rawData = update.data as ArrayBuffer
-  const rawMsg = RaidMessageRaw.fromBinary(new Uint8Array(rawData))
-
+export const writeMsgStoreAtom = atom(null, (get, set, update: RaidMessageRaw) => {
   set(messageStoreAtom, (draft) => {
-    const { raid, timestamp } = rawMsg
-    const msg = atom<Message>({ ...rawMsg, raid: raid.toString(), timestamp: new Date(timestamp), isCopied: false })
+    const { raid, timestamp } = update
+    const msg = atom<Message>({ ...update, raid: raid.toString(), timestamp: new Date(timestamp), isCopied: false })
     if (raid in draft) {
       const maxLength = get(maxMessageAtom)
       if (draft[raid].length >= maxLength) {
