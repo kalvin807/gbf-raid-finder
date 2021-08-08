@@ -22,8 +22,8 @@ func SerializeMessage(msg *fetcher.RaidMsg) ([]byte, error) {
 	msgPb.Timestamp = msg.Timestamp.Format(time.RFC3339)
 	out, err := proto.Marshal(msgPb)
 	if err != nil {
-		log.Fatalln("Failed to encode:", err)
-		return nil, err
+		log.Println("Failed to encode:", err)
+		return nil, nil
 	}
 	return out, nil
 }
@@ -32,7 +32,8 @@ func DeserializeSubscribeRequest(bytes []byte) (*ClientConfigMsg, error) {
 	subReqPb := &SubscribeRequest{}
 
 	if err := proto.Unmarshal(bytes, subReqPb); err != nil {
-		log.Fatalln("Failed to parse:", err)
+		log.Println("Failed to parse:", err)
+		return nil, nil
 	}
 
 	return &ClientConfigMsg{Config: subReqPb.Config, Raid: subReqPb.Raid}, nil
