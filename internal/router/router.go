@@ -6,21 +6,16 @@ import (
 	"os"
 	"time"
 
-	"github.com/NYTimes/gziphandler"
 	"github.com/gorilla/websocket"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
-	"github.com/tdewolff/minify"
 )
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 2048,
 	CheckOrigin: func(r *http.Request) bool {
-// 		if checkOrigin(r) {
-// 			return true
-// 		}
 		return true
 	},
 }
@@ -30,7 +25,6 @@ var (
 	categoryFilePath = fetcher.GetFilePath("/static/category.json")
 	cacheSince       = time.Now().Format(http.TimeFormat)
 	cacheUntil       = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
-	m                = minify.New()
 )
 
 func setCache(w *http.ResponseWriter) {
@@ -50,26 +44,23 @@ func checkOrigin(r *http.Request) bool {
 	return false
 }
 
-func makeGzipFileHander(filePath string) http.Handler {
-	withoutGz := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		mw := m.ResponseWriter(w, r)
-		defer mw.Close()
-		w = mw
+func fileHandler(filePath string) http.Handler {
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		setCache(&w)
 		http.ServeFile(w, r, filePath)
 	})
-	return gziphandler.GzipHandler(withoutGz)
+	return handler
 }
 
 // SetUpRoute set up endpoints for websocket and static files
 func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
 
 	router.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", 302)
+		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", http.StatusTemporaryRedirect)
 	})
 
-	router.Handler("GET", "/raid", makeGzipFileHander(raidFilePath))
-	router.Handler("GET", "/category", makeGzipFileHander(categoryFilePath))
+	router.Handler("GET", "/raid", fileHandler(raidFilePath))
+	router.Handler("GET", "/category", fileHandler(categoryFilePath))
 
 	router.GET("/ws", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		conn, err := upgrader.Upgrade(w, r, nil)
