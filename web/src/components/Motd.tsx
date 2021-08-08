@@ -7,6 +7,9 @@ export const EnMotd = () => {
     <>
       <h2 id="welcome-to-gbf-raid-finder-omega">Welcome to GBF Raid Finder Omega</h2>
       <p>
+        <strong>Update</strong> Added new regular raids, use in-game categories, and more (realtime) tweet 🚀
+      </p>
+      <p>
         <strong>Guide</strong>
         <br />
         Add raid = Select a raid to follow
@@ -34,7 +37,10 @@ export const EnMotd = () => {
 export const JpMotd = () => {
   return (
     <>
-      <h2 id="welcome-to-gbf-raid-finder-omega">グラブル救援検索・マグナへようこそ</h2>
+      <h2 id="-">グラブル救援検索・マグナへようこそ</h2>
+      <p>
+        <strong>追加</strong> ベリアルHL、光マリスを追加 , リスト選択枠を改善,ツイート受けるスビートを加速 🚀
+      </p>
       <p>
         <strong>ガイド</strong>
         <br />
