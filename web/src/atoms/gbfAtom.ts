@@ -1,9 +1,11 @@
 import { atom, PrimitiveAtom } from 'jotai'
 
+import { API_URL } from 'statics/constant'
+
 import { boardsAtom } from './wsAtoms'
 
 export interface Category {
-  id: number
+  id: string
   en: string
   ja: string
   isSelected: boolean
@@ -20,7 +22,7 @@ export interface Raid {
 }
 
 const fetchJson = (endpoint: string) =>
-  fetch(`https://gbf-api.kalvin.io/${endpoint}`)
+  fetch(`${API_URL}/${endpoint}`)
     .then((res) => {
       if (res.status === 200) {
         return res.json()
@@ -55,7 +57,7 @@ export const filteredRaidAtom = atom<PrimitiveAtom<Raid>[]>((get) => {
   const nameFilter = get(nameFilterAtom)
   const raids = get(raidAtom)
   if (categoryFilter.length === 0 && !nameFilter) return raids
-  const categoryKeys = categoryFilter.map((atom) => get(atom).en)
+  const categoryKeys = categoryFilter.map((atom) => get(atom).id)
   const filtered = raids.filter((atom) => {
     const item = get(atom)
     const nameMatch = nameFilter

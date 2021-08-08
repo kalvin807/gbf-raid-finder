@@ -1,21 +1,78 @@
 {
-    "Current Event": "開催中のイベント",
-    "Event": "イベント",
-    "Impossible ★8 Rapture": "HL★8 ルシH・ベルゼバブ",
-    "Impossible ★7 Dragon, Ult. Bahamut": "HL★7 六竜HL・アルバハHL",
-    "Impossible ★6 Nightmare": "HL★6 18人",
-    "Impossible ★5 Nightmare": "HL★5 18人",
-    "Impossible Omega": "マグナ HL",
-    "Impossible Omega II": "マグナII HL",
-    "Impossible Tier 1": "旧召喚石HL",
-    "Impossible Tier 3": "高級鞄マルチHL",
-    "Low Level": "島ボス",
-    "Nightmare": "プロバハ・グランデ・黄龍・黒麒麟",
-    "Omega": "マグナボス",
-    "Primarch": "四大天司マルチ",
-    "Rise of the Beasts": "四象降臨",
-    "Ultimate": "アルバハN",
-    "Tier 1": "召喚石マルチ 1",
-    "Tier 2": "召喚石マルチ 2",
-    "Unite and Fight": "決戦！星の古戦場"
+    "impossible_1": {
+        "en": "Imp 1★ Omega",
+        "ja": "HL1★ マグナ"
+    },
+    "impossible_2": {
+        "en": "Imp 2★ Tier 1",
+        "ja": "HL2★ 旧石"
+    },
+    "impossible_3": {
+        "en": "Imp 3★ Omega 2",
+        "ja": "HL3★ マグナⅡ"
+    },
+    "impossible_4": {
+        "en": "Imp 4★ Tier 3",
+        "ja": "HL4★ 高級鞄"
+    },
+    "impossible_5": {
+        "en": "Imp 5★ Malice",
+        "ja": "HL5★ マリス"
+    },
+    "impossible_6": {
+        "en": "Imp 6★ Rapture",
+        "ja": "HL6★ ルシ"
+    },
+    "impossible_7": {
+        "en": "Imp 7★ Six-Dragon",
+        "ja": "HL7★ 六竜"
+    },
+    "impossible_8": {
+        "en": "Imp 8★ Ult. Bahamut",
+        "ja": "HL8★ アルバハ"
+    },
+    "impossible_9": {
+        "en": "Imp 9★ Astral",
+        "ja": "HL9★ ルシHard"
+    },
+    "standard_2": {
+        "en": "Std 2★ Omega",
+        "ja": "N2★ マグナ"
+    },
+    "standard_2_ex": {
+        "en": "Std 2★ Omega EX",
+        "ja": "N2★ マグナEX"
+    },
+    "standard_3": {
+        "en": "Std 3★ Tier 1",
+        "ja": "N3★ 旧石"
+    },
+    "standard_4": {
+        "en": "Std 4★ Tier 2",
+        "ja": "N4★ 新石"
+    },
+    "standard_5": {
+        "en": "Std 5★ Bahamut",
+        "ja": "N5★ プロバハ"
+    },
+    "standard_6": {
+        "en": "Std 6★ Primarch",
+        "ja": "N6★ 四大天司"
+    },
+    "standard_7": {
+        "en": "Std 7★ Ult. Bahamut",
+        "ja": "N7★ アルバハ"
+    },
+    "low_level": {
+        "en": "Low Level",
+        "ja": "島ボス"
+    },
+    "rise_of_the_beasts": {
+        "en": "Rise of the Beasts",
+        "ja": "四象降臨"
+    },
+    "unite_and_fight": {
+        "en": "Unite and Fight",
+        "ja": "星の古戦場"
+    }
 }

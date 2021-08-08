@@ -2,6 +2,7 @@ import { atom, PrimitiveAtom } from 'jotai'
 import { atomWithImmer, withImmer } from 'jotai/immer'
 import { atomWithStorage, splitAtom } from 'jotai/utils'
 
+import { WS_URL } from 'statics/constant'
 import { RaidMessage as RaidMessageRaw } from 'utils/messages'
 
 import { Raid, raidAtom } from './gbfAtom'
@@ -37,7 +38,7 @@ interface MessagesStore {
 }
 
 type Action = 'add' | 'remove' | 'reset'
-export const ws = new WebSocket('wss://gbf-api.kalvin.io/ws')
+export const ws = new WebSocket(WS_URL)
 ws.binaryType = 'arraybuffer'
 export const wsState = atom(WebSocket.CLOSED)
 

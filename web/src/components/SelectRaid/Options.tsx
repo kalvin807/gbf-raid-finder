@@ -65,12 +65,12 @@ export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
   const updateBoard = useUpdateAtom(updateBoardAtom)
   const theme = useTheme()
   const colorMap: { [key: string]: string } = {
-    Fire: theme.fire,
-    Water: theme.water,
-    Wind: theme.wind,
-    Earth: theme.earth,
-    Light: theme.light,
-    Dark: theme.dark,
+    fire: theme.fire,
+    water: theme.water,
+    wind: theme.wind,
+    earth: theme.earth,
+    light: theme.light,
+    dark: theme.dark,
   }
 
   const toggleSelected = useCallback(() => {
