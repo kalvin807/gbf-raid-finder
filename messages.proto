@@ -1,0 +1,16 @@
+syntax = "proto3";
+package serialize;
+
+option go_package = "./internal/serialize";
+
+message RaidMessage {
+  int32  raid = 1;
+  string roomId = 2;
+  string msg = 3;
+  string timestamp = 4;
+}
+
+message SubscribeRequest {
+           string  config = 1;
+  repeated int32   raid = 2;
+}

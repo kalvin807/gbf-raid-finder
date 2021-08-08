@@ -1,7 +1,4 @@
-import path from 'path'
-
 import reactRefresh from '@vitejs/plugin-react-refresh'
-import prerenderSpaPlugin from 'rollup-plugin-prerender-spa-plugin'
 import analyze from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -16,12 +13,5 @@ export default defineConfig({
       plugins: [analyze()],
     },
   },
-  plugins: [
-    tsconfigPaths(),
-    reactRefresh(),
-    prerenderSpaPlugin({
-      staticDir: path.resolve(__dirname, 'build'),
-      routes: ['/'],
-    }),
-  ],
+  plugins: [tsconfigPaths(), reactRefresh()],
 })

@@ -12,4 +12,5 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/rs/cors v1.8.0
 	github.com/urfave/negroni v1.0.0
+	google.golang.org/protobuf v1.27.1
 )

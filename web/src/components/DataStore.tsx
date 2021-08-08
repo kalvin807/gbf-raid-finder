@@ -5,6 +5,7 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { categoryAtom, fetchCategory, fetchRaid, writeRaidAtom } from 'atoms/gbfAtom'
 import { clockAtom } from 'atoms/settingsAtom'
 import { boardsAtom, writeMsgStoreAtom, ws, wsState } from 'atoms/wsAtoms'
+import { SubscribeRequest } from 'utils/messages'
 
 /**
  * A Empty component to do data action within the react component root.
@@ -38,7 +39,8 @@ const DataStore = () => {
   useEffect(() => {
     if (state === WebSocket.OPEN) {
       const activeId = board.filter((atom) => atom.id).map(({ id }) => id)
-      ws.send(JSON.stringify({ raid: activeId }))
+      const buf = SubscribeRequest.toBinary({ raid: activeId, config: '' })
+      ws.send(buf)
     }
   }, [board, state])
 

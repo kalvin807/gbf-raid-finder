@@ -1,9 +1,9 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { lazy, useCallback, useMemo } from 'react'
 import { useAtom } from 'jotai'
 
 import { modalAtom } from 'atoms/settingsAtom'
 
-import SelectRaidModal from './SelectRaidModal'
+const SelectRaidModal = lazy(() => import('./SelectRaidModal'))
 
 const SelectRaid = () => {
   const [modalOpen, setModalOpen] = useAtom(modalAtom)
