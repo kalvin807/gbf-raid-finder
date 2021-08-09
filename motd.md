@@ -13,7 +13,8 @@
 
 🚢 気に入ったら友達にご紹介してください!
 
-**EN User** 👉 You can switch language at setting(...)
+**EN User** 👉 You can switch language at (...)  
+**中文用家** 👉 你可以在（・・・）更改語言。
 
 
 ## Welcome to GBF Raid Finder Omega
@@ -31,4 +32,23 @@ Add raid = Select a raid to follow
 
 🚢 Please share this to your friend if you like it!
 
-**日本語の方** 👉 設定（・・・)で言語を設定できます。
+**日本語の方** 👉 （・・・）で言語を設定できます。  
+**中文用家** 👉 你可以在（・・・）更改語言。
+
+## 歡迎來到グラブル救援検索・マグナ
+
+**新功能**  中文!!!雖然副本名稱等還是沿用日文...沒有時間翻譯orz
+
+**懶人包**  
+增加副本 = 增加你想追蹤的副本  
+🔔 \ 🔕 = 開啟新副本的提示鈴聲  
+📋 \ ❌ = 開啟自動複製(手機或背景執行時無法運作) 
+
+**新UI**  正收集大家對新UI之意見 👉 [投票](https://strawpoll.com/1h5qde2j1)  
+**問題/提議** 👉 [請到GitHub開新Issue](https://github.com/kalvin807/gbf-raid-finder/issues)  
+**支持我課金** 👉 [一發入魂](https://www.buymeacoffee.com/kalvin) 
+
+🚢 如果你喜歡使用本網站，歡迎分享本網站給其他騎空士。
+
+**日本語の方** 👉 （・・・)で言語を設定できます。  
+**EN User** 👉 You can switch language at (...)

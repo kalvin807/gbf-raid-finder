@@ -13,7 +13,7 @@ import { Separator } from 'theme/components'
 import { LightCard } from './Card'
 import { AutoColumn } from './Column'
 import { IconWrapper } from './Icon'
-import { EnMotd, JpMotd } from './Motd'
+import { Motd } from './Motd'
 import { RowBetween, RowFixed } from './Row'
 import { LatestTweetRow, TweetRow } from './TweetRow'
 
@@ -106,7 +106,9 @@ const MotdBoard = () => {
   const { i18n } = useTranslation()
   return (
     <PageWrapper>
-      <StyledBoard>{i18n.language === 'en' ? <EnMotd /> : <JpMotd />}</StyledBoard>
+      <StyledBoard>
+        <Motd lang={i18n.language as 'ja' | 'zh' | 'en'} />
+      </StyledBoard>
     </PageWrapper>
   )
 }

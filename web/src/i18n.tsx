@@ -29,6 +29,6 @@ i18n
     react: {
       useSuspense: true,
     },
-    supportedLngs: ['en', 'ja'],
+    supportedLngs: ['en', 'ja', 'zh'],
     cleanCode: true,
   })
