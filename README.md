@@ -1,4 +1,4 @@
-# GBF-Raid-Finder
+# GBFinder Omega - グラブル救援検索・マグナ
 
 A realtime twitter message filter that use to fetch all GBF raid message in twitter written in Go and Vue.js
 

@@ -7,7 +7,7 @@ export const EnMotd = () => {
     <>
       <h2 id="welcome-to-gbf-raid-finder-omega">Welcome to GBF Raid Finder Omega</h2>
       <p>
-        <strong>Update</strong> Setting ⚙️  Customizing the finder to your needs.
+        <strong>Update</strong> Setting ⚙️ Customizing the finder to your needs.
       </p>
       <p>
         <strong>Guide</strong>

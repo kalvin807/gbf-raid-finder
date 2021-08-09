@@ -429,14 +429,14 @@
     fastq "^1.6.0"
 
 "@protobuf-ts/plugin-framework@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@protobuf-ts/plugin-framework/-/plugin-framework-2.0.0.tgz#8b2302ae2efcb3b78a2e1f5dfe815bf7964f7380"
-  integrity sha512-SJF5yJAMKiCBHCH2MuK4Lw2srBu5uhJ+lItCIizYlbMrKh+34DPntmWSyVQZH06AdG0w8SlirLXT1TJ35fZmuQ==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@protobuf-ts/plugin-framework/-/plugin-framework-2.0.1.tgz#abe841dca8cf62067f0b99ee61e26aeac0a5667d"
+  integrity sha512-SZk7CCNHeqtM2rcY8EFLxygJk388esGvfSs+vdWJoCPktzTAKwwlOG9Rn79Jjt2JxYAJkEMXGH4kMKSApNyYIQ==
   dependencies:
-    "@protobuf-ts/runtime" "^2.0.0"
-    typescript ">=3.8.3 <4"
+    "@protobuf-ts/runtime" "^2.0.1"
+    typescript "^3.9"
 
-"@protobuf-ts/plugin@^2.0.0":
+"@protobuf-ts/plugin@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@protobuf-ts/plugin/-/plugin-2.0.0.tgz#8f2db3a6bdfb455397b7290f2803b0b2139b3f7e"
   integrity sha512-B/xZCeO8VQ2iAudsCtUskZsH4QjQj/+U3bYWVJt3yIv/EoQtpm9asyP9SmK7AfGl/NYKDCSZ0nt6Qc1ZTVhfpg==
@@ -448,21 +448,26 @@
     typescript ">=3.8.3 <4"
 
 "@protobuf-ts/protoc@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@protobuf-ts/protoc/-/protoc-2.0.0.tgz#7b0b660fdb1d899cb0c2f56dccf14e43d87051f4"
-  integrity sha512-IauJMqSYoDekEBTWcPR/MazEVdomQOrkGROtn3NgE0j1aF8yzfmd2Gyb/Ni9LNmtPkMu0A9nkP1QlJVzFhwLBQ==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@protobuf-ts/protoc/-/protoc-2.0.1.tgz#a438440dba5e49d9203d98a526ab1a4b1190c647"
+  integrity sha512-W3bHbK5HwAEc+hAxRx/Wad7LtZPyvkk3imLPqlJn9GgbHUYhW/HovF1+RN/kWlV6cwaHdNjIs5eVKekcJcEQDw==
 
 "@protobuf-ts/runtime-rpc@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime-rpc/-/runtime-rpc-2.0.0.tgz#c8d4715edea51b5ede8bad77c69aa607f68db656"
-  integrity sha512-KnlBI0rkNZ8jqKmJFXv6JyqiRmznFGYRGXQv1JORD8fi8cqsnx+JqQoEeJrX1Co8n6kQ3c2SVJ6UoAGJeH77+Q==
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime-rpc/-/runtime-rpc-2.0.1.tgz#e1473f4e8efc7e72c599e019d0f8efedaeb2b1c2"
+  integrity sha512-LMryF3lHDb7S+5Dy82Xn9cqO84Nfo8DP3y4uEf2ZNgGa2IYwllFnzjvIHg8eqZ1oxErZN4edAu+dvyNau4TQ5g==
   dependencies:
-    "@protobuf-ts/runtime" "^2.0.0"
+    "@protobuf-ts/runtime" "^2.0.1"
 
-"@protobuf-ts/runtime@^2.0.0":
+"@protobuf-ts/runtime@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime/-/runtime-2.0.0.tgz#e0d2c5143775ff2dafd6e3bda85e6749c077f296"
   integrity sha512-QmjjbsI6eJPSpr3tDwDDplZ3s0meufm/Ai4lGgyoPSaAEj/0h7p6Ax15H3/6fediE/E6J4vJSag8I+/v69s4Nw==
+
+"@protobuf-ts/runtime@^2.0.0", "@protobuf-ts/runtime@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@protobuf-ts/runtime/-/runtime-2.0.1.tgz#850ed3b66873a9d503be2f835ee43e8937939fe0"
+  integrity sha512-iYsRGdr35Bta2ZxgyLyL7YWVnzn/gYZ4cv+CxIZnfz27XJ9hxOsx8e/4kQjcAopyw/lGzI9uGJXocXIUVhDK5Q==
 
 "@reach/dialog@^0.16.0":
   version "0.16.0"
@@ -2919,9 +2924,9 @@ spdx-expression-parse@^3.0.0:
     spdx-license-ids "^3.0.0"
 
 spdx-license-ids@^3.0.0:
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.9.tgz#8a595135def9592bda69709474f1cbeea7c2467f"
-  integrity sha512-Ki212dKK4ogX+xDo4CtOZBVIwhsKBEfsEEcwmJfLQzirgc2jIWdzg40Unxz/HzEUqM1WFzVlQSMF9kZZ2HboLQ==
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.10.tgz#0d9becccde7003d6c658d487dd48a32f0bf3014b"
+  integrity sha512-oie3/+gKf7QtpitB0LYLETe+k8SifzsX4KixvpOsbI6S0kRiRQ5MKOio8eMSAKQ17N06+wdEOXRiId+zOxo0hA==
 
 sprintf-js@~1.0.2:
   version "1.0.3"
@@ -3114,7 +3119,7 @@ type-fest@^0.20.2:
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
   integrity sha512-Ne+eE4r0/iWnpAxD852z3A+N0Bt5RN//NjJwRd2VFHEmrywxf5vsZlh4R6lixl6B+wz/8d+maTSAkN1FIkI3LQ==
 
-"typescript@>=3.8.3 <4":
+"typescript@>=3.8.3 <4", typescript@^3.9:
   version "3.9.10"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.10.tgz#70f3910ac7a51ed6bef79da7800690b19bf778b8"
   integrity sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==
