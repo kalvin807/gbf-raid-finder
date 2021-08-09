@@ -138,3 +138,27 @@ export const StyledLink = styled.a`
     text-decoration: none;
   }
 `
+
+export const StyledMenuButton = styled.button`
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  height: 38px;
+  background-color: ${({ theme }) => theme.bg1};
+  border: 1px solid ${({ theme }) => theme.bg1};
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  :hover,
+  :focus {
+    cursor: pointer;
+    outline: none;
+    border: 1px solid ${({ theme }) => theme.bg3};
+    transform: scale(0.99);
+  }
+  svg {
+    margin-top: 2px;
+  }
+`

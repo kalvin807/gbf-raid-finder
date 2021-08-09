@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Check, ChevronLeft, ChevronRight, Code, Moon, MoreHorizontal as MenuIcon, Sun } from 'react-feather'
+import { Check, ChevronLeft, ChevronRight, Code, MoreHorizontal as MenuIcon } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
-import { useAtom } from 'jotai'
 import styled, { css } from 'styled-components/macro'
 
-import { themeAtom } from 'atoms/settingsAtom'
 import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale } from 'statics/constant'
 
 import { useOnClickOutside } from '../hooks/useOnClickOutside'
+
+import { StyledMenuButton } from './Button'
 
 export enum FlyoutAlignment {
   LEFT = 'LEFT',
@@ -19,30 +19,6 @@ const StyledMenuIcon = styled(MenuIcon)`
     stroke: ${({ theme }) => theme.text1};
   }
   color: ${({ theme }) => theme.text1};
-`
-
-const StyledMenuButton = styled.button`
-  width: 100%;
-  height: 100%;
-  border: none;
-  background-color: transparent;
-  margin: 0;
-  padding: 0;
-  height: 38px;
-  background-color: ${({ theme }) => theme.bg1};
-  border: 1px solid ${({ theme }) => theme.bg1};
-  padding: 0.15rem 0.5rem;
-  border-radius: 12px;
-  :hover,
-  :focus {
-    cursor: pointer;
-    outline: none;
-    border: 1px solid ${({ theme }) => theme.bg3};
-    transform: scale(0.99);
-  }
-  svg {
-    margin-top: 2px;
-  }
 `
 
 const StyledMenu = styled.div`
@@ -58,10 +34,10 @@ const MenuFlyout = styled.span<{ flyoutAlignment?: FlyoutAlignment }>`
   min-width: 196px;
   max-height: 350px;
   overflow: auto;
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.bg2};
+  border: 1px solid ${({ theme }) => theme.bg3};
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
     0px 24px 32px rgba(0, 0, 0, 0.01);
-  border: 1px solid ${({ theme }) => theme.bg0};
   border-radius: 12px;
   padding: 0.5rem;
   display: flex;
@@ -211,8 +187,7 @@ function LanguageMenu({ close }: { close: () => void }) {
 
 export default function Menu() {
   const node = useRef<HTMLDivElement>()
-  const [open, setOpen] = React.useState(false)
-  const [isDarkMode, setDarkMode] = useAtom(themeAtom)
+  const [open, setOpen] = useState(false)
   useOnClickOutside(
     node,
     open
@@ -223,8 +198,7 @@ export default function Menu() {
   )
   const { t } = useTranslation()
 
-  const [menu, setMenu] = useState<'main' | 'lang' | 'settings'>('main')
-
+  const [menu, setMenu] = useState<'main' | 'lang'>('main')
   useEffect(() => {
     setMenu('main')
   }, [open])
@@ -260,18 +234,6 @@ export default function Menu() {
                       </Trans>
                     </div>
                     <ChevronRight size={16} opacity={0.6} />
-                  </ToggleMenuItem>
-                  {/* <ToggleMenuItem onClick={() => setMenu('lang')}>
-                    <div>
-                      <Trans i18nKey="setting" t={t}>
-                        Setting
-                      </Trans>
-                    </div>
-                    <ChevronRight size={16} opacity={0.6} />
-                  </ToggleMenuItem> */}
-                  <ToggleMenuItem onClick={() => setDarkMode((prev) => !prev)}>
-                    <div>{isDarkMode ? t('light_theme') : t('dark_theme')}</div>
-                    {isDarkMode ? <Moon opacity={0.6} size={16} /> : <Sun opacity={0.6} size={16} />}
                   </ToggleMenuItem>
                 </MenuFlyout>
               )

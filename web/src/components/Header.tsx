@@ -18,6 +18,7 @@ import { ButtonErrorStyle, ButtonSecondary } from './Button'
 import { worker } from './DataStore'
 import Menu from './Menu'
 import { RowBetween, RowFixed } from './Row'
+import Setting from './Setting'
 
 const WebsocketStatus = () => {
   const [wsStatus, setStatus] = useAtom(wsStateAtom)
@@ -73,6 +74,7 @@ const Header = () => {
         </HeaderElement>
         <HeaderElementWrap>
           <WebsocketStatus />
+          <Setting />
           <Menu />
         </HeaderElementWrap>
       </HeaderControls>
@@ -170,6 +172,7 @@ const HeaderElement = styled.div`
 const HeaderElementWrap = styled.div`
   display: flex;
   align-items: center;
+  gap: 4px;
 `
 
 const WebIcon = styled.div`
@@ -239,8 +242,8 @@ const SelectRaidButton = styled(TabGeneric)`
 `
 
 const Dot = styled.div<{ color: string; shadow: string }>`
-  padding: 5px;
-  margin: 16px;
+  padding: 4px;
+  margin: 8px;
   border-radius: 100%;
   background: ${({ color }) => color};
   box-shadow: ${({ shadow }) => shadow};

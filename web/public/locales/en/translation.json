@@ -3,6 +3,7 @@
     "code": "Code",
     "setting": "Setting",
     "language": "Language",
+    "theme": "Theme",
     "light_theme": "Light Theme",
     "dark_theme": "Dark Theme",
     "add_raid": "Add Raid",
@@ -10,5 +11,16 @@
     "clear_all": "Clear All",
     "categories": "Categories",
     "search_placeholder": "Search in English/Japanese",
-    "reconnect": "Reconnect"
+    "reconnect": "Reconnect",
+    "finder_setting": "Finder Settings",
+    "interface_setting": "Interface Settings",
+    "tweet_per_board": "Tweet per board",
+    "action_when_copy": "Action when copy",
+    "show_raid_art": "Show raid art",
+    "copy_only": "Copy only",
+    "copy_open_tab": "Open GBF Tab",
+    "copy_open_mobage": "Open GBF App",
+    "copy_open_skyleap": "Open Skyleap",
+    "on": "On",
+    "off": "Off"
 }
