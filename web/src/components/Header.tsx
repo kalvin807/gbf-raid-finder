@@ -10,8 +10,9 @@ import styled from 'styled-components/macro'
 
 import { modalAtom } from 'atoms/settingsAtom'
 import { wsStateAtom } from 'atoms/wsAtoms'
+import LuriaImgPath from 'statics/images/luria.png'
 
-import { getGlowPreset, TYPE } from '../theme'
+import { getGlowPreset } from '../theme'
 
 import { ButtonErrorStyle, ButtonSecondary } from './Button'
 import { worker } from './DataStore'
@@ -52,10 +53,9 @@ const Header = () => {
           <Title>
             <WebIcon>
               <RowBetween>
-                <StyledIcon />
-                <Trans i18nKey="title" t={t}>
-                  <TYPE.mediumHeader pl="0.75rem">GBF Raid Finder!</TYPE.mediumHeader>{' '}
-                </Trans>
+                <Luria>
+                  <LuriaImg width={'32px'} src={LuriaImgPath} alt="logo" />
+                </Luria>
               </RowBetween>
             </WebIcon>
           </Title>
@@ -179,9 +179,16 @@ const WebIcon = styled.div`
   }
 `
 
-const StyledIcon = styled(SearchIcon)`
-  path {
-    stroke: ${({ theme }) => theme.text1};
+const LuriaImg = styled.img`
+  width: 32px;
+  fit: contain;
+  border-radius: 100%;
+`
+
+const Luria = styled.div`
+  transition: transform 0.3s ease;
+  :hover {
+    transform: rotate(-5deg);
   }
 `
 
