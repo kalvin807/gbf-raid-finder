@@ -5,10 +5,11 @@ import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass'
 import styled from 'styled-components/macro'
 
-import { clockAtom } from 'atoms/settingsAtom'
+import { clockAtom, copyActionAtom } from 'atoms/settingsAtom'
 import { Message } from 'atoms/wsAtoms'
 import notiSfx from 'statics/sounds/noti.mp3'
 import { copy } from 'utils/copy'
+import { handleCopyAction } from 'utils/openUrl'
 
 import { StyledLink } from './Button'
 
@@ -107,9 +108,10 @@ export const LatestTweetRow = ({
 
 export const TweetRow = ({ atom }: { atom: PrimitiveAtom<Message> }) => {
   const [value, setAtom] = useImmerAtom(atom)
-
+  const copyAction = useAtomValue(copyActionAtom)
   const { msg, roomId, timestamp, isCopied } = value
   const copyAtom = () => {
+    handleCopyAction(copyAction)
     copy(roomId)
     setAtom((prev) => ({ ...prev, isCopied: true }))
   }

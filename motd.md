@@ -1,6 +1,6 @@
 ## グラブル救援検索・マグナへようこそ
 
-**追加** ベリアルHL、光マリスを追加 , リスト選択枠を改善,ツイート受けるスビートを加速 🚀
+**追加** 設定⚙️　クリック時の動作などの設定をカスタマイズ可能です。
 
 **ガイド**  
 バトル追加 = 救援を追加する  
@@ -18,7 +18,7 @@
 
 ## Welcome to GBF Raid Finder Omega
 
-**Update** Added new regular raids, use in-game categories, and more (realtime) tweet 🚀
+**Update**  Setting ⚙️  Customizing the finder to your needs.
 
 **Guide**  
 Add raid = Select a raid to follow  

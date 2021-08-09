@@ -96,8 +96,10 @@ export const writeMsgStoreAtom = atom(null, (get, set, update: RaidMessageRaw) =
     const msg = atom<Message>({ ...update, raid: raid.toString(), timestamp: new Date(timestamp), isCopied: false })
     if (raid in draft) {
       const maxLength = get(maxMessageAtom)
-      if (draft[raid].length >= maxLength) {
-        draft[raid].pop()
+      const curLength = draft[raid].length
+      if (curLength >= maxLength) {
+        const diff = curLength - maxLength
+        draft[raid].splice(curLength - diff - 1, diff + 1)
       }
       draft[raid].unshift(msg)
     } else {
