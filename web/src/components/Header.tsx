@@ -6,7 +6,7 @@ import { useAtom } from 'jotai'
 import { useUpdateAtom } from 'jotai/utils'
 import { darken } from 'polished'
 import { WorkerRequest } from 'services/worker.type'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { modalAtom } from 'atoms/settingsAtom'
 import { wsStateAtom } from 'atoms/wsAtoms'

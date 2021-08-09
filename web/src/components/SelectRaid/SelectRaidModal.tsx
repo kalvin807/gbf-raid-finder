@@ -3,7 +3,7 @@ import { X } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { Text } from 'rebass'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { filteredRaidAtom } from 'atoms/gbfAtom'
 import { updateBoardAtom } from 'atoms/wsAtoms'

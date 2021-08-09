@@ -3,7 +3,7 @@ import { PrimitiveAtom } from 'jotai'
 import { useImmerAtom } from 'jotai/immer'
 import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { clockAtom } from 'atoms/settingsAtom'
 import { Message } from 'atoms/wsAtoms'

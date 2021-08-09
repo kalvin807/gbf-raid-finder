@@ -2,7 +2,7 @@ import React, { useCallback } from 'react'
 import { PrimitiveAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { lighten, transparentize } from 'polished'
-import styled, { useTheme } from 'styled-components'
+import styled, { useTheme } from 'styled-components/macro'
 
 import { Raid } from 'atoms/gbfAtom'
 import { updateBoardAtom } from 'atoms/wsAtoms'

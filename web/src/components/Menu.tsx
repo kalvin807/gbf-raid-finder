@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Check, ChevronLeft, ChevronRight, Code, Moon, MoreHorizontal as MenuIcon, Sun } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components/macro'
 
 import { themeAtom } from 'atoms/settingsAtom'
 import { LOCALE_LABEL, SUPPORTED_LOCALES, SupportedLocale } from 'statics/constant'

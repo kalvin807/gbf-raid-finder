@@ -1,5 +1,5 @@
 import { Box } from 'rebass/styled-components'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const Row = styled(Box)<{
   width?: string

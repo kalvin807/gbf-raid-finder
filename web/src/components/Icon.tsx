@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 export const IconWrapper = styled.button<{ stroke?: string; size?: string; marginRight?: string; marginLeft?: string }>`
   background-color: transparent;

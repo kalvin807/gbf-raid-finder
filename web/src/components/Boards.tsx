@@ -5,7 +5,7 @@ import deepEquals from 'fast-deep-equal'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { Text } from 'rebass'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { Board as BoardType, boardAtomsAtom, readMsgStoreAtom, updateBoardAtom } from 'atoms/wsAtoms'
 import { Separator } from 'theme/components'

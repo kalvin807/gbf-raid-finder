@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 const ThemedBackground = styled.div<{ backgroundColor?: string | undefined }>`
   position: fixed;

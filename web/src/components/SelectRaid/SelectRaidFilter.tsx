@@ -4,7 +4,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { PrimitiveAtom, useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { Category, categoryAtom, nameFilterAtom } from 'atoms/gbfAtom'
 

@@ -1,5 +1,5 @@
 import { Button as RebassButton, ButtonProps as ButtonPropsOriginal } from 'rebass/styled-components'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 type ButtonProps = Omit<ButtonPropsOriginal, 'css'>
 

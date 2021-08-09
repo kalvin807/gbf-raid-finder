@@ -6,7 +6,7 @@ import styled, {
   css,
   DefaultTheme,
   ThemeProvider as StyledComponentsThemeProvider,
-} from 'styled-components'
+} from 'styled-components/macro'
 
 import { themeAtom } from '../atoms/settingsAtom'
 
