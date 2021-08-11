@@ -1,12 +1,13 @@
 import analyze from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import macrosPlugin from 'vite-plugin-babel-macros'
-import viteCompression from 'vite-plugin-compression';
+import viteCompression from 'vite-plugin-compression'
 import ViteFonts from 'vite-plugin-fonts'
+import { minifyHtml } from 'vite-plugin-html'
+import { VitePWA } from 'vite-plugin-pwa'
 import react from 'vite-preset-react'
 import reactJsx from 'vite-react-jsx'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import { minifyHtml } from 'vite-plugin-html';
 // https://vitejs.dev/config/
 export default defineConfig({
   // This changes the out put dir from dist to build
@@ -31,5 +32,36 @@ export default defineConfig({
     reactJsx(),
     viteCompression(),
     minifyHtml(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      includeAssets: ['favicon.ico', 'robots.txt', 'safari-pinned-tab.svg', 'locales/*.json'],
+      manifest: {
+        name: 'GBFinder Omega - グラブル救援検索・マグナ',
+        short_name: 'GBFinder',
+        description: 'A raid finder for granblue fantasy グラブル救援検索',
+        theme_color: '#e1f5fe',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'any maskable',
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ['**/*.mp3', '**/*.jpg', '**/*.webp'],
+      },
+    }),
   ],
 })

@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-import { Search as SearchIcon } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
 import useScrollPosition from '@react-hook/window-scroll'
 import { useAtom } from 'jotai'
@@ -10,12 +9,14 @@ import styled from 'styled-components/macro'
 
 import { modalAtom } from 'atoms/settingsAtom'
 import { wsStateAtom } from 'atoms/wsAtoms'
-import LuriaImgPath from 'statics/images/luria.png'
+import LuriaPngPath from 'statics/images/luria.png'
+import LuriaWebpPath from 'statics/images/luria.webp'
 
 import { getGlowPreset } from '../theme'
 
 import { ButtonErrorStyle, ButtonSecondary } from './Button'
 import { worker } from './DataStore'
+import Image from './ImageWithFallback'
 import Menu from './Menu'
 import { RowBetween, RowFixed } from './Row'
 import Setting from './Setting'
@@ -55,7 +56,7 @@ const Header = () => {
             <WebIcon>
               <RowBetween>
                 <Luria>
-                  <LuriaImg width={'32px'} src={LuriaImgPath} alt="logo" />
+                  <Image src={LuriaWebpPath} fallback={LuriaPngPath} size="2rem" alt="logo" />
                 </Luria>
               </RowBetween>
             </WebIcon>
@@ -180,12 +181,6 @@ const WebIcon = styled.div`
   :hover {
     transform: rotate(-5deg);
   }
-`
-
-const LuriaImg = styled.img`
-  width: 32px;
-  fit: contain;
-  border-radius: 100%;
 `
 
 const Luria = styled.div`

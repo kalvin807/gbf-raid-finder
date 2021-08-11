@@ -1,7 +1,7 @@
 import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 
 import { CopyAction, copyActionAtom } from 'atoms/settingsAtom'
 

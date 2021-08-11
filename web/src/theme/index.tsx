@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { useAtomValue } from 'jotai/utils'
-import { Text, TextProps as TextPropsOriginal } from 'rebass'
+import { Text, TextProps as TextPropsOriginal } from 'rebass/styled-components'
 import styled, {
   createGlobalStyle,
   css,

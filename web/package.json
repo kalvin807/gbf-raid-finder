@@ -50,6 +50,7 @@
     "vite-plugin-compression": "^0.3.3",
     "vite-plugin-fonts": "^0.2.2",
     "vite-plugin-html": "^2.0.7",
+    "vite-plugin-pwa": "^0.10.0",
     "vite-preset-react": "^1.3.0",
     "vite-react-jsx": "^1.1.2",
     "vite-tsconfig-paths": "^3.3.13"
