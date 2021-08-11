@@ -3,7 +3,7 @@ import { Moon, Settings, Sun } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
 import { darken } from 'polished'
-import { Text } from 'rebass'
+import { Text } from 'rebass/styled-components'
 import styled, { css, ThemeContext } from 'styled-components/macro'
 
 import { maxMessageAtom, themeAtom } from 'atoms/settingsAtom'

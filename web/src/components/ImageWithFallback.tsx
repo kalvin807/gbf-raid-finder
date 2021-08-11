@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, ImageProps } from 'rebass'
+import { Image, ImageProps } from 'rebass/styled-components'
 
 interface Props {
   src: string

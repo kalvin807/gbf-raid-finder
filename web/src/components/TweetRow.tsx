@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react'
 import { PrimitiveAtom } from 'jotai'
 import { useImmerAtom } from 'jotai/immer'
 import { useAtomValue } from 'jotai/utils'
-import { Text } from 'rebass'
+import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
 import { clockAtom, copyActionAtom } from 'atoms/settingsAtom'
