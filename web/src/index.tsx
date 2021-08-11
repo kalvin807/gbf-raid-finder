@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider as JotaiProvider } from 'jotai'
 
 import './i18n'
+import './pwa'
 
 import DataStore from './components/DataStore'
 import LoadingScreen from './components/LoadingScreen'
