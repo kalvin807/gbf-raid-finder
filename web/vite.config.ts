@@ -34,25 +34,25 @@ export default defineConfig({
     minifyHtml(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'favicon.ico', 'robots.txt', 'safari-pinned-tab.svg'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'safari-pinned-tab.svg', 'locales/*.json'],
       manifest: {
         name: 'GBFinder Omega - グラブル救援検索・マグナ',
-        short_name: 'GBFinder Omega',
-        description: 'A raid finder for granblue fantasy',
-        theme_color: '#2172E5',
+        short_name: 'GBFinder',
+        description: 'A raid finder for granblue fantasy グラブル救援検索',
+        theme_color: '#e1f5fe',
         icons: [
           {
-            src: 'android-chrome-192x192.png',
+            src: 'pwa-192x192.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: 'android-chrome-512x512.png',
+            src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
           },
           {
-            src: 'android-chrome-512x512.png',
+            src: 'pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',
@@ -60,7 +60,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['src/statics/sounds/*.mp3', 'src/statics/sounds/**/*.jpg', 'src/statics/statics/**/*.webp'],
+        globPatterns: ['**/*.mp3', '**/*.jpg', '**/*.webp'],
       },
     }),
   ],

@@ -3,6 +3,7 @@ import styled from 'styled-components/macro'
 
 import Boards from 'components/Boards'
 import Header from 'components/Header'
+import ReloadPrompt from 'components/ReloadPrompt'
 import SelectRaid from 'components/SelectRaid'
 import ThemedBackground from 'components/ThemedBackground'
 
@@ -17,6 +18,7 @@ const App = () => {
           <ThemedBackground />
           <Boards />
         </BodyWrapper>
+        <ReloadPrompt />
       </AppWrapper>
       <SelectRaid />
     </>
