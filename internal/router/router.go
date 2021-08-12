@@ -1,15 +1,13 @@
 package router
 
 import (
-	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/julienschmidt/httprouter"
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
+	"github.com/labstack/echo/v4"
 )
 
 var upgrader = websocket.Upgrader{
@@ -27,47 +25,38 @@ var (
 	cacheUntil       = time.Now().AddDate(0, 0, 7).Format(http.TimeFormat)
 )
 
-func setCache(w *http.ResponseWriter) {
+func addCacheHeader(c *echo.Response) {
 	// Must revalidate
-	header := (*w).Header()
+	header := (*c).Header()
 	header.Set("Cache-Control", "no-cache, max-age=0")
 	header.Set("Last-Modified", cacheSince)
 	header.Set("Expires", cacheUntil)
 }
 
-func checkOrigin(r *http.Request) bool {
-	fnURL := os.Getenv("FRONT_END_URL")
-	origin := r.Header.Get("Origin")
-	if origin == "" || origin == fnURL {
-		return true
-	}
-	return false
-}
-
-func fileHandler(filePath string) http.Handler {
-	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		setCache(&w)
-		http.ServeFile(w, r, filePath)
-	})
-	return handler
-}
-
 // SetUpRoute set up endpoints for websocket and static files
-func SetUpRoute(router *httprouter.Router, hub *clients.Hub) {
+func SetUpRoute(e *echo.Echo, hub *clients.Hub) {
 
-	router.GET("/", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		http.Redirect(w, r, "https://kalvin807.github.io/gbf-raid-finder/", http.StatusTemporaryRedirect)
+	e.GET("/", func(c echo.Context) error {
+		c.Response().Header().Set("Referer", "https://gbf-api.kalvin.io")
+		return c.Redirect(http.StatusFound, "https://gbf.kalvin.io/")
 	})
 
-	router.Handler("GET", "/raid", fileHandler(raidFilePath))
-	router.Handler("GET", "/category", fileHandler(categoryFilePath))
+	e.GET("/raid", func(c echo.Context) error {
+		addCacheHeader(c.Response())
+		return c.File(raidFilePath)
+	})
 
-	router.GET("/ws", func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		conn, err := upgrader.Upgrade(w, r, nil)
+	e.GET("/category", func(c echo.Context) error {
+		addCacheHeader(c.Response())
+		return c.File(categoryFilePath)
+	})
+
+	e.GET("/ws", func(c echo.Context) error {
+		conn, err := upgrader.Upgrade(c.Response(), c.Request(), nil)
 		if err != nil {
-			log.Println(err)
-			return
+			return err
 		}
 		clients.MakeWsClient(hub, conn)
+		return nil
 	})
 }
