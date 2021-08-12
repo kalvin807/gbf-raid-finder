@@ -56,7 +56,7 @@ const Header = () => {
             <WebIcon>
               <RowBetween>
                 <Luria>
-                  <Image src={LuriaWebpPath} fallback={LuriaPngPath} size="2rem" alt="logo" />
+                  <Image src={LuriaWebpPath} fallback={LuriaPngPath} alt="logo" />
                 </Luria>
               </RowBetween>
             </WebIcon>
