@@ -38,8 +38,6 @@ interface MessagesStore {
 }
 
 type Action = 'add' | 'remove' | 'reset'
-export const ws = new WebSocket(WS_URL)
-ws.binaryType = 'arraybuffer'
 export const wsStateAtom = atom(WebSocket.CONNECTING)
 
 export const boardsAtom = atomWithStorage<Board[]>('board', [])

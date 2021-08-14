@@ -4,31 +4,36 @@ import { RaidMessage, SubscribeRequest } from '../utils/messages'
 import type { WorkerRequest } from './worker.type'
 
 const initWs = () => {
-  const ws = new WebSocket(WS_URL)
+  try {
+    const ws = new WebSocket(WS_URL)
 
-  ws.binaryType = 'arraybuffer'
+    ws.binaryType = 'arraybuffer'
 
-  ws.onopen = () => {
-    console.log('WebSocket opened')
-    postMessage({ type: 'status', value: WebSocket.OPEN })
-  }
+    ws.onopen = () => {
+      console.log('WebSocket opened')
+      postMessage({ type: 'status', value: WebSocket.OPEN })
+    }
 
-  ws.onclose = () => {
-    console.log('WebSocket closed')
+    ws.onclose = () => {
+      console.log('WebSocket closed')
+      postMessage({ type: 'status', value: WebSocket.CLOSED })
+    }
+
+    ws.onerror = (event) => {
+      console.log('WebSocket error', event)
+      postMessage({ type: 'status', value: WebSocket.CLOSED })
+    }
+
+    ws.onmessage = (event) => {
+      const buffer = new Uint8Array(event.data)
+      const msg = RaidMessage.fromBinary(buffer)
+      postMessage({ type: 'message', value: msg })
+    }
+    return ws
+  } catch (e) {
+    console.log('WebSocket Init error', e)
     postMessage({ type: 'status', value: WebSocket.CLOSED })
   }
-
-  ws.onerror = (event) => {
-    console.log('WebSocket error', event)
-    postMessage({ type: 'status', value: WebSocket.CLOSED })
-  }
-
-  ws.onmessage = (event) => {
-    const buffer = new Uint8Array(event.data)
-    const msg = RaidMessage.fromBinary(buffer)
-    postMessage({ type: 'message', value: msg })
-  }
-  return ws
 }
 
 let ws = initWs()
@@ -46,7 +51,7 @@ onmessage = function (actionEvent) {
       ws = initWs()
       break
     case 'stop':
-      ws.close()
+      if (ws) ws.close()
       break
     case 'restart':
       if (ws && ws.readyState === WebSocket.OPEN) ws.close()

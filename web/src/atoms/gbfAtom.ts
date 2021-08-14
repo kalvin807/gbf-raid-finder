@@ -29,9 +29,7 @@ const fetchJson = (endpoint: string) =>
       }
       throw new Error(`${res.status}: ${res.statusText}`)
     })
-    .catch((err) => {
-      console.log(err)
-    })
+    .catch((e) => console.log(e))
 
 export const fetchCategory = (): Promise<any> => fetchJson('category')
 export const fetchRaid = (): Promise<any> => fetchJson('raid')

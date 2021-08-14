@@ -30,14 +30,22 @@ const DataStore = () => {
   }, [setClock])
 
   useEffect(() => {
-    fetchCategory().then((res: { [k: string]: { en: string; ja: string } }) => {
-      const categories = Object.entries(res).map(([k, v]) => atom({ id: k, en: v.en, ja: v.ja, isSelected: false }))
-      setCategory(categories)
-    })
-    fetchRaid().then((res: Array<any>) => {
-      const raids = res.map((obj: any, id) => ({ ...obj, id, isSelected: false }))
-      setRaid(raids)
-    })
+    fetchCategory()
+      .then((res: { [k: string]: { en: string; ja: string } }) => {
+        if (res) {
+          const categories = Object.entries(res).map(([k, v]) => atom({ id: k, en: v.en, ja: v.ja, isSelected: false }))
+          setCategory(categories)
+        }
+      })
+      .catch((e) => console.error(e))
+    fetchRaid()
+      .then((res: Array<any>) => {
+        if (res) {
+          const raids = res.map((obj: any, id) => ({ ...obj, id, isSelected: false }))
+          setRaid(raids)
+        }
+      })
+      .catch((e) => console.error(e))
   }, [setRaid, setCategory])
 
   useEffect(() => {
