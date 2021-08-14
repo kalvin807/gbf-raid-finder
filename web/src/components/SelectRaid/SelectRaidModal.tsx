@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { memo, useCallback } from 'react'
 import { X } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
+import { Atom, useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
 import { filteredRaidAtom } from 'atoms/gbfAtom'
-import { updateBoardAtom } from 'atoms/wsAtoms'
+import { Board, BoardAtom } from 'atoms/wsAtoms'
 import { IconWrapper } from 'components/Icon'
 import { Separator } from 'theme'
 
@@ -17,6 +18,12 @@ import Row, { RowBetween, RowFixed } from '../Row'
 
 import Option from './Options'
 import SelectRaidFilter from './SelectRaidFilter'
+
+interface SelectRaidProps {
+  atom: BoardAtom
+  isOpen: boolean
+  onDismiss: () => void
+}
 
 const RaidList = () => {
   const raids = useAtomValue(filteredRaidAtom)
@@ -31,9 +38,13 @@ const RaidList = () => {
   )
 }
 
-const SelectModal = ({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => void }) => {
+const SelectModal = memo(function SelectModal({ atom, isOpen, onDismiss }: SelectRaidProps) {
   const { t } = useTranslation()
-  const setBoard = useUpdateAtom(updateBoardAtom)
+  const [board, setBoard] = useAtom(atom)
+  const { subscribe } = board
+
+  const reset = useCallback(() => setBoard((draft) => (draft.subscribe = [])), [setBoard])
+
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={80}>
       <ContentWrapper>
@@ -45,7 +56,7 @@ const SelectModal = ({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => 
               </Trans>
             </Text>
             <RowFixed>
-              <LinkStyledButton onClick={() => setBoard({ action: 'reset' })}>
+              <LinkStyledButton onClick={reset}>
                 <Trans i18nKey="clear_all" t={t}>
                   Clear all
                 </Trans>
@@ -60,11 +71,11 @@ const SelectModal = ({ isOpen, onDismiss }: { isOpen: boolean; onDismiss: () => 
           </Row>
         </PaddedColumn>
         <Separator />
-        <RaidList />
+        {/* <RaidList /> */}
       </ContentWrapper>
     </Modal>
   )
-}
+})
 
 const ContentWrapper = styled(Column)`
   width: 100%;

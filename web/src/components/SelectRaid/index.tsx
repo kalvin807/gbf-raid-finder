@@ -1,17 +1,5 @@
-import React, { lazy, useCallback, useMemo } from 'react'
-import { useAtom } from 'jotai'
-
-import { modalAtom } from 'atoms/settingsAtom'
+import React, { lazy } from 'react'
 
 const SelectRaidModal = lazy(() => import('./SelectRaidModal'))
 
-const SelectRaid = () => {
-  const [modalOpen, setModalOpen] = useAtom(modalAtom)
-  const handleDismiss = useCallback(() => {
-    setModalOpen(false)
-  }, [setModalOpen])
-
-  return useMemo(() => <SelectRaidModal isOpen={modalOpen} onDismiss={handleDismiss} />, [modalOpen, handleDismiss])
-}
-
-export default SelectRaid
+export default SelectRaidModal

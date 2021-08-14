@@ -3,9 +3,9 @@ import { atom, useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { WorkerResponse } from 'services/worker.type'
 
-import { categoryAtom, fetchCategory, fetchRaid, writeRaidAtom } from 'atoms/gbfAtom'
-import { clockAtom } from 'atoms/settingsAtom'
-import { boardsAtom, writeMsgStoreAtom, wsStateAtom } from 'atoms/wsAtoms'
+import { categoryAtom, fetchCategory, fetchRaid, raidAtom } from 'atoms/gbfAtom'
+import { clockAtom, wsStateAtom } from 'atoms/settingsAtom'
+import { boardsAtom, raidBoardMapAtom, updateMsgStoreAtom, updateRaidBoardAtom } from 'atoms/wsAtoms'
 import { RaidMessage as RaidMessageRaw } from 'utils/messages'
 
 import WebsocketWorker from '../services/worker?worker'
@@ -18,11 +18,13 @@ const DataStore = () => {
   const [workerReady, setWorkerReady] = useState(false)
 
   const board = useAtomValue(boardsAtom)
+  const mapping = useAtomValue(raidBoardMapAtom)
 
   const [wsState, setWsState] = useAtom(wsStateAtom)
-  const setMessage = useUpdateAtom(writeMsgStoreAtom)
+  const setMessage = useUpdateAtom(updateMsgStoreAtom)
   const setCategory = useUpdateAtom(categoryAtom)
-  const setRaid = useUpdateAtom(writeRaidAtom)
+  const setRaid = useUpdateAtom(raidAtom)
+  const setMapping = useUpdateAtom(updateRaidBoardAtom)
   const setClock = useUpdateAtom(clockAtom)
 
   const updateClock = useCallback(() => {
@@ -48,6 +50,7 @@ const DataStore = () => {
       .catch((e) => console.error(e))
   }, [setRaid, setCategory])
 
+  // Heartbeat
   useEffect(() => {
     const clock = setInterval(updateClock, 1000)
     return () => {
@@ -55,13 +58,20 @@ const DataStore = () => {
     }
   }, [updateClock])
 
+  // Update mapping when any board is changed
+  useEffect(() => {
+    setMapping()
+  }, [board, setMapping])
+
+  // Push subscribe to the worker when new raid is need to be fetched.
   useEffect(() => {
     if (window.Worker && workerReady && wsState === WebSocket.OPEN) {
-      const activeId = board.filter((atom) => atom.id).map(({ id }) => id)
+      const activeId = Object.keys(mapping)
       worker.postMessage({ type: 'send', value: { raid: activeId } })
     }
-  }, [board, workerReady, wsState])
+  }, [mapping, workerReady, wsState])
 
+  // Set up web worker
   useEffect(() => {
     const onWorkerResponse = (res: MessageEvent<WorkerResponse>) => {
       const { type, value } = res.data

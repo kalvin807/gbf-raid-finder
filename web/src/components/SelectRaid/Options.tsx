@@ -5,7 +5,6 @@ import { lighten, transparentize } from 'polished'
 import styled, { useTheme } from 'styled-components/macro'
 
 import { Raid } from 'atoms/gbfAtom'
-import { updateBoardAtom } from 'atoms/wsAtoms'
 
 const InfoCard = styled.button<{ bgColor: string; active?: boolean }>`
   background-color: ${({ bgColor, active }) => (active ? bgColor : transparentize(0.8, bgColor))};
@@ -62,7 +61,6 @@ const SubHeader = styled.div`
 export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
   const item = useAtomValue(atom)
   const { isSelected, element, en, jp } = item
-  const updateBoard = useUpdateAtom(updateBoardAtom)
   const theme = useTheme()
   const colorMap: { [key: string]: string } = {
     fire: theme.fire,
@@ -74,8 +72,8 @@ export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
   }
 
   const toggleSelected = useCallback(() => {
-    updateBoard({ raid: item, action: isSelected ? 'remove' : 'add' })
-  }, [updateBoard, item, isSelected])
+    console.log('TODO')
+  }, [])
 
   const color = colorMap[element] || theme.bg5
 
