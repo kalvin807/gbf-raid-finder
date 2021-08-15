@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { Bell, BellOff, Clipboard, PlusSquare, X, XCircle } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
@@ -8,7 +8,8 @@ import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
-import { boardsAtom, boardsIdAtom, MessagesAtom, messageStoreAtom, reduceBoardsAtom } from 'atoms/wsAtoms'
+import { raidAtom } from 'atoms/gbfAtom'
+import { BoardAtom, boardsAtom, boardsIdAtom, MessagesAtom, messageStoreAtom, reduceBoardsAtom } from 'atoms/wsAtoms'
 import useToggle from 'hooks/useToggle'
 import { Separator } from 'theme/components'
 
@@ -45,13 +46,22 @@ const TweetsContainer = ({
   )
 }
 
-const TweetsBoard = ({ id, deleteBoard }: { id: string; deleteBoard: DeleteFn }) => {
+const TweetBoardController = memo(function TweetBoardController({
+  id,
+  boardAtom,
+  deleteBoard,
+  toggleModal,
+}: {
+  id: string
+  boardAtom: BoardAtom
+  deleteBoard: DeleteFn
+  toggleModal: () => void
+}) {
   const { i18n } = useTranslation()
-  const [isOpen, toggleModal] = useToggle(false)
-  const boardAtom = useMemo(() => withImmer(focusAtom(boardsAtom, (optic) => optic.prop(id))), [id])
-  const msgAtom = useMemo(() => withImmer(focusAtom(messageStoreAtom, (optic) => optic.prop(id))), [id])
+  const raid = useAtomValue(raidAtom)
   const [board, setBoard] = useAtom(boardAtom)
   const { isAlert, isAutoCopy } = board
+
   const toggleCopy = useCallback(
     () =>
       setBoard((draft) => {
@@ -67,36 +77,59 @@ const TweetsBoard = ({ id, deleteBoard }: { id: string; deleteBoard: DeleteFn })
     [setBoard, isAlert]
   )
 
+  const showRaidOrCount = () => {
+    const subscribe = board.subscribe
+    if (subscribe.length === 0) {
+      return 'Add new raid ->'
+    } else if (subscribe.length === 1) {
+      return raid[subscribe[0]]?.jp
+    } else {
+      return `${subscribe.length} raid${subscribe.length > 1 ? 's' : ''} selected`
+    }
+  }
+
+  return (
+    <RowBetween>
+      <RowFixed>
+        <Text fontWeight={500} fontSize={16}>
+          {showRaidOrCount()}
+        </Text>
+      </RowFixed>
+      <RowFixed>
+        <StyledButton onClick={toggleModal} aria-label="auto-alert">
+          <PlusSquare size={20} />
+        </StyledButton>
+        <StyledButton onClick={toggleAlert} aria-label="auto-alert">
+          {isAlert ? <Bell size={20} /> : <BellOff size={20} />}
+        </StyledButton>
+        <StyledButton onClick={toggleCopy} aria-label="auto-copy">
+          {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
+        </StyledButton>
+        <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board">
+          <X size={20} />
+        </StyledButton>
+      </RowFixed>
+    </RowBetween>
+  )
+})
+
+const TweetsBoard = ({ id, deleteBoard }: { id: string; deleteBoard: DeleteFn }) => {
+  const [isOpen, toggleModal] = useToggle(false)
+  const boardAtom = useMemo(() => withImmer(focusAtom(boardsAtom, (optic) => optic.prop(id))), [id])
+  const msgAtom = useMemo(() => withImmer(focusAtom(messageStoreAtom, (optic) => optic.prop(id))), [id])
+  const board = useAtomValue(boardAtom)
+  const { isAlert, isAutoCopy } = board
+
   return (
     <>
       <StyledBoard>
         <HeaderColumn gap="16px" justify="center">
-          <RowBetween>
-            <RowFixed>
-              <Text fontWeight={500} fontSize={16}>
-                {'test'}
-              </Text>
-            </RowFixed>
-            <RowFixed>
-              <StyledButton onClick={toggleModal} aria-label="auto-alert">
-                <PlusSquare size={20} />
-              </StyledButton>
-              <StyledButton onClick={toggleAlert} aria-label="auto-alert">
-                {isAlert ? <Bell size={20} /> : <BellOff size={20} />}
-              </StyledButton>
-              <StyledButton onClick={toggleCopy} aria-label="auto-copy">
-                {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
-              </StyledButton>
-              <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board">
-                <X size={20} />
-              </StyledButton>
-            </RowFixed>
-          </RowBetween>
+          <TweetBoardController boardAtom={boardAtom} id={id} deleteBoard={deleteBoard} toggleModal={toggleModal} />
         </HeaderColumn>
         <Separator />
         <TweetsContainer atom={msgAtom} isAutoCopy={isAutoCopy} isAlert={isAlert} />
       </StyledBoard>
-      <SelectRaid atom={boardAtom} isOpen={isOpen} onDismiss={toggleModal} />
+      {isOpen && <SelectRaid atom={boardAtom} isOpen={isOpen} onDismiss={toggleModal} />}
     </>
   )
 }

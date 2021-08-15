@@ -6,6 +6,7 @@ import { nanoid } from 'nanoid'
 
 import { RaidMessage as RaidMessageRaw } from 'utils/messages'
 
+import { Raid, raidAtom } from './gbfAtom'
 import { maxMessageAtom } from './settingsAtom'
 
 export interface Board {
@@ -20,7 +21,7 @@ const defaultBoard: Board = {
   isAlert: false,
 }
 
-export interface Message {
+export interface Message extends Raid {
   raid: string
   msg: string
   roomId: string
@@ -48,7 +49,6 @@ export const boardsIdAtom = atom((get) => {
   if (Array.isArray(boards)) return []
   return Object.keys(boards)
 })
-
 export const reduceBoardsAtom = atom(null, (_, set, update: BoardAction) => {
   switch (update.type) {
     case 'ADD':
@@ -72,7 +72,7 @@ export const reduceBoardsAtom = atom(null, (_, set, update: BoardAction) => {
   }
 })
 
-export const raidBoardMapAtom = atomWithImmer<Record<string, string[]>>({})
+export const raidBoardMapAtom = atom<Record<string, string[]>>({})
 export const updateRaidBoardAtom = atom(null, (get, set) => {
   const boards = get(boardsAtom)
   if (Array.isArray(boards)) return // Don't react to old format
@@ -95,11 +95,12 @@ export const messageStoreAtom = atomWithImmer<MessagesStore>({})
 export const updateMsgStoreAtom = atom(null, (get, set, update: RaidMessageRaw) => {
   const mapping = get(raidBoardMapAtom)
   const maxLength = get(maxMessageAtom)
-  console.log(update)
+  const raids = get(raidAtom)
   set(messageStoreAtom, (draft) => {
     const { raid, timestamp } = update
     const msg = atomWithImmer<Message>({
       ...update,
+      ...raids[raid],
       raid: raid.toString(),
       timestamp: new Date(timestamp),
       isCopied: false,
@@ -111,19 +112,16 @@ export const updateMsgStoreAtom = atom(null, (get, set, update: RaidMessageRaw) 
 
     for (let i = 0; i < l; i++) {
       const boardId = boardIds[i]
-      let queue
       if (boardId in draft) {
-        queue = draft[boardId]
-        const curLength = queue.length
+        const curLength = draft[boardId].length
         if (curLength >= maxLength) {
           const diff = curLength - maxLength
-          queue.splice(curLength - diff - 1, diff + 1)
+          draft[boardId].splice(curLength - diff - 1, diff + 1)
         }
-        queue.unshift(msg)
+        draft[boardId].unshift(msg)
       } else {
-        queue = [msg]
+        draft[boardId] = [msg]
       }
-      draft[boardId] = queue
     }
   })
 })

@@ -11,11 +11,11 @@ import { copy } from 'utils/copy'
 import { handleCopyAction } from 'utils/openUrl'
 
 import { StyledLink } from './Button'
+import { AutoColumn } from './Column'
 
 const sound = new Audio(notiSfx)
 
 const IDText = styled(Text)`
-  margin-bottom: 24px;
   font-size: 20px;
   font-weight: 600;
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -26,7 +26,6 @@ const IDText = styled(Text)`
 const TimeText = styled(Text)`
   align-items: center;
   display: flex;
-  margin-bottom: 24px;
   font-size: 16px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 12px;
@@ -47,7 +46,7 @@ const MessageText = styled(Text)`
 
 const StyledTweetRow = styled(StyledLink)<{ copied: boolean }>`
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   gap: 8px;
   justify-content: space-between;
   position: relative;
@@ -108,7 +107,7 @@ export const LatestTweetRow = ({
 export const TweetRow = ({ atom }: { atom: MessageAtom }) => {
   const [value, setAtom] = useAtom(atom)
   const copyAction = useAtomValue(copyActionAtom)
-  const { msg, roomId, timestamp, isCopied } = value
+  const { msg, roomId, timestamp, isCopied, jp, en } = value
   const copyAtom = () => {
     handleCopyAction(copyAction)
     copy(roomId)
@@ -116,9 +115,14 @@ export const TweetRow = ({ atom }: { atom: MessageAtom }) => {
   }
   return (
     <StyledTweetRow onClick={() => copyAtom()} copied={isCopied}>
-      <IDText>{roomId}</IDText>
-      <MessageText>{msg}</MessageText>
-      <ElapsedTime timestamp={timestamp} />
+      <AutoColumn gap="sm">
+        <IDText>{en}</IDText>
+        <MessageText>{roomId}</MessageText>
+      </AutoColumn>
+      <AutoColumn gap="sm">
+        <ElapsedTime timestamp={timestamp} />
+        <MessageText>{msg}</MessageText>
+      </AutoColumn>
     </StyledTweetRow>
   )
 }
