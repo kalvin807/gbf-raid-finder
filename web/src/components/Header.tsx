@@ -38,7 +38,9 @@ const WebsocketStatus = () => {
           </Trans>
         </ButtonErrorStyle>
       )}
-      <Dot color={colorPreset.color} shadow={colorPreset.shadow} />
+      <div style={{ marginLeft: '4px' }}>
+        <Dot color={colorPreset.color} shadow={colorPreset.shadow} />
+      </div>
     </>
   )
 }
