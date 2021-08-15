@@ -1,6 +1,4 @@
-import React, { useCallback } from 'react'
-import { PrimitiveAtom } from 'jotai'
-import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import React from 'react'
 import { lighten, transparentize } from 'polished'
 import styled, { useTheme } from 'styled-components/macro'
 

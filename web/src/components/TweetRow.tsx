@@ -5,7 +5,7 @@ import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
 import { clockAtom, copyActionAtom } from 'atoms/settingsAtom'
-import { Message, MessageAtom } from 'atoms/wsAtoms'
+import { MessageAtom } from 'atoms/wsAtoms'
 import notiSfx from 'statics/sounds/noti.mp3'
 import { copy } from 'utils/copy'
 import { handleCopyAction } from 'utils/openUrl'

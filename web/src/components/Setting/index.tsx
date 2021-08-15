@@ -13,7 +13,7 @@ import { useOnClickOutside } from 'hooks/useOnClickOutside'
 
 import { TYPE } from '../../theme'
 import { AutoColumn } from '../Column'
-import Row, { AutoRow, RowBetween, RowFixed } from '../Row'
+import { AutoRow, RowBetween, RowFixed } from '../Row'
 import Toggle from '../Toggle'
 
 export enum FlyoutAlignment {

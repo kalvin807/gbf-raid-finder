@@ -1,7 +1,7 @@
-import React, { lazy, useCallback, useMemo } from 'react'
-import { atom, useAtom } from 'jotai'
+import React, { lazy, useMemo } from 'react'
+import { atom } from 'jotai'
 
-import { categoryAtom, raidAtom } from 'atoms/gbfAtom'
+import { raidAtom } from 'atoms/gbfAtom'
 import { BoardAtom } from 'atoms/wsAtoms'
 
 export interface SelectRaidProps {

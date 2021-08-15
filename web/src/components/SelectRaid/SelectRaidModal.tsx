@@ -40,14 +40,14 @@ const RaidList = ({ atom, subscribed, toggle }: { atom: Atom<Raid[]>; subscribed
   )
 }
 
-const SelectModal = ({
+const SelectModal = memo(function SelectModal({
   atom,
   isOpen,
   onDismiss,
   raidAtom,
   categoryFilterAtom,
   nameFilterAtom,
-}: SelectRaidModalProps) => {
+}: SelectRaidModalProps) {
   const { t } = useTranslation()
   const [board, setBoard] = useAtom(atom)
 
@@ -63,7 +63,13 @@ const SelectModal = ({
       }),
     [setBoard]
   )
-  const reset = useCallback(() => setBoard((draft) => (draft.subscribe = [])), [setBoard])
+  const reset = useCallback(
+    () =>
+      setBoard((draft) => {
+        draft.subscribe = []
+      }),
+    [setBoard]
+  )
 
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={80}>
@@ -95,7 +101,7 @@ const SelectModal = ({
       </ContentWrapper>
     </Modal>
   )
-}
+})
 
 const ContentWrapper = styled(Column)`
   width: 100%;

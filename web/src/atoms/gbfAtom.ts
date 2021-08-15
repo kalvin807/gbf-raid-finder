@@ -1,4 +1,4 @@
-import { atom, PrimitiveAtom } from 'jotai'
+import { atom } from 'jotai'
 
 import { API_URL } from 'statics/constant'
 

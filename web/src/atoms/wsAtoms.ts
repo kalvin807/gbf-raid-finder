@@ -106,6 +106,7 @@ export const updateMsgStoreAtom = atom(null, (get, set, update: RaidMessageRaw) 
     })
 
     const boardIds = mapping[raid]
+    if (!boardIds) return // No board for this raid
     const l = boardIds.length
 
     for (let i = 0; i < l; i++) {
