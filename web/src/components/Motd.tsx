@@ -7,7 +7,7 @@ export const JpMotd = () => {
     <>
       <h2 id="-">グラブル救援検索・マグナへようこそ</h2>
       <p>
-        <strong>追加</strong>　設定⚙️　クリック時の動作などの設定をカスタマイズ可能です。
+        <strong>追加</strong> HL5★ アニマ・アニムス・コア。
       </p>
       <p>
         <strong>ガイド</strong>
@@ -41,7 +41,7 @@ export const EnMotd = () => {
     <>
       <h2 id="welcome-to-gbf-raid-finder-omega">Welcome to GBF Raid Finder Omega</h2>
       <p>
-        <strong>Update</strong> Setting ⚙️ Customizing the finder to your needs.
+        <strong>Update</strong> Impossible 5★ Anima-Animus Core.
       </p>
       <p>
         <strong>Guide</strong>
@@ -75,7 +75,7 @@ export const ZhMotd = () => {
     <>
       <h2 id="-">歡迎來到グラブル救援検索・マグナ</h2>
       <p>
-        <strong>新功能</strong> 中文!!!雖然副本名稱等還是沿用日文...沒有時間翻譯orz
+        <strong>新功能</strong> HL5★ アニマ・アニムス・コア。
       </p>
       <p>
         <strong>懶人包</strong>

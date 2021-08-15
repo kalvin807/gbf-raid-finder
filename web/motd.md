@@ -1,6 +1,6 @@
 ## グラブル救援検索・マグナへようこそ
 
-**追加** 設定⚙️　クリック時の動作などの設定をカスタマイズ可能です。
+**追加** HL5★ アニマ・アニムス・コア。
 
 **ガイド**  
 バトル追加 = 救援を追加する  
@@ -19,7 +19,7 @@
 
 ## Welcome to GBF Raid Finder Omega
 
-**Update**  Setting ⚙️  Customizing the finder to your needs.
+**Update** Impossible 5★ Anima-Animus Core.
 
 **Guide**  
 Add raid = Select a raid to follow  
@@ -37,7 +37,7 @@ Add raid = Select a raid to follow
 
 ## 歡迎來到グラブル救援検索・マグナ
 
-**新功能**  中文!!!雖然副本名稱等還是沿用日文...沒有時間翻譯orz
+**新功能**  HL5★ アニマ・アニムス・コア。
 
 **懶人包**  
 增加副本 = 增加你想追蹤的副本  
