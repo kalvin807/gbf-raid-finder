@@ -1,11 +1,10 @@
-import React, { useCallback } from 'react'
-import { PrimitiveAtom } from 'jotai'
-import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import React from 'react'
 import { lighten, transparentize } from 'polished'
 import styled, { useTheme } from 'styled-components/macro'
 
 import { Raid } from 'atoms/gbfAtom'
-import { updateBoardAtom } from 'atoms/wsAtoms'
+
+import { ToggleFn } from './SelectRaidModal'
 
 const InfoCard = styled.button<{ bgColor: string; active?: boolean }>`
   background-color: ${({ bgColor, active }) => (active ? bgColor : transparentize(0.8, bgColor))};
@@ -59,10 +58,8 @@ const SubHeader = styled.div`
   font-weight: 500;
 `
 
-export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
-  const item = useAtomValue(atom)
-  const { isSelected, element, en, jp } = item
-  const updateBoard = useUpdateAtom(updateBoardAtom)
+export default function Option({ raid, active, toggle }: { raid: Raid; active: boolean; toggle: ToggleFn }) {
+  const { id, element, en, jp } = raid
   const theme = useTheme()
   const colorMap: { [key: string]: string } = {
     fire: theme.fire,
@@ -73,14 +70,10 @@ export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
     dark: theme.dark,
   }
 
-  const toggleSelected = useCallback(() => {
-    updateBoard({ raid: item, action: isSelected ? 'remove' : 'add' })
-  }, [updateBoard, item, isSelected])
-
   const color = colorMap[element] || theme.bg5
 
   return (
-    <OptionCardClickable onClick={toggleSelected} bgColor={color} active={isSelected} click={color}>
+    <OptionCardClickable onClick={() => toggle(id)} bgColor={color} active={active} click={color}>
       <OptionCardLeft>
         <HeaderText>
           {en}

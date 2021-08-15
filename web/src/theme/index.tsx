@@ -199,6 +199,11 @@ html {
   background-color: ${({ theme }) => theme.bg1};
 }
 
+h1 {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
 a {
   color: ${({ theme }) => theme.primaryText1}; 
  }

@@ -1,15 +1,13 @@
-import { atom, PrimitiveAtom } from 'jotai'
+import { atom } from 'jotai'
 
 import { API_URL } from 'statics/constant'
 
-import { boardsAtom } from './wsAtoms'
-
 export interface Category {
-  id: string
   en: string
   ja: string
-  isSelected: boolean
 }
+
+export type Categories = Record<string, Category>
 
 export interface Raid {
   id: number
@@ -18,7 +16,6 @@ export interface Raid {
   image: string
   en: string
   jp: string
-  isSelected: boolean
 }
 
 const fetchJson = (endpoint: string) =>
@@ -34,36 +31,5 @@ const fetchJson = (endpoint: string) =>
 export const fetchCategory = (): Promise<any> => fetchJson('category')
 export const fetchRaid = (): Promise<any> => fetchJson('raid')
 
-export const categoryAtom = atom<PrimitiveAtom<Category>[]>([])
-export const raidAtom = atom<PrimitiveAtom<Raid>[]>([])
-export const nameFilterAtom = atom<string>('')
-
-export const writeRaidAtom = atom(null, (get, set, update: Raid[]) => {
-  const board = get(boardsAtom)
-  const activeId = new Set(board.map(({ id }) => id))
-  const atoms = update.map((raid) => {
-    if (activeId.has(raid.id)) {
-      raid.isSelected = true
-    }
-    return atom(raid)
-  })
-  set(raidAtom, atoms)
-})
-
-export const filteredRaidAtom = atom<PrimitiveAtom<Raid>[]>((get) => {
-  const categoryFilter = get(categoryAtom).filter((atom) => get(atom).isSelected)
-  const nameFilter = get(nameFilterAtom)
-  const raids = get(raidAtom)
-  if (categoryFilter.length === 0 && !nameFilter) return raids
-  const categoryKeys = categoryFilter.map((atom) => get(atom).id)
-  const filtered = raids.filter((atom) => {
-    const item = get(atom)
-    const nameMatch = nameFilter
-      ? item.en.toLowerCase().includes(nameFilter.toLowerCase()) ||
-        item.jp.toLowerCase().includes(nameFilter.toLowerCase())
-      : true
-    const categoryMatch = categoryKeys.length ? categoryKeys.includes(item.category) : true
-    return nameMatch && categoryMatch
-  })
-  return filtered
-})
+export const categoryAtom = atom<Categories>({})
+export const raidAtom = atom<Raid[]>([])

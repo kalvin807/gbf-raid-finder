@@ -1,33 +1,35 @@
 import React, { useCallback, useEffect } from 'react'
-import { PrimitiveAtom } from 'jotai'
-import { useImmerAtom } from 'jotai/immer'
+import { useTranslation } from 'react-i18next'
+import { useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
 import { clockAtom, copyActionAtom } from 'atoms/settingsAtom'
-import { Message } from 'atoms/wsAtoms'
+import { MessageAtom } from 'atoms/wsAtoms'
 import notiSfx from 'statics/sounds/noti.mp3'
 import { copy } from 'utils/copy'
 import { handleCopyAction } from 'utils/openUrl'
 
 import { StyledLink } from './Button'
+import { AutoColumn } from './Column'
 
 const sound = new Audio(notiSfx)
 
 const IDText = styled(Text)`
-  margin-bottom: 24px;
   font-size: 20px;
   font-weight: 600;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 16px;
   `};
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `
 
 const TimeText = styled(Text)`
-  align-items: center;
+  align-items: right;
   display: flex;
-  margin-bottom: 24px;
   font-size: 16px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 12px;
@@ -38,7 +40,7 @@ const TimeText = styled(Text)`
 const MessageText = styled(Text)`
   text-overflow: ellipsis;
   overflow: hidden;
-  align-items: center;
+  align-items: right;
   display: flex;
   font-size: 16px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -48,7 +50,7 @@ const MessageText = styled(Text)`
 
 const StyledTweetRow = styled(StyledLink)<{ copied: boolean }>`
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   gap: 8px;
   justify-content: space-between;
   position: relative;
@@ -82,11 +84,11 @@ export const LatestTweetRow = ({
   isAutoCopy,
   isAlert,
 }: {
-  atom: PrimitiveAtom<Message>
+  atom: MessageAtom
   isAutoCopy: boolean
   isAlert: boolean
 }) => {
-  const [{ roomId, isCopied }, setAtom] = useImmerAtom(atom)
+  const [{ roomId, isCopied }, setAtom] = useAtom(atom)
 
   const copyAtom = useCallback(() => {
     copy(roomId)
@@ -106,10 +108,11 @@ export const LatestTweetRow = ({
   return <TweetRow atom={atom} />
 }
 
-export const TweetRow = ({ atom }: { atom: PrimitiveAtom<Message> }) => {
-  const [value, setAtom] = useImmerAtom(atom)
+export const TweetRow = ({ atom }: { atom: MessageAtom }) => {
+  const { i18n } = useTranslation()
+  const [value, setAtom] = useAtom(atom)
   const copyAction = useAtomValue(copyActionAtom)
-  const { msg, roomId, timestamp, isCopied } = value
+  const { msg, roomId, timestamp, isCopied, jp, en } = value
   const copyAtom = () => {
     handleCopyAction(copyAction)
     copy(roomId)
@@ -117,9 +120,14 @@ export const TweetRow = ({ atom }: { atom: PrimitiveAtom<Message> }) => {
   }
   return (
     <StyledTweetRow onClick={() => copyAtom()} copied={isCopied}>
-      <IDText>{roomId}</IDText>
-      <MessageText>{msg}</MessageText>
-      <ElapsedTime timestamp={timestamp} />
+      <AutoColumn gap="sm">
+        <IDText>{i18n.language === 'en' ? en : jp}</IDText>
+        <MessageText>{roomId}</MessageText>
+      </AutoColumn>
+      <AutoColumn gap="sm" justify="flex-end">
+        <ElapsedTime timestamp={timestamp} />
+        <MessageText>{msg}</MessageText>
+      </AutoColumn>
     </StyledTweetRow>
   )
 }

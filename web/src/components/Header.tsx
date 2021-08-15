@@ -7,12 +7,11 @@ import { darken } from 'polished'
 import { WorkerRequest } from 'services/worker.type'
 import styled from 'styled-components/macro'
 
-import { modalAtom } from 'atoms/settingsAtom'
-import { wsStateAtom } from 'atoms/wsAtoms'
+import { wsStateAtom } from 'atoms/settingsAtom'
+import { reduceBoardsAtom } from 'atoms/wsAtoms'
 import LuriaPngPath from 'statics/images/luria.png'
 import LuriaWebpPath from 'statics/images/luria.webp'
-
-import { getGlowPreset } from '../theme'
+import { getGlowPreset } from 'theme'
 
 import { ButtonErrorStyle, ButtonSecondary } from './Button'
 import { worker } from './DataStore'
@@ -39,14 +38,21 @@ const WebsocketStatus = () => {
           </Trans>
         </ButtonErrorStyle>
       )}
-      <Dot color={colorPreset.color} shadow={colorPreset.shadow} />
+      <div style={{ marginLeft: '8px' }}>
+        <Dot color={colorPreset.color} shadow={colorPreset.shadow} />
+      </div>
     </>
   )
 }
 
 const Header = () => {
   const scrollY = useScrollPosition()
-  const setModal = useUpdateAtom(modalAtom)
+  const dispatchBoardAction = useUpdateAtom(reduceBoardsAtom)
+
+  const addBoard = useCallback(() => {
+    dispatchBoardAction({ type: 'ADD' })
+  }, [dispatchBoardAction])
+
   const { t } = useTranslation()
   return (
     <HeaderFrame showBackground={scrollY > 45}>
@@ -66,9 +72,9 @@ const Header = () => {
       <HeaderControls>
         <HeaderElement>
           <SelectRaid active={false} style={{ pointerEvents: 'auto' }}>
-            <SelectRaidButton onClick={() => setModal(true)}>
-              <Trans i18nKey="add_raid" t={t}>
-                Add Raid
+            <SelectRaidButton onClick={addBoard}>
+              <Trans i18nKey="add_search" t={t}>
+                New Search
               </Trans>
             </SelectRaidButton>
           </SelectRaid>

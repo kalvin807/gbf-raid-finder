@@ -22,3 +22,4 @@ export const copyActionAtom = atomWithStorage<CopyAction>('copyAction', CopyActi
 export const clockAtom = atom(0)
 export const modalAtom = atom(false)
 export const settingAtom = atom(false)
+export const wsStateAtom = atom(WebSocket.CONNECTING)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
 import { PrimitiveAtom, useAtom } from 'jotai'
@@ -6,19 +6,32 @@ import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
-import { Category, categoryAtom, nameFilterAtom } from 'atoms/gbfAtom'
+import { Category, categoryAtom } from 'atoms/gbfAtom'
+import useToggle from 'hooks/useToggle'
 
 import { LightCard } from '../Card'
 import { AutoColumn } from '../Column'
 import { AutoRow, RowBetween } from '../Row'
 
-const CategoryButton = ({ atom }: { atom: PrimitiveAtom<Category> }) => {
-  const { i18n } = useTranslation()
+interface FilterProps {
+  categoryFilterAtom: PrimitiveAtom<string[]>
+  nameFilterAtom: PrimitiveAtom<string>
+}
 
-  const [value, setValue] = useAtom(atom)
-  const toggle = () => setValue((state) => ({ ...state, isSelected: !state.isSelected }))
+const CategoryButton = ({
+  id,
+  value,
+  active,
+  toggle,
+}: {
+  id: string
+  value: Category
+  active: boolean
+  toggle: (id: string) => void
+}) => {
+  const { i18n } = useTranslation()
   return (
-    <BaseWrapper active={value.isSelected} onClick={toggle}>
+    <BaseWrapper active={active} onClick={() => toggle(id)}>
       <Text fontWeight={500} fontSize={16}>
         {i18n.language === 'en' ? value.en : value.ja}
       </Text>
@@ -26,18 +39,23 @@ const CategoryButton = ({ atom }: { atom: PrimitiveAtom<Category> }) => {
   )
 }
 
-const CategoriesFilter = () => {
+const CategoriesFilter = ({ atom }: { atom: PrimitiveAtom<string[]> }) => {
   const category = useAtomValue(categoryAtom)
+  const [active, setActive] = useAtom(atom)
+  const toggleActive = useCallback(
+    (id) => setActive((prev) => (prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id])),
+    [setActive]
+  )
   return (
     <CategoryScroll gap="4px">
-      {category.map((atom, key) => {
-        return <CategoryButton key={key} atom={atom} />
+      {Object.entries(category).map(([key, value]) => {
+        return <CategoryButton id={key} key={key} value={value} toggle={toggleActive} active={active.includes(key)} />
       })}
     </CategoryScroll>
   )
 }
 
-const ExpandedFilter = () => {
+const ExpandedFilter = ({ categoryFilterAtom, nameFilterAtom }: FilterProps) => {
   const [value, setValue] = useAtom(nameFilterAtom)
   const { t } = useTranslation()
   return (
@@ -57,18 +75,18 @@ const ExpandedFilter = () => {
           </Trans>
         </Text>
       </AutoRow>
-      <CategoriesFilter />
+      <CategoriesFilter atom={categoryFilterAtom} />
     </AutoRow>
   )
 }
 
-export default function SelectRaidFilter() {
-  const [expand, setExpand] = useState(false)
+export default function SelectRaidFilter(props: FilterProps) {
+  const [expand, toggle] = useToggle(false)
   const { t } = useTranslation()
   return (
     <LightCard width="100%" padding="8px">
       <AutoColumn gap="sm" justify="center">
-        <RowBetween padding="8px" onClick={() => setExpand(!expand)} aria-label="toggle-filter">
+        <RowBetween padding="8px" onClick={toggle} aria-label="toggle-filter">
           <Text fontWeight={500} fontSize={16}>
             <Trans t={t} i18nKey="filter">
               Filter
@@ -76,7 +94,7 @@ export default function SelectRaidFilter() {
           </Text>
           {expand ? <ChevronUp /> : <ChevronDown />}
         </RowBetween>
-        {expand ? <ExpandedFilter /> : null}
+        {expand ? <ExpandedFilter {...props} /> : null}
       </AutoColumn>
     </LightCard>
   )

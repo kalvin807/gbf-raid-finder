@@ -22,5 +22,7 @@
   "copy_open_mobage": "グラプルを開く（アプリ）",
   "copy_open_skyleap": "SkyLeapを開く",
   "on": "オン",
-  "off": "オフ"
+  "off": "オフ",
+  "add_search": "検索追加",
+  "raid_selected": "バトル検索中"
 }

@@ -1,5 +1,6 @@
 import React from 'react'
-import styled from 'styled-components/macro'
+import { transparentize } from 'polished'
+import styled, { keyframes } from 'styled-components/macro'
 
 import ThemedBackground from './ThemedBackground'
 
@@ -8,7 +9,7 @@ const LoadingScreen = () => {
     <AppWrapper>
       <BodyWrapper>
         <ThemedBackground />
-        <Loader />
+        <StyledLoader />
       </BodyWrapper>
     </AppWrapper>
   )
@@ -17,91 +18,54 @@ const LoadingScreen = () => {
 const AppWrapper = styled.div`
   display: flex;
   flex-flow: column;
-  align-items: flex-start;
+  height: 100vh;
 `
 
 const BodyWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding-top: 60px;
-  align-items: center;
+  place-content: center;
+  place-items: center;
   flex: 1;
   z-index: 1;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    padding: 16px;
-    padding-top: 16px;
-  `};
 `
 
-const Loader = styled.div`
-  .lds-grid {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
   }
-  .lds-grid div {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #fff;
-    animation: lds-grid 1.2s linear infinite;
-  }
-  .lds-grid div:nth-child(1) {
-    top: 8px;
-    left: 8px;
-    animation-delay: 0s;
-  }
-  .lds-grid div:nth-child(2) {
-    top: 8px;
-    left: 32px;
-    animation-delay: -0.4s;
-  }
-  .lds-grid div:nth-child(3) {
-    top: 8px;
-    left: 56px;
-    animation-delay: -0.8s;
-  }
-  .lds-grid div:nth-child(4) {
-    top: 32px;
-    left: 8px;
-    animation-delay: -0.4s;
-  }
-  .lds-grid div:nth-child(5) {
-    top: 32px;
-    left: 32px;
-    animation-delay: -0.8s;
-  }
-  .lds-grid div:nth-child(6) {
-    top: 32px;
-    left: 56px;
-    animation-delay: -1.2s;
-  }
-  .lds-grid div:nth-child(7) {
-    top: 56px;
-    left: 8px;
-    animation-delay: -0.8s;
-  }
-  .lds-grid div:nth-child(8) {
-    top: 56px;
-    left: 32px;
-    animation-delay: -1.2s;
-  }
-  .lds-grid div:nth-child(9) {
-    top: 56px;
-    left: 56px;
-    animation-delay: -1.6s;
-  }
-  @keyframes lds-grid {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
+  to {
+    transform: rotate(360deg);
   }
 `
+
+const StyledLoader = styled.div`
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+
+  & {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid ${({ theme }) => theme.text1};
+    border-radius: 50%;
+    animation: ${rotate} 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: ${({ theme }) => transparentize(0.5, theme.primary1)} transparent transparent transparent;
+  }
+  &:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  &:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  & :nth-child(3) {
+    animation-delay: -0.15s;
+  }
+`
+
 export default LoadingScreen
