@@ -86,7 +86,6 @@ export const updateRaidBoardAtom = atom(null, (get, set) => {
         ;(mapping[raidId] = mapping[raidId] || []).push(id)
       }
     }
-    console.log(mapping)
     return mapping
   })
 })

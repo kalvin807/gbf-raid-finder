@@ -71,8 +71,8 @@ const Header = () => {
         <HeaderElement>
           <SelectRaid active={false} style={{ pointerEvents: 'auto' }}>
             <SelectRaidButton onClick={addBoard}>
-              <Trans i18nKey="add_raid" t={t}>
-                Add Raid
+              <Trans i18nKey="add_search" t={t}>
+                New Search
               </Trans>
             </SelectRaidButton>
           </SelectRaid>

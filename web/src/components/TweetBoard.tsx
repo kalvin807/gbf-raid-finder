@@ -57,7 +57,7 @@ const TweetBoardController = memo(function TweetBoardController({
   deleteBoard: DeleteFn
   toggleModal: () => void
 }) {
-  const { i18n } = useTranslation()
+  const { i18n, t } = useTranslation()
   const raid = useAtomValue(raidAtom)
   const [board, setBoard] = useAtom(boardAtom)
   const { isAlert, isAutoCopy } = board
@@ -80,11 +80,11 @@ const TweetBoardController = memo(function TweetBoardController({
   const showRaidOrCount = () => {
     const subscribe = board.subscribe
     if (subscribe.length === 0) {
-      return 'Add new raid ->'
+      return `${t('add_raid')} 👉`
     } else if (subscribe.length === 1) {
-      return raid[subscribe[0]]?.jp
+      return i18n.language === 'en' ? raid[subscribe[0]]?.en : raid[subscribe[0]]?.jp
     } else {
-      return `${subscribe.length} raid${subscribe.length > 1 ? 's' : ''} selected`
+      return `${subscribe.length} ${t('raid_selected')}`
     }
   }
 
@@ -170,11 +170,11 @@ export default Boards
 
 const BoardGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(600px, 100%), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(450px, 100%), 1fr));
   grid-gap: 16px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
-  gap: 8px;
-`};
+    gap: 8px;
+  `};
 `
 
 const StyledBoard = styled(LightCard)`

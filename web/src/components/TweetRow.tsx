@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
@@ -21,10 +22,13 @@ const IDText = styled(Text)`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     font-size: 16px;
   `};
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `
 
 const TimeText = styled(Text)`
-  align-items: center;
+  align-items: right;
   display: flex;
   font-size: 16px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -36,7 +40,7 @@ const TimeText = styled(Text)`
 const MessageText = styled(Text)`
   text-overflow: ellipsis;
   overflow: hidden;
-  align-items: center;
+  align-items: right;
   display: flex;
   font-size: 16px;
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -105,6 +109,7 @@ export const LatestTweetRow = ({
 }
 
 export const TweetRow = ({ atom }: { atom: MessageAtom }) => {
+  const { i18n } = useTranslation()
   const [value, setAtom] = useAtom(atom)
   const copyAction = useAtomValue(copyActionAtom)
   const { msg, roomId, timestamp, isCopied, jp, en } = value
@@ -116,10 +121,10 @@ export const TweetRow = ({ atom }: { atom: MessageAtom }) => {
   return (
     <StyledTweetRow onClick={() => copyAtom()} copied={isCopied}>
       <AutoColumn gap="sm">
-        <IDText>{en}</IDText>
+        <IDText>{i18n.language === 'en' ? en : jp}</IDText>
         <MessageText>{roomId}</MessageText>
       </AutoColumn>
-      <AutoColumn gap="sm">
+      <AutoColumn gap="sm" justify="flex-end">
         <ElapsedTime timestamp={timestamp} />
         <MessageText>{msg}</MessageText>
       </AutoColumn>

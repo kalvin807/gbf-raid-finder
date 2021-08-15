@@ -22,5 +22,7 @@
     "copy_open_mobage": "Open GBF App",
     "copy_open_skyleap": "Open Skyleap",
     "on": "On",
-    "off": "Off"
+    "off": "Off",
+    "add_search": "New Search",
+    "raid_selected": "raids selected"
 }
