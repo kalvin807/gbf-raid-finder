@@ -1,6 +1,6 @@
 {
-  "name": "v2",
-  "version": "0.1.0",
+  "name": "gbfinder-omega",
+  "version": "2.5.0",
   "private": true,
   "dependencies": {
     "@protobuf-ts/runtime": "2.0.0",
