@@ -1,5 +1,5 @@
 import { Draft } from 'immer'
-import { Atom, atom, PrimitiveAtom, WritableAtom } from 'jotai'
+import { atom, WritableAtom } from 'jotai'
 import { atomWithImmer, withImmer } from 'jotai/immer'
 import { atomWithStorage } from 'jotai/utils'
 import { nanoid } from 'nanoid'

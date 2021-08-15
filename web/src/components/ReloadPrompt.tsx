@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-use-before-define
+/* eslint-disable */
 import React from 'react'
 import { useRegisterSW } from 'virtual:pwa-register/react'
 

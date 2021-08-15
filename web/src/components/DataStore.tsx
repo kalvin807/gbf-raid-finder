@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { atom, useAtom } from 'jotai'
+import { useAtom } from 'jotai'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { WorkerResponse } from 'services/worker.type'
 
