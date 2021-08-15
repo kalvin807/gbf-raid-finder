@@ -6,6 +6,8 @@ import styled, { useTheme } from 'styled-components/macro'
 
 import { Raid } from 'atoms/gbfAtom'
 
+import { ToggleFn } from './SelectRaidModal'
+
 const InfoCard = styled.button<{ bgColor: string; active?: boolean }>`
   background-color: ${({ bgColor, active }) => (active ? bgColor : transparentize(0.8, bgColor))};
   padding: 1rem;
@@ -58,9 +60,8 @@ const SubHeader = styled.div`
   font-weight: 500;
 `
 
-export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
-  const item = useAtomValue(atom)
-  const { isSelected, element, en, jp } = item
+export default function Option({ raid, active, toggle }: { raid: Raid; active: boolean; toggle: ToggleFn }) {
+  const { id, element, en, jp } = raid
   const theme = useTheme()
   const colorMap: { [key: string]: string } = {
     fire: theme.fire,
@@ -71,14 +72,10 @@ export default function Option({ atom }: { atom: PrimitiveAtom<Raid> }) {
     dark: theme.dark,
   }
 
-  const toggleSelected = useCallback(() => {
-    console.log('TODO')
-  }, [])
-
   const color = colorMap[element] || theme.bg5
 
   return (
-    <OptionCardClickable onClick={toggleSelected} bgColor={color} active={isSelected} click={color}>
+    <OptionCardClickable onClick={() => toggle(id)} bgColor={color} active={active} click={color}>
       <OptionCardLeft>
         <HeaderText>
           {en}

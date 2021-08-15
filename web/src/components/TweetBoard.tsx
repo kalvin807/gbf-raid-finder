@@ -1,13 +1,14 @@
 import React, { useCallback, useMemo } from 'react'
-import { ArrowRight, Bell, BellOff, Clipboard, PlusSquare, X, XCircle } from 'react-feather'
+import { Bell, BellOff, Clipboard, PlusSquare, X, XCircle } from 'react-feather'
 import { useTranslation } from 'react-i18next'
-import { Atom, PrimitiveAtom, useAtom } from 'jotai'
-import { atomWithImmer } from 'jotai/immer'
-import { selectAtom, useAtomValue, useUpdateAtom } from 'jotai/utils'
+import { useAtom } from 'jotai'
+import { withImmer } from 'jotai/immer'
+import { focusAtom } from 'jotai/optics'
+import { useAtomValue, useUpdateAtom } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
-import { BoardAtom, boardsAtom, Message, reduceBoardsAtom } from 'atoms/wsAtoms'
+import { boardsAtom, boardsIdAtom, MessagesAtom, messageStoreAtom, reduceBoardsAtom } from 'atoms/wsAtoms'
 import useToggle from 'hooks/useToggle'
 import { Separator } from 'theme/components'
 
@@ -26,7 +27,7 @@ const TweetsContainer = ({
   isAutoCopy,
   isAlert,
 }: {
-  atom: Atom<PrimitiveAtom<Message>[]>
+  atom: MessagesAtom
   isAutoCopy: boolean
   isAlert: boolean
 }) => {
@@ -44,10 +45,12 @@ const TweetsContainer = ({
   )
 }
 
-const TweetsBoard = ({ atom, deleteBoard, id }: { atom: BoardAtom; id: string; deleteBoard: DeleteFn }) => {
+const TweetsBoard = ({ id, deleteBoard }: { id: string; deleteBoard: DeleteFn }) => {
   const { i18n } = useTranslation()
   const [isOpen, toggleModal] = useToggle(false)
-  const [board, setBoard] = useAtom(atom)
+  const boardAtom = useMemo(() => withImmer(focusAtom(boardsAtom, (optic) => optic.prop(id))), [id])
+  const msgAtom = useMemo(() => withImmer(focusAtom(messageStoreAtom, (optic) => optic.prop(id))), [id])
+  const [board, setBoard] = useAtom(boardAtom)
   const { isAlert, isAutoCopy } = board
   const toggleCopy = useCallback(
     () =>
@@ -63,7 +66,6 @@ const TweetsBoard = ({ atom, deleteBoard, id }: { atom: BoardAtom; id: string; d
       }),
     [setBoard, isAlert]
   )
-  const onClose = () => deleteBoard(id)
 
   return (
     <>
@@ -85,16 +87,16 @@ const TweetsBoard = ({ atom, deleteBoard, id }: { atom: BoardAtom; id: string; d
               <StyledButton onClick={toggleCopy} aria-label="auto-copy">
                 {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
               </StyledButton>
-              <StyledButton onClick={onClose} aria-label="close-twitter-board">
+              <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board">
                 <X size={20} />
               </StyledButton>
             </RowFixed>
           </RowBetween>
         </HeaderColumn>
         <Separator />
-        {/* <TweetsContainer atom={raidMsgAtom} isAutoCopy={isAutoCopy} isAlert={isAlert} /> */}
+        <TweetsContainer atom={msgAtom} isAutoCopy={isAutoCopy} isAlert={isAlert} />
       </StyledBoard>
-      <SelectRaid atom={atom} isOpen={isOpen} onDismiss={toggleModal} />
+      <SelectRaid atom={boardAtom} isOpen={isOpen} onDismiss={toggleModal} />
     </>
   )
 }
@@ -111,29 +113,19 @@ const MotdBoard = () => {
 }
 
 const Boards = () => {
-  const boards = useAtomValue(boardsAtom)
+  const boardIds = useAtomValue(boardsIdAtom)
   const updateBoards = useUpdateAtom(reduceBoardsAtom)
-
-  if (Array.isArray(boards)) {
-    return (
-      <PageWrapper>
-        <BoardGrid>
-          <MotdBoard />
-        </BoardGrid>
-      </PageWrapper>
-    )
-  }
-
   const deleteBoard: DeleteFn = (id) => updateBoards({ type: 'REMOVE', value: id })
-  const isEmpty = boards && Object.keys(boards).length === 0 && boards.constructor === Object
+
+  const isEmpty = boardIds && boardIds.length === 0
   return (
     <PageWrapper>
       <BoardGrid>
         {isEmpty ? (
           <MotdBoard />
         ) : (
-          Object.entries(boards).map(([id, board]) => {
-            return <TweetsBoard atom={board} key={id} id={id} deleteBoard={deleteBoard} />
+          boardIds.map((id) => {
+            return <TweetsBoard key={id} id={id} deleteBoard={deleteBoard} />
           })
         )}
       </BoardGrid>

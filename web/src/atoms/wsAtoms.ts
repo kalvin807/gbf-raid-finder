@@ -29,8 +29,11 @@ export interface Message {
 }
 
 export type BoardAtom = WritableAtom<Board, Board | ((draft: Draft<Board>) => void)>
-type BoardStore = Record<string, BoardAtom>
-type MessagesStore = Record<string, Atom<Message>[]>
+export type MessageAtom = WritableAtom<Message, Message | ((draft: Draft<Message>) => void)>
+export type MessagesAtom = WritableAtom<MessageAtom[], MessageAtom[] | ((draft: Draft<MessageAtom>[]) => void)>
+
+type BoardStore = Record<string, Board>
+type MessagesStore = Record<string, MessageAtom[]>
 
 interface BoardAction {
   type: 'ADD' | 'REMOVE' | 'RESET'
@@ -39,38 +42,18 @@ interface BoardAction {
 
 const genBoardID = (): string => nanoid(8)
 
-export const boardsAtom = withImmer(
-  atomWithStorage<BoardStore>(
-    'board',
-    {},
-    {
-      getItem: (key: string) => {
-        const raw = localStorage.getItem(key)
-        if (raw) {
-          const parsed: Record<string, { init: Board }> = JSON.parse(raw)
-
-          if (Array.isArray(parsed)) return {} // Migrate from old version
-
-          const withAtom: BoardStore = {}
-          Object.entries(parsed).forEach(([k, v]) => {
-            withAtom[k] = atomWithImmer(v.init)
-          })
-          return withAtom
-        }
-        return {}
-      },
-      setItem: (key: string, newValue: BoardStore) => {
-        localStorage.setItem(key, JSON.stringify(newValue))
-      },
-    }
-  )
-)
+export const boardsAtom = withImmer(atomWithStorage<BoardStore>('board', {}))
+export const boardsIdAtom = atom((get) => {
+  const boards = get(boardsAtom)
+  if (Array.isArray(boards)) return []
+  return Object.keys(boards)
+})
 
 export const reduceBoardsAtom = atom(null, (_, set, update: BoardAction) => {
   switch (update.type) {
     case 'ADD':
       set(boardsAtom, (draft) => {
-        draft[genBoardID()] = atomWithImmer(defaultBoard)
+        draft[genBoardID()] = defaultBoard
       })
       break
     case 'REMOVE':
@@ -96,13 +79,14 @@ export const updateRaidBoardAtom = atom(null, (get, set) => {
   set(raidBoardMapAtom, () => {
     const mapping: Record<string, string[]> = {}
     for (const [id, board] of Object.entries(boards)) {
-      const sub = get(board).subscribe
+      const sub = board.subscribe
       const l = sub.length
       for (let i = 0; i < l; i++) {
-        const raidId = sub[i]
+        const raidId = sub[i].toString()
         ;(mapping[raidId] = mapping[raidId] || []).push(id)
       }
     }
+    console.log(mapping)
     return mapping
   })
 })
@@ -111,18 +95,24 @@ export const messageStoreAtom = atomWithImmer<MessagesStore>({})
 export const updateMsgStoreAtom = atom(null, (get, set, update: RaidMessageRaw) => {
   const mapping = get(raidBoardMapAtom)
   const maxLength = get(maxMessageAtom)
-
+  console.log(update)
   set(messageStoreAtom, (draft) => {
     const { raid, timestamp } = update
-    const msg = atom<Message>({ ...update, raid: raid.toString(), timestamp: new Date(timestamp), isCopied: false })
+    const msg = atomWithImmer<Message>({
+      ...update,
+      raid: raid.toString(),
+      timestamp: new Date(timestamp),
+      isCopied: false,
+    })
 
     const boardIds = mapping[raid]
     const l = boardIds.length
 
     for (let i = 0; i < l; i++) {
       const boardId = boardIds[i]
+      let queue
       if (boardId in draft) {
-        const queue = draft[boardId]
+        queue = draft[boardId]
         const curLength = queue.length
         if (curLength >= maxLength) {
           const diff = curLength - maxLength
@@ -130,10 +120,9 @@ export const updateMsgStoreAtom = atom(null, (get, set, update: RaidMessageRaw) 
         }
         queue.unshift(msg)
       } else {
-        draft[boardId] = [msg]
+        queue = [msg]
       }
+      draft[boardId] = queue
     }
-
-    return draft
   })
 })

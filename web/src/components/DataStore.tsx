@@ -21,10 +21,12 @@ const DataStore = () => {
   const mapping = useAtomValue(raidBoardMapAtom)
 
   const [wsState, setWsState] = useAtom(wsStateAtom)
+
   const setMessage = useUpdateAtom(updateMsgStoreAtom)
+  const setMapping = useUpdateAtom(updateRaidBoardAtom)
+
   const setCategory = useUpdateAtom(categoryAtom)
   const setRaid = useUpdateAtom(raidAtom)
-  const setMapping = useUpdateAtom(updateRaidBoardAtom)
   const setClock = useUpdateAtom(clockAtom)
 
   const updateClock = useCallback(() => {
@@ -32,22 +34,12 @@ const DataStore = () => {
   }, [setClock])
 
   useEffect(() => {
-    fetchCategory()
-      .then((res: { [k: string]: { en: string; ja: string } }) => {
-        if (res) {
-          const categories = Object.entries(res).map(([k, v]) => atom({ id: k, en: v.en, ja: v.ja, isSelected: false }))
-          setCategory(categories)
-        }
-      })
-      .catch((e) => console.error(e))
-    fetchRaid()
-      .then((res: Array<any>) => {
-        if (res) {
-          const raids = res.map((obj: any, id) => ({ ...obj, id, isSelected: false }))
-          setRaid(raids)
-        }
-      })
-      .catch((e) => console.error(e))
+    async function fetchData() {
+      const [category, raid] = await Promise.all([fetchCategory(), fetchRaid()])
+      setCategory(category)
+      setRaid(raid.map((v: any, k: any) => ({ ...v, id: k })))
+    }
+    fetchData()
   }, [setRaid, setCategory])
 
   // Heartbeat
@@ -66,7 +58,7 @@ const DataStore = () => {
   // Push subscribe to the worker when new raid is need to be fetched.
   useEffect(() => {
     if (window.Worker && workerReady && wsState === WebSocket.OPEN) {
-      const activeId = Object.keys(mapping)
+      const activeId = Object.keys(mapping).map((v) => parseInt(v, 10))
       worker.postMessage({ type: 'send', value: { raid: activeId } })
     }
   }, [mapping, workerReady, wsState])

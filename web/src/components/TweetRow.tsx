@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect } from 'react'
-import { PrimitiveAtom } from 'jotai'
-import { useImmerAtom } from 'jotai/immer'
+import { useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
 import { clockAtom, copyActionAtom } from 'atoms/settingsAtom'
-import { Message } from 'atoms/wsAtoms'
+import { Message, MessageAtom } from 'atoms/wsAtoms'
 import notiSfx from 'statics/sounds/noti.mp3'
 import { copy } from 'utils/copy'
 import { handleCopyAction } from 'utils/openUrl'
@@ -82,11 +81,11 @@ export const LatestTweetRow = ({
   isAutoCopy,
   isAlert,
 }: {
-  atom: PrimitiveAtom<Message>
+  atom: MessageAtom
   isAutoCopy: boolean
   isAlert: boolean
 }) => {
-  const [{ roomId, isCopied }, setAtom] = useImmerAtom(atom)
+  const [{ roomId, isCopied }, setAtom] = useAtom(atom)
 
   const copyAtom = useCallback(() => {
     copy(roomId)
@@ -106,8 +105,8 @@ export const LatestTweetRow = ({
   return <TweetRow atom={atom} />
 }
 
-export const TweetRow = ({ atom }: { atom: PrimitiveAtom<Message> }) => {
-  const [value, setAtom] = useImmerAtom(atom)
+export const TweetRow = ({ atom }: { atom: MessageAtom }) => {
+  const [value, setAtom] = useAtom(atom)
   const copyAction = useAtomValue(copyActionAtom)
   const { msg, roomId, timestamp, isCopied } = value
   const copyAtom = () => {

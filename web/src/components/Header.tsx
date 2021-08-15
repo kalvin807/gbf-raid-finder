@@ -7,7 +7,7 @@ import { darken } from 'polished'
 import { WorkerRequest } from 'services/worker.type'
 import styled from 'styled-components/macro'
 
-import { modalAtom, wsStateAtom } from 'atoms/settingsAtom'
+import { wsStateAtom } from 'atoms/settingsAtom'
 import { reduceBoardsAtom } from 'atoms/wsAtoms'
 import LuriaPngPath from 'statics/images/luria.png'
 import LuriaWebpPath from 'statics/images/luria.webp'

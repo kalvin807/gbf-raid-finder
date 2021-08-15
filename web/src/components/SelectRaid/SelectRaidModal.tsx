@@ -1,13 +1,12 @@
 import React, { memo, useCallback } from 'react'
 import { X } from 'react-feather'
 import { Trans, useTranslation } from 'react-i18next'
-import { Atom, useAtom } from 'jotai'
-import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import { Atom, PrimitiveAtom, useAtom } from 'jotai'
+import { useAtomValue } from 'jotai/utils'
 import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
-import { filteredRaidAtom } from 'atoms/gbfAtom'
-import { Board, BoardAtom } from 'atoms/wsAtoms'
+import { Raid } from 'atoms/gbfAtom'
 import { IconWrapper } from 'components/Icon'
 import { Separator } from 'theme'
 
@@ -18,31 +17,52 @@ import Row, { RowBetween, RowFixed } from '../Row'
 
 import Option from './Options'
 import SelectRaidFilter from './SelectRaidFilter'
+import { SelectRaidProps } from '.'
 
-interface SelectRaidProps {
-  atom: BoardAtom
-  isOpen: boolean
-  onDismiss: () => void
+interface SelectRaidModalProps extends SelectRaidProps {
+  raidAtom: Atom<Raid[]>
+  categoryFilterAtom: PrimitiveAtom<string[]>
+  nameFilterAtom: PrimitiveAtom<string>
 }
 
-const RaidList = () => {
-  const raids = useAtomValue(filteredRaidAtom)
+export type ToggleFn = (id: number) => void
+
+const RaidList = ({ atom, subscribed, toggle }: { atom: Atom<Raid[]>; subscribed: number[]; toggle: ToggleFn }) => {
+  const raids = useAtomValue(atom)
   return (
     <ListContainer>
-      <AutoColumn gap="md">
-        {raids.map((atom, index) => (
-          <Option atom={atom} key={index} />
+      <AutoColumn gap="sm">
+        {raids.map((item, index) => (
+          <Option raid={item} key={index} active={subscribed.includes(item.id)} toggle={toggle} />
         ))}
       </AutoColumn>
     </ListContainer>
   )
 }
 
-const SelectModal = memo(function SelectModal({ atom, isOpen, onDismiss }: SelectRaidProps) {
+const SelectModal = ({
+  atom,
+  isOpen,
+  onDismiss,
+  raidAtom,
+  categoryFilterAtom,
+  nameFilterAtom,
+}: SelectRaidModalProps) => {
   const { t } = useTranslation()
   const [board, setBoard] = useAtom(atom)
+
   const { subscribe } = board
 
+  const toggleSubscribe = useCallback(
+    (id: number) =>
+      setBoard((draft) => {
+        const prev = draft.subscribe
+        const next = prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+        draft.subscribe = next
+        return draft
+      }),
+    [setBoard]
+  )
   const reset = useCallback(() => setBoard((draft) => (draft.subscribe = [])), [setBoard])
 
   return (
@@ -67,15 +87,15 @@ const SelectModal = memo(function SelectModal({ atom, isOpen, onDismiss }: Selec
             </RowFixed>
           </RowBetween>
           <Row>
-            <SelectRaidFilter />
+            <SelectRaidFilter categoryFilterAtom={categoryFilterAtom} nameFilterAtom={nameFilterAtom} />
           </Row>
         </PaddedColumn>
         <Separator />
-        {/* <RaidList /> */}
+        <RaidList atom={raidAtom} subscribed={subscribe} toggle={toggleSubscribe} />
       </ContentWrapper>
     </Modal>
   )
-})
+}
 
 const ContentWrapper = styled(Column)`
   width: 100%;
