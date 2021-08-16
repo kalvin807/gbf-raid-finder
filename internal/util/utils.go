@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"io"
@@ -17,7 +17,7 @@ type Config struct {
 	TwitterAccessSecert string `env:"TWITTER_ACCESS_SECRET,notEmpty"`
 }
 
-func setupLog() {
+func SetupLog() {
 	if _, err := os.Stat("log"); os.IsNotExist(err) {
 		errDir := os.MkdirAll("log", 0755)
 		if errDir != nil {
@@ -33,7 +33,7 @@ func setupLog() {
 	log.Println("Go start farm in gbf!")
 }
 
-func loadConfig() *Config {
+func LoadConfig() *Config {
 	env_var := os.Getenv("ENV")
 	if env_var != "PROD" { // load .env file if ENV is not PROD
 		err := godotenv.Load()

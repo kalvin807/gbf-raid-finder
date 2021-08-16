@@ -4,15 +4,16 @@ import (
 	"github.com/kalvin807/gbf-raid-finder/internal/clients"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 	"github.com/kalvin807/gbf-raid-finder/internal/router"
+	"github.com/kalvin807/gbf-raid-finder/internal/util"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
-	setupLog()
+	util.SetupLog()
 
-	cfg := loadConfig()
+	cfg := util.LoadConfig()
 
 	client := fetcher.MakeTwitterClient(
 		cfg.TwitterApiKey,
