@@ -9,8 +9,8 @@ export const LOCALE_LABEL: { [locale in SupportedLocale]: string } = {
   zh: '中文',
 }
 
-export const API_URL = import.meta.env.PROD ? 'https://gbf-api1.kalvin.io' : 'http://localhost:8080'
-export const WS_URL = import.meta.env.PROD ? 'wss://gbf-api1.kalvin.io/ws' : 'ws://localhost:8080/ws'
+export const API_URL = import.meta.env.PROD ? 'https://gbf-lb.kalvin.io' : 'http://localhost:8080'
+export const WS_URL = import.meta.env.PROD ? 'wss://gbf-lb.kalvin.io/ws' : 'ws://localhost:8080/ws'
 export const GBF_URL = 'http://game.granbluefantasy.jp/#quest/assist'
 export const GBF_NAME = 'グランブルーファンタジー'
 export const MOBAGE_URL = 'mobage-jp-12016007://'
