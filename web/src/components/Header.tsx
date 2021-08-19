@@ -62,7 +62,7 @@ const Header = () => {
             <WebIcon>
               <RowBetween>
                 <Luria>
-                  <Image src={LuriaWebpPath} fallback={LuriaPngPath} alt="logo" />
+                  <Image src={LuriaWebpPath} fallback={LuriaPngPath} alt="logo" width={32} height={32} />
                 </Luria>
               </RowBetween>
             </WebIcon>
@@ -194,6 +194,8 @@ const Luria = styled.div`
   :hover {
     transform: rotate(-5deg);
   }
+  width: 100%;
+  height: auto;
 `
 
 const SelectRaid = styled.div<{ active: boolean }>`

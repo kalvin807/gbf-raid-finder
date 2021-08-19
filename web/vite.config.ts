@@ -1,9 +1,7 @@
 import analyze from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import macrosPlugin from 'vite-plugin-babel-macros'
-import viteCompression from 'vite-plugin-compression'
 import ViteFonts from 'vite-plugin-fonts'
-import { minifyHtml } from 'vite-plugin-html'
 import { VitePWA } from 'vite-plugin-pwa'
 import react from 'vite-preset-react'
 import reactJsx from 'vite-react-jsx'
@@ -30,8 +28,6 @@ export default defineConfig({
       },
     }),
     reactJsx(),
-    viteCompression(),
-    minifyHtml(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'safari-pinned-tab.svg', 'locales/*.json'],

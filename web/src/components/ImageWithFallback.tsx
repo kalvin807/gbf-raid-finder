@@ -5,13 +5,15 @@ interface Props {
   src: string
   fallback: string
   type?: string
+  width: number
+  height: number
 }
 
-const ImageWithFallback = ({ src, fallback, type = 'image/webp', ...delegated }: Props & ImageProps) => {
+const ImageWithFallback = ({ src, fallback, type = 'image/webp', width, height, ...delegated }: Props & ImageProps) => {
   return (
     <picture>
-      <source srcSet={src} type={type} />
-      <Image src={fallback} {...delegated} />
+      <source srcSet={src} type={type} width={width} height={height} />
+      <Image src={fallback} width={width} height={height} {...delegated} />
     </picture>
   )
 }
