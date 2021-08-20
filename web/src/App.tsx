@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components/macro'
 
 import Header from 'components/Header'
@@ -7,6 +7,10 @@ import ThemedBackground from 'components/ThemedBackground'
 import Boards from 'components/TweetBoard'
 
 const App = () => {
+  useEffect(() => {
+    ;(window as any).prerenderReady = true
+  }, [])
+
   return (
     <>
       <AppWrapper>
