@@ -1,7 +1,6 @@
 import analyze from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import macrosPlugin from 'vite-plugin-babel-macros'
-import ViteFonts from 'vite-plugin-fonts'
 import { VitePWA } from 'vite-plugin-pwa'
 import react from 'vite-preset-react'
 import reactJsx from 'vite-react-jsx'
@@ -22,11 +21,6 @@ export default defineConfig({
       injectReact: false,
     }),
     macrosPlugin(),
-    ViteFonts({
-      google: {
-        families: ['Inter'],
-      },
-    }),
     reactJsx(),
     VitePWA({
       registerType: 'autoUpdate',

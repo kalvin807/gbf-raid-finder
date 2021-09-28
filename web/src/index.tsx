@@ -4,6 +4,7 @@ import { Provider as JotaiProvider } from 'jotai'
 
 import './i18n'
 import './migrate'
+import '@fontsource/inter'
 
 import DataStore from './components/DataStore'
 import LoadingScreen from './components/LoadingScreen'
