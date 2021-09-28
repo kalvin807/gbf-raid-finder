@@ -1,8 +1,8 @@
 import React from 'react'
 import { isMobile } from 'react-device-detect'
-import { useGesture } from 'react-use-gesture'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { animated, useSpring, useTransition } from '@react-spring/web'
+import { useGesture } from '@use-gesture/react'
 import { transparentize } from 'polished'
 import styled, { css } from 'styled-components/macro'
 
@@ -102,7 +102,7 @@ export default function Modal({
       set({
         y: state.down ? state.movement[1] : 0,
       })
-      if (state.movement[1] > 300 || (state.velocity > 3 && state.direction[1] > 0)) {
+      if (state.movement[1] > 300 || (state.velocity[0] > 3 && state.direction[1] > 0)) {
         onDismiss()
       }
     },
