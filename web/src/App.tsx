@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react'
+import ReactGA from 'react-ga4'
 import styled from 'styled-components/macro'
 
 import Header from 'components/Header'
 import ReloadPrompt from 'components/ReloadPrompt'
 import ThemedBackground from 'components/ThemedBackground'
 import Boards from 'components/TweetBoard'
+import { sendVitals } from 'utils/web-vitals'
 
 const App = () => {
   useEffect(() => {
+    ReactGA.initialize('G-880PLS4QXL')
+    sendVitals()
     ;(window as any).prerenderReady = true
   }, [])
 
