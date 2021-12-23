@@ -6,7 +6,7 @@ export const JpMotd = () => {
     <>
       <h1 id="-">グラブル救援検索・マグナ</h1>
       <p>
-        <strong>追加</strong> HL5★ アニマ・アニムス・コア。
+        <strong>追加</strong> オシリス。
       </p>
       <p>
         <strong>ガイド</strong>
@@ -47,8 +47,7 @@ export const EnMotd = () => {
     <>
       <h1 id="gbfinder-omega">GBFinder Omega</h1>
       <p>
-        <strong>Update</strong> Now each board is a independent search windows, which means you can have v1 like finder
-        by adding all raid into a single board!
+        <strong>Update</strong> Add Osiris
       </p>
       <p>
         <strong>Guide</strong>
@@ -88,7 +87,7 @@ export const ZhMotd = () => {
     <>
       <h1 id="-">グラブル救援検索・マグナ</h1>
       <p>
-        <strong>新功能</strong> 同一個看板可以選擇任意數量的副本！
+        <strong>新功能</strong> オシリス
       </p>
       <p>
         <strong>教學</strong>
