@@ -1,9 +1,7 @@
-import analyze from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import macrosPlugin from 'vite-plugin-babel-macros'
 import { VitePWA } from 'vite-plugin-pwa'
 import react from 'vite-preset-react'
-import reactJsx from 'vite-react-jsx'
 import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,9 +9,6 @@ export default defineConfig({
   // comment this out if that isn't relevant for your project
   build: {
     outDir: 'build',
-    rollupOptions: {
-      plugins: [analyze()],
-    },
   },
   plugins: [
     tsconfigPaths(),
@@ -21,7 +16,6 @@ export default defineConfig({
       injectReact: false,
     }),
     macrosPlugin(),
-    reactJsx(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'robots.txt', 'safari-pinned-tab.svg', 'locales/*.json'],
@@ -50,7 +44,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.mp3', '**/*.jpg', '**/*.webp'],
+        globPatterns: ['**/*.mp3'],
       },
     }),
   ],
