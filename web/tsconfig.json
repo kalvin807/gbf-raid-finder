@@ -16,7 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["vite-plugin-pwa/client"],
-    "incremental": true,
     "paths": {
       "atoms/*": ["atoms/*"],
       "components/*": ["components/*"],
