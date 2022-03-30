@@ -1,5 +1,5 @@
 import React, { StrictMode, Suspense } from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider as JotaiProvider } from 'jotai'
 
 import './i18n'
@@ -13,17 +13,22 @@ import ThemeProvider, { ThemedGlobalStyle } from './theme'
 
 import '@reach/dialog/styles.css'
 
-ReactDOM.render(
-  <StrictMode>
-    <JotaiProvider>
-      <ThemeProvider>
-        <Suspense fallback={<LoadingScreen />}>
-          <DataStore />
-          <ThemedGlobalStyle />
-          <App />
-        </Suspense>
-      </ThemeProvider>
-    </JotaiProvider>
-  </StrictMode>,
-  document.getElementById('root')
-)
+const container = document.getElementById('root')
+if (container) {
+  const root = createRoot(container)
+  root.render(
+    <StrictMode>
+      <JotaiProvider>
+        <ThemeProvider>
+          <Suspense fallback={<LoadingScreen />}>
+            <DataStore />
+            <ThemedGlobalStyle />
+            <App />
+          </Suspense>
+        </ThemeProvider>
+      </JotaiProvider>
+    </StrictMode>
+  )
+} else {
+  console.error('Could not find root container')
+}
