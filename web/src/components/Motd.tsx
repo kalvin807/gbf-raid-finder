@@ -6,7 +6,7 @@ export const JpMotd = () => {
     <>
       <h1 id="-">グラブル救援検索・マグナ</h1>
       <p>
-        <strong>追加</strong> スパバハ, ホルス。
+        <strong>追加</strong> ベンヌ。
       </p>
       <p>
         <strong>ガイド</strong>
@@ -47,7 +47,7 @@ export const EnMotd = () => {
     <>
       <h1 id="gbfinder-omega">GBFinder Omega</h1>
       <p>
-        <strong>Update</strong> Add Super Bahamut, Horus.
+        <strong>Update</strong> Added Bennu.
       </p>
       <p>
         <strong>Guide</strong>
@@ -87,7 +87,7 @@ export const ZhMotd = () => {
     <>
       <h1 id="-">グラブル救援検索・マグナ</h1>
       <p>
-        <strong>新副本</strong> スパバハ, ホルス。
+        <strong>新副本</strong> ベンヌ。
       </p>
       <p>
         <strong>教學</strong>

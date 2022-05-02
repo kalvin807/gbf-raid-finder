@@ -1517,5 +1517,12 @@
         "image": "lvl_300_super_ultimate_bahamut",
         "category": "impossible_10",
         "element": "None"
+    },
+    {
+        "en": "Lvl 120 Bennu",
+        "jp": "Lv120 ベンヌ",
+        "image": "lvl_120_bennu",
+        "category": "impossible_3",
+        "element": "earth"
     }
 ]
