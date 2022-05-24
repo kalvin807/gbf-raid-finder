@@ -43,7 +43,7 @@ const CategoriesFilter = ({ atom }: { atom: PrimitiveAtom<string[]> }) => {
   const category = useAtomValue(categoryAtom)
   const [active, setActive] = useAtom(atom)
   const toggleActive = useCallback(
-    (id) => setActive((prev) => (prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id])),
+    (id: string) => setActive((prev) => (prev.includes(id) ? prev.filter((v) => v !== id) : [...prev, id])),
     [setActive]
   )
   return (
