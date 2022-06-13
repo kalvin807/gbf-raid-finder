@@ -19,6 +19,7 @@ import { AutoColumn } from './Column'
 import { IconWrapper } from './Icon'
 import { Motd } from './Motd'
 import { RowBetween, RowFixed } from './Row'
+import Tooltip from './Tooltip'
 import { LatestTweetRow, TweetRow } from './TweetRow'
 
 type DeleteFn = (id: string) => void
@@ -96,18 +97,26 @@ const TweetBoardController = memo(function TweetBoardController({
         </Text>
       </RowFixed>
       <RowFixed>
-        <StyledButton onClick={toggleModal} aria-label="auto-alert">
-          <PlusSquare size={20} />
-        </StyledButton>
-        <StyledButton onClick={toggleAlert} aria-label="auto-alert">
-          {isAlert ? <Bell size={20} /> : <BellOff size={20} />}
-        </StyledButton>
-        <StyledButton onClick={toggleCopy} aria-label="auto-copy">
-          {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
-        </StyledButton>
-        <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board">
-          <X size={20} />
-        </StyledButton>
+        <Tooltip content={t('add_raid_tooltip')}>
+          <StyledButton onClick={toggleModal} aria-label="auto-alert">
+            <PlusSquare size={20} />
+          </StyledButton>
+        </Tooltip>
+        <Tooltip content={t('toggle_alarm_tooltip')}>
+          <StyledButton onClick={toggleAlert} aria-label="auto-alert">
+            {isAlert ? <Bell size={20} /> : <BellOff size={20} />}
+          </StyledButton>
+        </Tooltip>
+        <Tooltip content={t('auto_copy_tooltip')}>
+          <StyledButton onClick={toggleCopy} aria-label="auto-copy">
+            {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
+          </StyledButton>
+        </Tooltip>
+        <Tooltip content={t('close_board_tooltip')}>
+          <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board">
+            <X size={20} />
+          </StyledButton>
+        </Tooltip>
       </RowFixed>
     </RowBetween>
   )

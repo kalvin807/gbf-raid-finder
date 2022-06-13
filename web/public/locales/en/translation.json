@@ -24,5 +24,9 @@
     "on": "On",
     "off": "Off",
     "add_search": "New Search",
-    "raid_selected": "raids selected"
+    "raid_selected": "raids selected",
+    "add_raid_tooltip": "Add raid",
+    "toggle_alarm_tooltip": "Alarm on new",
+    "auto_copy_tooltip": "Auto copy",
+    "close_board_tooltip": "Close"
 }

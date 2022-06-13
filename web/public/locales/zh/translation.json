@@ -24,5 +24,9 @@
     "on": "開",
     "off": "關",
     "add_search": "增加看板",
-    "raid_selected": "個副本"
+    "raid_selected": "個副本",
+    "add_raid_tooltip": "增加副本",
+    "toggle_alarm_tooltip": "設定提示音",
+    "auto_copy_tooltip": "自動複製",
+    "close_board_tooltip": "關閉"
 }
