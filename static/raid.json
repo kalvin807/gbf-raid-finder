@@ -1531,5 +1531,12 @@
     "image": "lvl_120_atum",
     "category": "impossible_3",
     "element": "fire"
+  },
+  {
+    "en": "Lvl 275 Diaspora",
+    "jp": "Lv275 ディアスポラ",
+    "image": "lvl_275_diaspora",
+    "category": "impossible_10",
+    "element": "water"
   }
 ]
