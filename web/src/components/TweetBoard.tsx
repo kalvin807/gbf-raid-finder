@@ -98,7 +98,7 @@ const TweetBoardController = memo(function TweetBoardController({
       </RowFixed>
       <RowFixed>
         <Tooltip content={t('add_raid_tooltip')}>
-          <StyledButton onClick={toggleModal} aria-label="auto-alert">
+          <StyledButton onClick={toggleModal} aria-label="auto-alert" className="umami--click--add-raid">
             <PlusSquare size={20} />
           </StyledButton>
         </Tooltip>

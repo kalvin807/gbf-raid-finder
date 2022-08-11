@@ -72,7 +72,7 @@ const Header = () => {
       <HeaderControls>
         <HeaderElement>
           <SelectRaid active={false} style={{ pointerEvents: 'auto' }}>
-            <SelectRaidButton onClick={addBoard}>
+            <SelectRaidButton onClick={addBoard} className="umami--click--new-search">
               <Trans i18nKey="add_search" t={t}>
                 New Search
               </Trans>
