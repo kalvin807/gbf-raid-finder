@@ -1538,5 +1538,19 @@
     "image": "lvl_275_diaspora",
     "category": "impossible_10",
     "element": "water"
+  },
+  {
+    "en": "Lvl 120 Tefnut",
+    "jp": "Lv120 テフヌト",
+    "image": "lvl_120_tefnut",
+    "category": "impossible_3",
+    "element": "water"
+  },
+  {
+    "en": "Lvl 120 Ra",
+    "jp": "Lv120 ラー",
+    "image": "lvl_120_ra",
+    "category": "impossible_3",
+    "element": "wind"
   }
 ]
