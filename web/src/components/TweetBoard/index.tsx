@@ -125,29 +125,29 @@ const TweetBoardController = memo(function TweetBoardController({
             className="umami--click--add-raid"
             size="1rem"
           >
-            <PlusSquare size={20} />
+            <PlusSquare size="100%" />
             {board.subscribe.length > 0 && <NotificationBadge>{board.subscribe.length}</NotificationBadge>}
           </StyledButton>
         </Tooltip>
         <Tooltip content={t('rename')}>
           <StyledButton onClick={toggleRenameModal} aria-label="rename-board" size="1rem">
-            <Edit size={20} />
+            <Edit size="100%" />
           </StyledButton>
         </Tooltip>
         <RenamePrompt isOpen={isOpen} onDismiss={toggleRenameModal} name={board.name || ''} setName={setName} />
         <Tooltip content={t('toggle_alarm_tooltip')}>
           <StyledButton onClick={toggleAlert} aria-label="auto-alert" size="1rem">
-            {isAlert ? <Bell size={20} /> : <BellOff size={20} />}
+            {isAlert ? <Bell size="100%" /> : <BellOff size="100%" />}
           </StyledButton>
         </Tooltip>
         <Tooltip content={t('auto_copy_tooltip')}>
           <StyledButton onClick={toggleCopy} aria-label="auto-copy" size="1rem">
-            {isAutoCopy ? <Clipboard size={20} /> : <StyledNoCopyIcon />}
+            {isAutoCopy ? <Clipboard size="100%" /> : <StyledNoCopyIcon />}
           </StyledButton>
         </Tooltip>
         <Tooltip content={t('close_board_tooltip')}>
           <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board" size="1rem">
-            <X size={20} strokeWidth={3} />
+            <X size="100%" strokeWidth={3} />
           </StyledButton>
         </Tooltip>
       </RowFixed>
