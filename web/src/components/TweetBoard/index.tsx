@@ -1,26 +1,27 @@
-import React, { memo, useCallback, useMemo } from 'react'
-import { Bell, BellOff, Clipboard, PlusSquare, X, XCircle } from 'react-feather'
+import { memo, useCallback, useMemo } from 'react'
+import { Bell, BellOff, Clipboard, Edit3 as Edit, PlusSquare, Slash, X } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
 import { withImmer } from 'jotai/immer'
 import { focusAtom } from 'jotai/optics'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
-import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
 import { raidAtom } from 'atoms/gbfAtom'
 import { BoardAtom, boardsAtom, boardsIdAtom, MessagesAtom, messageStoreAtom, reduceBoardsAtom } from 'atoms/wsAtoms'
+import { LightCard } from 'components/Card'
+import { AutoColumn } from 'components/Column'
+import { IconWrapper } from 'components/Icon'
+import { Motd } from 'components/Motd'
+import { RowBetween, RowFixed } from 'components/Row'
+import SelectRaid from 'components/SelectRaid'
+import Tooltip from 'components/Tooltip'
 import useToggle from 'hooks/useToggle'
 import { Separator } from 'theme/components'
 
-import SelectRaid from './SelectRaid/'
-import { LightCard } from './Card'
-import { AutoColumn } from './Column'
-import { IconWrapper } from './Icon'
-import { Motd } from './Motd'
-import { RowBetween, RowFixed } from './Row'
-import Tooltip from './Tooltip'
-import { LatestTweetRow, TweetRow } from './TweetRow'
+import { LatestTweetRow, TweetRow } from './BoardRow'
+import BoardTitle from './BoardTitle'
+import RenamePrompt from './RenamePrompt'
 
 type DeleteFn = (id: string) => void
 
@@ -47,21 +48,46 @@ const TweetsContainer = ({
   )
 }
 
+const NoCopyIcon = () => {
+  return (
+    <div>
+      <div
+        style={{
+          color: 'white',
+          position: 'absolute',
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          top: -1,
+          left: 0,
+          zIndex: 1,
+        }}
+      >
+        <Slash size={20} />
+      </div>
+      <Clipboard size={12} color="white" opacity="80%" />
+    </div>
+  )
+}
+
 const TweetBoardController = memo(function TweetBoardController({
   id,
   boardAtom,
   deleteBoard,
-  toggleModal,
+  toggleModal: toggleRaidModal,
 }: {
   id: string
   boardAtom: BoardAtom
   deleteBoard: DeleteFn
   toggleModal: () => void
 }) {
-  const { i18n, t } = useTranslation()
+  const { t } = useTranslation()
   const raid = useAtomValue(raidAtom)
   const [board, setBoard] = useAtom(boardAtom)
   const { isAlert, isAutoCopy } = board
+  const [isOpen, toggleRenameModal] = useToggle(false)
 
   const toggleCopy = useCallback(
     () =>
@@ -78,43 +104,54 @@ const TweetBoardController = memo(function TweetBoardController({
     [setBoard, isAlert]
   )
 
-  const showRaidOrCount = () => {
-    const subscribe = board.subscribe
-    if (subscribe.length === 0) {
-      return `${t('add_raid')} 👉`
-    } else if (subscribe.length === 1) {
-      return i18n.language === 'en' ? raid[subscribe[0]]?.en : raid[subscribe[0]]?.jp
-    } else {
-      return `${subscribe.length} ${t('raid_selected')}`
-    }
-  }
+  const setName = useCallback(
+    (name: string) =>
+      setBoard((draft) => {
+        draft.name = name
+      }),
+    [setBoard]
+  )
 
   return (
     <RowBetween>
       <RowFixed>
-        <Text fontWeight={500} fontSize={16}>
-          {showRaidOrCount()}
-        </Text>
+        <BoardTitle board={board} raid={raid} />
       </RowFixed>
       <RowFixed>
         <Tooltip content={t('add_raid_tooltip')}>
-          <StyledButton onClick={toggleModal} aria-label="auto-alert" className="umami--click--add-raid">
+          <StyledButton
+            onClick={toggleRaidModal}
+            aria-label="auto-alert"
+            className="umami--click--add-raid"
+            size="1rem"
+          >
             <PlusSquare size={20} />
           </StyledButton>
         </Tooltip>
+        <Tooltip content={t('add_raid_tooltip')}>
+          <StyledButton
+            onClick={toggleRenameModal}
+            aria-label="auto-alert"
+            className="umami--click--add-raid"
+            size="1rem"
+          >
+            <Edit size={20} />
+          </StyledButton>
+        </Tooltip>
+        <RenamePrompt isOpen={isOpen} onDismiss={toggleRenameModal} name={board.name || ''} setName={setName} />
         <Tooltip content={t('toggle_alarm_tooltip')}>
-          <StyledButton onClick={toggleAlert} aria-label="auto-alert">
+          <StyledButton onClick={toggleAlert} aria-label="auto-alert" size="1rem">
             {isAlert ? <Bell size={20} /> : <BellOff size={20} />}
           </StyledButton>
         </Tooltip>
         <Tooltip content={t('auto_copy_tooltip')}>
-          <StyledButton onClick={toggleCopy} aria-label="auto-copy">
-            {isAutoCopy ? <Clipboard size={20} /> : <XCircle size={20} />}
+          <StyledButton onClick={toggleCopy} aria-label="auto-copy" size="1rem">
+            {isAutoCopy ? <Clipboard size={20} /> : <NoCopyIcon />}
           </StyledButton>
         </Tooltip>
         <Tooltip content={t('close_board_tooltip')}>
-          <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board">
-            <X size={20} />
+          <StyledButton onClick={() => deleteBoard(id)} aria-label="close-twitter-board" size="1rem">
+            <X size={20} strokeWidth={3} />
           </StyledButton>
         </Tooltip>
       </RowFixed>

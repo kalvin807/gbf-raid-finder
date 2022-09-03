@@ -11,12 +11,14 @@ import { maxMessageAtom } from './settingsAtom'
 
 export interface Board {
   subscribe: number[]
+  name: string | null
   isAutoCopy: boolean
   isAlert: boolean
 }
 
 const defaultBoard: Board = {
   subscribe: [],
+  name: null,
   isAutoCopy: false,
   isAlert: false,
 }
