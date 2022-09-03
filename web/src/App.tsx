@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components/macro'
 
 import Header from 'components/Header'
-import ReloadPrompt from 'components/ReloadPrompt'
+import SWUpdater from 'components/SWUpdater'
 import ThemedBackground from 'components/ThemedBackground'
 import Boards from 'components/TweetBoard'
 
@@ -18,7 +18,7 @@ const App = () => {
           <Boards />
         </BodyWrapper>
       </AppWrapper>
-      <ReloadPrompt />
+      <SWUpdater />
     </>
   )
 }

@@ -1,7 +1,7 @@
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import macrosPlugin from 'vite-plugin-babel-macros'
 import { VitePWA } from 'vite-plugin-pwa'
-import react from 'vite-preset-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,9 +12,7 @@ export default defineConfig({
   },
   plugins: [
     tsconfigPaths(),
-    react({
-      injectReact: false,
-    }),
+    react(),
     macrosPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -44,7 +42,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.mp3'],
+        globPatterns: ['**/*.{js,css,html,mp3,jpg,web,png,svg,woff2,woff}'],
       },
     }),
   ],
