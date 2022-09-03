@@ -28,5 +28,6 @@
   "add_raid_tooltip": "追加",
   "toggle_alarm_tooltip": "新着通知",
   "auto_copy_tooltip": "新着コピー",
-  "close_board_tooltip": "消す"
+  "close_board_tooltip": "消す",
+  "rename": "名前変更"
 }

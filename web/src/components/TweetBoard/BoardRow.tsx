@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAtom } from 'jotai'
 import { useAtomValue } from 'jotai/utils'
@@ -11,8 +11,8 @@ import notiSfx from 'statics/sounds/noti.mp3'
 import { copy } from 'utils/copy'
 import { handleCopyAction } from 'utils/openUrl'
 
-import { StyledLink } from './Button'
-import { AutoColumn } from './Column'
+import { StyledLink } from '../Button'
+import { AutoColumn } from '../Column'
 
 const sound = new Audio(notiSfx)
 
