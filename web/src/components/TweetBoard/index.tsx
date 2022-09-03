@@ -5,6 +5,7 @@ import { useAtom } from 'jotai'
 import { withImmer } from 'jotai/immer'
 import { focusAtom } from 'jotai/optics'
 import { useAtomValue, useUpdateAtom } from 'jotai/utils'
+import { opacify } from 'polished'
 import styled from 'styled-components/macro'
 
 import { raidAtom } from 'atoms/gbfAtom'
@@ -50,10 +51,9 @@ const TweetsContainer = ({
 
 const NoCopyIcon = () => {
   return (
-    <div>
+    <>
       <div
         style={{
-          color: 'white',
           position: 'absolute',
           height: '100%',
           width: '100%',
@@ -65,10 +65,10 @@ const NoCopyIcon = () => {
           zIndex: 1,
         }}
       >
-        <Slash size={20} />
+        <Slash size={20} stroke="inherit" />
       </div>
-      <Clipboard size={12} color="white" opacity="80%" />
-    </div>
+      <Clipboard size={12} opacity="80%" />
+    </>
   )
 }
 
@@ -126,6 +126,7 @@ const TweetBoardController = memo(function TweetBoardController({
             size="1rem"
           >
             <PlusSquare size={20} />
+            {board.subscribe.length > 0 && <NotificationBadge>{board.subscribe.length}</NotificationBadge>}
           </StyledButton>
         </Tooltip>
         <Tooltip content={t('rename')}>
@@ -141,7 +142,7 @@ const TweetBoardController = memo(function TweetBoardController({
         </Tooltip>
         <Tooltip content={t('auto_copy_tooltip')}>
           <StyledButton onClick={toggleCopy} aria-label="auto-copy" size="1rem">
-            {isAutoCopy ? <Clipboard size={20} /> : <NoCopyIcon />}
+            {isAutoCopy ? <Clipboard size={20} /> : <StyledNoCopyIcon />}
           </StyledButton>
         </Tooltip>
         <Tooltip content={t('close_board_tooltip')}>
@@ -245,4 +246,25 @@ const PageWrapper = styled(AutoColumn)`
   ${({ theme }) => theme.mediaWidth.upToSmall`
   padding: 0 4px 0 4px;
   `};
+`
+
+const NotificationBadge = styled.div`
+  position: absolute;
+  right: -0.1rem;
+  top: -0.1rem;
+  min-width: 1.8em; /* or width, explained below. */
+  height: 1.8em;
+  border-radius: 0.8em; /* or 50%, explained below. */
+  border: 0.05em solid ${({ theme }) => theme.primary5};
+  background-color: ${({ theme }) => opacify(0.5)(theme.primary5)};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.5rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.text1};
+`
+
+const StyledNoCopyIcon = styled(NoCopyIcon)`
+  stroke: inherit;
 `
