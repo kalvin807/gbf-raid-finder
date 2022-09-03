@@ -6,7 +6,7 @@ export const JpMotd = () => {
     <>
       <h1 id="-">グラブル救援検索・マグナ</h1>
       <p>
-        <strong>追加</strong> ラー, テフヌト。
+        <strong>新機能</strong> ボードの名前を変更機能を追加
       </p>
       <p>
         <strong>ガイド</strong>
@@ -36,7 +36,7 @@ export const JpMotd = () => {
         <strong>中文用家</strong> 👉 你可以在（・・・）更改語言。
       </p>
       <p>
-        <em>v2.5</em>
+        <em>v2.6</em>
       </p>
     </>
   )
@@ -47,7 +47,7 @@ export const EnMotd = () => {
     <>
       <h1 id="gbfinder-omega">GBFinder Omega</h1>
       <p>
-        <strong>Update</strong> Added Ra, Tefnut.
+        <strong>New</strong> You can now rename your boards
       </p>
       <p>
         <strong>Guide</strong>
@@ -76,7 +76,7 @@ export const EnMotd = () => {
         <strong>中文用家</strong> 👉 你可以在（・・・）更改語言。
       </p>
       <p>
-        <em>v2.5</em>
+        <em>v2.6</em>
       </p>
     </>
   )
@@ -87,7 +87,7 @@ export const ZhMotd = () => {
     <>
       <h1 id="-">グラブル救援検索・マグナ</h1>
       <p>
-        <strong>新副本</strong> ラー, テフヌト。
+        <strong>新功能</strong> 重新命名看板。
       </p>
       <p>
         <strong>教學</strong>
@@ -117,7 +117,7 @@ export const ZhMotd = () => {
         <strong>EN User</strong> 👉 You can switch language at (...)
       </p>
       <p>
-        <em>v2.5</em>
+        <em>v2.6</em>
       </p>
     </>
   )
