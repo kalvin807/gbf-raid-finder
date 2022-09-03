@@ -36,7 +36,7 @@ const RenamePrompt = ({
         <PaddedColumn gap="16px">
           <RowBetween>
             <Text fontWeight={500} fontSize={16}>
-              <Trans i18nKey="Rename" t={t}>
+              <Trans i18nKey="rename" t={t}>
                 Rename
               </Trans>
             </Text>
@@ -49,8 +49,8 @@ const RenamePrompt = ({
           <Row>
             <SearchInput
               type="text"
-              id="token-search-input"
-              placeholder={t('search_placeholder')}
+              id="rename-input"
+              placeholder={'古戦場から逃げるな'}
               autoComplete="off"
               value={name}
               onChange={(e) => setName(e.target.value)}

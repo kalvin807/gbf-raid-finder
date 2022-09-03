@@ -128,13 +128,8 @@ const TweetBoardController = memo(function TweetBoardController({
             <PlusSquare size={20} />
           </StyledButton>
         </Tooltip>
-        <Tooltip content={t('add_raid_tooltip')}>
-          <StyledButton
-            onClick={toggleRenameModal}
-            aria-label="auto-alert"
-            className="umami--click--add-raid"
-            size="1rem"
-          >
+        <Tooltip content={t('rename')}>
+          <StyledButton onClick={toggleRenameModal} aria-label="rename-board" size="1rem">
             <Edit size={20} />
           </StyledButton>
         </Tooltip>
