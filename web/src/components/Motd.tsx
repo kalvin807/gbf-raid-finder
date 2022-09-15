@@ -1,10 +1,9 @@
 /* eslint-disable */
 /* generated */
-import React from 'react'
 export const JpMotd = () => {
   return (
     <>
-      <h1 id="-">グラブル救援検索・マグナ</h1>
+      <h1>グラブル救援検索・マグナ</h1>
       <p>
         <strong>新機能</strong> ボードの名前を変更機能を追加
       </p>
@@ -22,10 +21,7 @@ export const JpMotd = () => {
         📋 \ ❌ = 自動コピーする（携帯で動かない。）
       </p>
       <p>
-        <strong>新デザインのご意見</strong> 👉 <a href="https://strawpoll.com/1h5qde2j1">投票する</a>
-        <br />
-        <strong>不具合報告・ご意見</strong> 👉{' '}
-        <a href="https://marshmallow-qa.com/_karuno?utm_medium=url_text&amp;utm_source=promotion">マシュマロ</a>
+        <strong>コメント・バグ報告・提案・何も</strong> 👉 <a href="https://forms.gle/1LbAB5dVeu8mMs8Q6">ここ</a>
         <br />
         <strong>課金代を応援</strong> 👉 <a href="https://www.buymeacoffee.com/kalvin">ドネート</a>{' '}
       </p>
@@ -45,7 +41,7 @@ export const JpMotd = () => {
 export const EnMotd = () => {
   return (
     <>
-      <h1 id="gbfinder-omega">GBFinder Omega</h1>
+      <h1>GBFinder Omega</h1>
       <p>
         <strong>New</strong> You can now rename your boards
       </p>
@@ -62,10 +58,7 @@ export const EnMotd = () => {
         📋 \ ❌ = Toggle auto-copy (Not working in mobile phone)
       </p>
       <p>
-        <strong>New UI</strong> Vote your preference 👉 <a href="https://strawpoll.com/1h5qde2j1">Vote</a>
-        <br />
-        <strong>Bug/Suggestion/Idea</strong> 👉{' '}
-        <a href="https://marshmallow-qa.com/_karuno?utm_medium=url_text&amp;utm_source=promotion">Marshmallow QA</a>
+        <strong>Bug/Suggestion/Idea/Anything</strong> 👉 <a href="https://forms.gle/1LbAB5dVeu8mMs8Q6">Here</a>
         <br />
         <strong>Consider gift me a gacha?</strong> 👉 <a href="https://www.buymeacoffee.com/kalvin">Donate</a>{' '}
       </p>
@@ -85,7 +78,7 @@ export const EnMotd = () => {
 export const ZhMotd = () => {
   return (
     <>
-      <h1 id="-">グラブル救援検索・マグナ</h1>
+      <h1>グラブル救援検索・マグナ</h1>
       <p>
         <strong>新功能</strong> 重新命名看板。
       </p>
@@ -103,10 +96,7 @@ export const ZhMotd = () => {
         📋 \ ❌ = 開啟自動複製(手機或背景執行時無法運作){' '}
       </p>
       <p>
-        <strong>新UI</strong> 正收集大家對新UI之意見 👉 <a href="https://strawpoll.com/1h5qde2j1">投票</a>
-        <br />
-        <strong>問題/提議</strong> 👉{' '}
-        <a href="https://marshmallow-qa.com/_karuno?utm_medium=url_text&amp;utm_source=promotion">棉花糖</a>
+        <strong>意見/問題/建議/吹水</strong> 👉 <a href="https://forms.gle/1LbAB5dVeu8mMs8Q6">依到</a>
         <br />
         <strong>支持我課金</strong> 👉 <a href="https://www.buymeacoffee.com/kalvin">一發入魂</a>{' '}
       </p>
