@@ -8,7 +8,7 @@ require (
 	github.com/dghubble/oauth1 v0.7.1
 	github.com/gorilla/websocket v1.5.0
 	github.com/joho/godotenv v1.4.0
-	github.com/labstack/echo/v4 v4.8.0
+	github.com/labstack/echo/v4 v4.9.0
 	google.golang.org/protobuf v1.28.1
 )
 
