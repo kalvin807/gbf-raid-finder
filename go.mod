@@ -15,6 +15,7 @@ require (
 require (
 	github.com/cenkalti/backoff/v4 v4.2.0 // indirect
 	github.com/dghubble/sling v1.4.1 // indirect
+	github.com/g8rswimmer/go-twitter/v2 v2.1.5
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/labstack/gommon v0.4.0 // indirect

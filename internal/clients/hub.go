@@ -3,7 +3,7 @@ package clients
 import (
 	"log"
 
-	"github.com/dghubble/go-twitter/twitter"
+	twitterV2 "github.com/g8rswimmer/go-twitter/v2"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 )
 
@@ -26,17 +26,17 @@ type Hub struct {
 	activeClientCount int16
 
 	// Twitter live message stream
-	tweetStream *twitter.Stream
+	tweetStream *twitterV2.TweetStream
 
 	// Twitter client
-	tweetClient *twitter.Client
+	tweetClient *twitterV2.Client
 
 	// TweetStream status
 	tweetStatus bool
 }
 
 // NewHub create a Hub instance that managing all client/server communcations
-func NewHub(tweetClient *twitter.Client) *Hub {
+func NewHub(tweetClient *twitterV2.Client) *Hub {
 	return &Hub{
 		register:          make(chan *Client),
 		unregister:        make(chan *Client),
@@ -80,7 +80,7 @@ func (h *Hub) unregisterClient(client *Client) {
 		h.activeClientCount--
 		if h.activeClientCount == 0 {
 			log.Println("No connected client, Stream now stops")
-			h.tweetStream.Stop()
+			h.tweetStream.Close()
 			h.tweetStatus = false
 		}
 	}

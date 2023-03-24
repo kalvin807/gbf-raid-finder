@@ -15,6 +15,7 @@ type Config struct {
 	TwitterApiSecret    string `env:"TWITTER_API_SECRET,notEmpty"`
 	TwitterAccessKey    string `env:"TWITTER_ACCESS_KEY,notEmpty"`
 	TwitterAccessSecret string `env:"TWITTER_ACCESS_SECRET,notEmpty"`
+	TwitterBearerToken  string `env:"TWITTER_BEARER_TOKEN,notEmpty"`
 }
 
 func SetupLog() {
