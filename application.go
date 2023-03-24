@@ -15,15 +15,11 @@ func main() {
 
 	cfg := util.LoadConfig()
 
-	client := fetcher.MakeTwitterClient(
-		cfg.TwitterApiKey,
-		cfg.TwitterApiSecert,
-		cfg.TwitterAccessKey,
-		cfg.TwitterAccessSecert,
+	client := fetcher.MakeTwitterV2Client(
+		cfg.TwitterBearerToken,
 	)
-
+	fetcher.SetGBFRaidTwitterRules(client)
 	hub := clients.NewHub(client)
-
 	go hub.Run()
 
 	/**
