@@ -1552,5 +1552,33 @@
     "image": "lvl_120_ra",
     "category": "impossible_3",
     "element": "wind"
+  },
+  {
+    "en": "Lvl 275 Mugen",
+    "jp": "Lv275 ムゲン",
+    "image": "lvl_275_mugen",
+    "category": "impossible_10",
+    "element": "fire"
+  },
+  {
+    "en": "Lvl 275 Agastia",
+    "jp": "Lv275 アガスティア",
+    "image": "lvl_275_agastia",
+    "category": "impossible_10",
+    "element": "dark"
+  },
+  {
+    "en": "Lvl 275 Siegfried",
+    "jp": "Lv275 ジークフリート",
+    "image": "lvl_275_siegfried",
+    "category": "impossible_10",
+    "element": "earth"
+  },
+  {
+    "en": "Lvl 275 Seofon",
+    "jp": "Lv275 シエテ",
+    "image": "lvl_275_seofon",
+    "category": "impossible_10",
+    "element": "wind"
   }
 ]
