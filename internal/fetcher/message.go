@@ -60,7 +60,7 @@ func (m messageHandler) newRaidMsg(rawText string, timestamp time.Time) *RaidMsg
 	raidInt, found := m.nameIDMap[raidStr]
 
 	if !found && raidStr != "" {
-		//log.Printf("%s\n%s", "Unknown raid", rawText)
+		log.Printf("%s\n%s", "Unknown raid", rawText)
 		return nil
 	}
 

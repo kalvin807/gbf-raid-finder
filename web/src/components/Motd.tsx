@@ -5,7 +5,7 @@ export const JpMotd = () => {
     <>
       <h1>グラブル救援検索・マグナ</h1>
       <p>
-        <strong>新機能</strong> Twitter APIの接続ができないバグを修正しました。
+        <strong>新機能</strong> Twitter APIの接続ができないバグを修正しました。 Lvl 275 Seofon Lv275 シエテ!
       </p>
       <p>
         <strong>ガイド</strong>
@@ -21,7 +21,7 @@ export const JpMotd = () => {
         📋 \ ❌ = 自動コピーする（携帯で動かない。）
       </p>
       <p>
-        <strong>コメント・バグ報告・提案・何も</strong> 👉 <a href="https://forms.gle/1LbAB5dVeu8mMs8Q6">ここ</a>
+        <strong>コメント・バグ報告・提案・何も</strong> 👉 DM vinlak#2106 @ discord
         <br />
         <strong>課金代を応援</strong> 👉 <a href="https://www.buymeacoffee.com/kalvin">ドネート</a>{' '}
       </p>
@@ -43,7 +43,7 @@ export const EnMotd = () => {
     <>
       <h1>GBFinder Omega</h1>
       <p>
-        <strong>New</strong> Fixed the bug that it cannot connect to the twitter API.
+        <strong>New</strong> Fixed the bug that it cannot connect to the twitter API. Lvl 275 Seofon Lv275 シエテ!
       </p>
       <p>
         <strong>Guide</strong>
@@ -58,7 +58,7 @@ export const EnMotd = () => {
         📋 \ ❌ = Toggle auto-copy (Not working in mobile phone)
       </p>
       <p>
-        <strong>Bug/Suggestion/Idea/Anything</strong> 👉 <a href="https://forms.gle/1LbAB5dVeu8mMs8Q6">Here</a>
+        <strong>Bug/Suggestion/Idea/Anything</strong> 👉 DM vinlak#2106 @ discord
         <br />
         <strong>Consider gift me a gacha?</strong> 👉 <a href="https://www.buymeacoffee.com/kalvin">Donate</a>{' '}
       </p>
@@ -80,7 +80,7 @@ export const ZhMotd = () => {
     <>
       <h1>グラブル救援検索・マグナ</h1>
       <p>
-        <strong>新功能</strong> 修復了無法連接Twitter API的問題。
+        <strong>新功能</strong> 修復了無法連接Twitter API的問題。 Lvl 275 Seofon Lv275 シエテ!
       </p>
       <p>
         <strong>教學</strong>
@@ -96,7 +96,7 @@ export const ZhMotd = () => {
         📋 \ ❌ = 開啟自動複製(手機或背景執行時無法運作){' '}
       </p>
       <p>
-        <strong>意見/問題/建議/吹水</strong> 👉 <a href="https://forms.gle/1LbAB5dVeu8mMs8Q6">依到</a>
+        <strong>意見/問題/建議/吹水</strong> 👉 DM vinlak#2106 @ discord
         <br />
         <strong>支持我課金</strong> 👉 <a href="https://www.buymeacoffee.com/kalvin">一發入魂</a>{' '}
       </p>

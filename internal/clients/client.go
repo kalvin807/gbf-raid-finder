@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/gorilla/websocket"
+	"github.com/fasthttp/websocket"
 	"github.com/kalvin807/gbf-raid-finder/internal/fetcher"
 	"github.com/kalvin807/gbf-raid-finder/internal/serialize"
 )
@@ -87,6 +87,7 @@ func (c *Client) writePump() {
 				return
 			}
 			if c.raid[message.Raid] {
+				log.Println("msg: ", message)
 				buf, err := serialize.SerializeMessage(message)
 				if err != nil {
 					continue

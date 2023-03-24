@@ -9,8 +9,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dghubble/go-twitter/twitter"
-	"github.com/dghubble/oauth1"
 	twitterV2 "github.com/g8rswimmer/go-twitter/v2"
 )
 
@@ -122,15 +120,6 @@ func handleTweet(msgHandler *messageHandler, raidChan chan *RaidMsg, tweet *twit
 	if msg != nil {
 		raidChan <- msg
 	}
-}
-
-// MakeTwitterClient create a twitter client for fetching data from twitter.com
-func MakeTwitterClient(apiKey string, apiSecret string, accessKey string, accessSecret string) *twitter.Client {
-	config := oauth1.NewConfig(apiKey, apiSecret)
-	token := oauth1.NewToken(accessKey, accessSecret)
-	httpClient := config.Client(oauth1.NoContext, token)
-	client := twitter.NewClient(httpClient)
-	return client
 }
 
 type authorize struct {
