@@ -53,35 +53,46 @@ func (h *Hub) Run() {
 	for {
 		select {
 		case client := <-h.register:
-			h.clients[client] = true
-			h.activeClientCount++
-			// Start stream if stream is stopped
-			if !h.tweetStatus {
-				log.Println("New client connected but stream stopped, Stream now starts")
-				h.tweetStream = fetcher.MakeTweetStream(h.tweetClient)
-				h.tweetStatus = true
-				go fetcher.TweetStreamHandler(h.tweetStream, h.broadcast)
-			}
+			h.registerClient(client)
 		case client := <-h.unregister:
-			if _, ok := h.clients[client]; ok {
-				delete(h.clients, client)
-				close(client.send)
-				h.activeClientCount--
-				if h.activeClientCount == 0 {
-					log.Println("No connected client, Stream now stops")
-					h.tweetStream.Stop()
-					h.tweetStatus = false
-				}
-			}
+			h.unregisterClient(client)
 		case message := <-h.broadcast:
-			for client := range h.clients {
-				select {
-				case client.send <- message:
-				default:
-					close(client.send)
-					delete(h.clients, client)
-				}
-			}
+			h.broadcastMessage(message)
+		}
+	}
+}
+
+func (h *Hub) registerClient(client *Client) {
+	h.clients[client] = true
+	h.activeClientCount++
+	if !h.tweetStatus {
+		log.Println("New client connected but stream stopped, Stream now starts")
+		h.tweetStream = fetcher.MakeTweetStream(h.tweetClient)
+		h.tweetStatus = true
+		go fetcher.TweetStreamHandler(h.tweetStream, h.broadcast)
+	}
+}
+
+func (h *Hub) unregisterClient(client *Client) {
+	if _, ok := h.clients[client]; ok {
+		delete(h.clients, client)
+		close(client.send)
+		h.activeClientCount--
+		if h.activeClientCount == 0 {
+			log.Println("No connected client, Stream now stops")
+			h.tweetStream.Stop()
+			h.tweetStatus = false
+		}
+	}
+}
+
+func (h *Hub) broadcastMessage(message *fetcher.RaidMsg) {
+	for client := range h.clients {
+		select {
+		case client.send <- message:
+		default:
+			close(client.send)
+			delete(h.clients, client)
 		}
 	}
 }
