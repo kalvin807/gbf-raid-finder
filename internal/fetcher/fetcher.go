@@ -29,30 +29,27 @@ func MakeTweetStream(client *twitter.Client) *twitter.Stream {
 func TweetStreamHandler(stream *twitter.Stream, raidChan chan *RaidMsg) {
 	msgHandler := newMessageHandler()
 	demux := twitter.NewSwitchDemux()
-	demux.Tweet = handleTweet(msgHandler, raidChan)
-	demux.HandleChan(stream.Messages)
-}
-
-func handleTweet(msgHandler *messageHandler, raidChan chan *RaidMsg) func(tweet *twitter.Tweet) {
-	return func(tweet *twitter.Tweet) {
+	demux.Tweet = func(tweet *twitter.Tweet) {
+		// Make sure it is from GBF
 		if tweet.Source == `<a href="http://granbluefantasy.jp/" rel="nofollow">グランブルー ファンタジー</a>` {
 			time, err := tweet.CreatedAtTime()
 			if err != nil {
 				log.Println(err)
-				return
-			}
-			msg := msgHandler.newRaidMsg(html.UnescapeString(tweet.Text), time)
-			if msg != nil {
-				raidChan <- msg
+			} else {
+				msg := msgHandler.newRaidMsg(html.UnescapeString(tweet.Text), time)
+				if msg != nil {
+					raidChan <- msg
+				}
 			}
 		}
 	}
+	demux.HandleChan(stream.Messages)
 }
 
 // MakeTwitterClient create a twitter client for fetching data from twitter.com
-func MakeTwitterClient(apiKey string, apiSecret string, accessKey string, accessSecret string) *twitter.Client {
-	config := oauth1.NewConfig(apiKey, apiSecret)
-	token := oauth1.NewToken(accessKey, accessSecret)
+func MakeTwitterClient(apiKey string, apiSecert string, accessKey string, accessSecert string) *twitter.Client {
+	config := oauth1.NewConfig(apiKey, apiSecert)
+	token := oauth1.NewToken(accessKey, accessSecert)
 	httpClient := config.Client(oauth1.NoContext, token)
 	client := twitter.NewClient(httpClient)
 	return client

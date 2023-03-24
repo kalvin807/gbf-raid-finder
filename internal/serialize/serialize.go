@@ -15,7 +15,11 @@ type ClientConfigMsg struct {
 }
 
 func SerializeMessage(msg *fetcher.RaidMsg) ([]byte, error) {
-	msgPb := createRaidMessageFromRaidMsg(msg)
+	msgPb := &RaidMessage{}
+	msgPb.RoomId = string(msg.RoomId)
+	msgPb.Raid = int32(msg.Raid)
+	msgPb.Msg = msg.Msg
+	msgPb.Timestamp = msg.Timestamp.Format(time.RFC3339)
 	out, err := proto.Marshal(msgPb)
 	if err != nil {
 		log.Println("Failed to encode:", err)
@@ -32,21 +36,5 @@ func DeserializeSubscribeRequest(bytes []byte) (*ClientConfigMsg, error) {
 		return nil, nil
 	}
 
-	return createClientConfigMsgFromSubscribeRequest(subReqPb), nil
-}
-
-func createRaidMessageFromRaidMsg(msg *fetcher.RaidMsg) *RaidMessage {
-	return &RaidMessage{
-		RoomId:    msg.RoomId,
-		Raid:      int32(msg.Raid),
-		Msg:       msg.Msg,
-		Timestamp: msg.Timestamp.Format(time.RFC3339),
-	}
-}
-
-func createClientConfigMsgFromSubscribeRequest(subReqPb *SubscribeRequest) *ClientConfigMsg {
-	return &ClientConfigMsg{
-		Config: subReqPb.Config,
-		Raid:   subReqPb.Raid,
-	}
+	return &ClientConfigMsg{Config: subReqPb.Config, Raid: subReqPb.Raid}, nil
 }

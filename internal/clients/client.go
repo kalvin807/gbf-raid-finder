@@ -50,20 +50,15 @@ func (c *Client) readPump() {
 			}
 			break
 		}
-		updatedRaidConfig := c.updateRaidConfig(buf)
-		c.raid = updatedRaidConfig
+
+		msg, _ := serialize.DeserializeSubscribeRequest(buf)
+
+		var tempRaidConfig = make(map[int]bool)
+		for _, raidID := range msg.Raid {
+			tempRaidConfig[int(raidID)] = true
+		}
+		c.raid = tempRaidConfig
 	}
-}
-
-func (c *Client) updateRaidConfig(buf []byte) map[int]bool {
-	msg, _ := serialize.DeserializeSubscribeRequest(buf)
-
-	tempRaidConfig := make(map[int]bool)
-	for _, raidID := range msg.Raid {
-		tempRaidConfig[int(raidID)] = true
-	}
-
-	return tempRaidConfig
 }
 
 // writePump pumps messages from the hub to the websocket connection.
@@ -102,7 +97,8 @@ func MakeWsClient(hub *Hub, conn *websocket.Conn) {
 	client := &Client{hub: hub, conn: conn, send: make(chan *fetcher.RaidMsg, 256), raid: make(map[int]bool)}
 	client.hub.register <- client
 
-	// Allow collection of memory referenced by the caller by doing all work in new goroutines.
+	// Allow collection of memory referenced by the caller by doing all work in
+	// new goroutines.
 	go client.writePump()
 	go client.readPump()
 }

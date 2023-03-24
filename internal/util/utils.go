@@ -12,9 +12,9 @@ import (
 type Config struct {
 	Port                string `env:"PORT" envDefault:"8080"`
 	TwitterApiKey       string `env:"TWITTER_API_KEY,notEmpty"`
-	TwitterApiSecret    string `env:"TWITTER_API_SECRET,notEmpty"`
+	TwitterApiSecert    string `env:"TWITTER_API_SECRET,notEmpty"`
 	TwitterAccessKey    string `env:"TWITTER_ACCESS_KEY,notEmpty"`
-	TwitterAccessSecret string `env:"TWITTER_ACCESS_SECRET,notEmpty"`
+	TwitterAccessSecert string `env:"TWITTER_ACCESS_SECRET,notEmpty"`
 }
 
 func SetupLog() {
