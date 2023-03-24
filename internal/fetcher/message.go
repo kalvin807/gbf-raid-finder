@@ -2,7 +2,6 @@ package fetcher
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"os"
 	"regexp"
@@ -73,9 +72,17 @@ func (m messageHandler) newRaidMsg(rawText string, timestamp time.Time) *RaidMsg
 	}
 }
 
-// NewmessageHandler creates a new messageHandler if raid.json exists at root
+// newMessageHandler creates a new messageHandler if raid.json exists at root
 func newMessageHandler() *messageHandler {
-	file, ioErr := ioutil.ReadFile(raidFilePath)
+	tempRaids, tempRaidIDMap := loadRaidData()
+	return &messageHandler{
+		nameIDMap: tempRaidIDMap,
+		raids:     tempRaids,
+	}
+}
+
+func loadRaidData() ([]raid, map[string]int) {
+	file, ioErr := os.ReadFile(raidFilePath)
 	if ioErr != nil {
 		log.Fatal(ioErr)
 	}
@@ -93,8 +100,5 @@ func newMessageHandler() *messageHandler {
 		tempRaidIDMap[r.Jp] = i
 	}
 
-	return &messageHandler{
-		nameIDMap: tempRaidIDMap,
-		raids:     tempRaids,
-	}
+	return tempRaids, tempRaidIDMap
 }

@@ -17,9 +17,9 @@ func main() {
 
 	client := fetcher.MakeTwitterClient(
 		cfg.TwitterApiKey,
-		cfg.TwitterApiSecert,
+		cfg.TwitterApiSecret,
 		cfg.TwitterAccessKey,
-		cfg.TwitterAccessSecert,
+		cfg.TwitterAccessSecret,
 	)
 
 	hub := clients.NewHub(client)
