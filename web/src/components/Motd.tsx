@@ -5,7 +5,7 @@ export const JpMotd = () => {
     <>
       <h1>グラブル救援検索・マグナ</h1>
       <p>
-        <strong>新機能</strong> ボードの名前を変更機能を追加
+        <strong>新機能</strong> Twitter APIの接続ができないバグを修正しました。
       </p>
       <p>
         <strong>ガイド</strong>
@@ -43,7 +43,7 @@ export const EnMotd = () => {
     <>
       <h1>GBFinder Omega</h1>
       <p>
-        <strong>New</strong> You can now rename your boards
+        <strong>New</strong> Fixed the bug that it cannot connect to the twitter API.
       </p>
       <p>
         <strong>Guide</strong>
@@ -80,7 +80,7 @@ export const ZhMotd = () => {
     <>
       <h1>グラブル救援検索・マグナ</h1>
       <p>
-        <strong>新功能</strong> 重新命名看板。
+        <strong>新功能</strong> 修復了無法連接Twitter API的問題。
       </p>
       <p>
         <strong>教學</strong>
