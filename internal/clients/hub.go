@@ -31,11 +31,13 @@ type Hub struct {
 	// Twitter client
 	tweetClient *twitterV2.Client
 
+	tweetStreamSignal chan bool
+
 	// TweetStream status
 	tweetStatus bool
 }
 
-// NewHub create a Hub instance that managing all client/server communcations
+// NewHub create a Hub instance that managing all client/server communications
 func NewHub(tweetClient *twitterV2.Client) *Hub {
 	return &Hub{
 		register:          make(chan *Client),
@@ -45,6 +47,7 @@ func NewHub(tweetClient *twitterV2.Client) *Hub {
 		activeClientCount: 0,
 		tweetClient:       tweetClient,
 		tweetStatus:       false,
+		tweetStreamSignal: make(chan bool),
 	}
 }
 
@@ -69,7 +72,7 @@ func (h *Hub) registerClient(client *Client) {
 		log.Println("New client connected but stream stopped, Stream now starts")
 		h.tweetStream = fetcher.MakeTweetStream(h.tweetClient)
 		h.tweetStatus = true
-		go fetcher.TweetStreamHandler(h.tweetStream, h.broadcast)
+		go fetcher.TweetStreamHandler(h.tweetStream, h.broadcast, h.tweetStreamSignal)
 	}
 }
 
@@ -78,11 +81,11 @@ func (h *Hub) unregisterClient(client *Client) {
 		delete(h.clients, client)
 		close(client.send)
 		h.activeClientCount--
-		if h.activeClientCount == 0 {
-			log.Println("No connected client, Stream now stops")
-			h.tweetStream.Close()
-			h.tweetStatus = false
-		}
+		// if h.activeClientCount == 0 {
+		// 	log.Println("No connected client, Stream now stops")
+		// 	h.tweetStreamSignal <- true
+		// 	h.tweetStatus = false
+		// }
 	}
 }
 

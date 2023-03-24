@@ -73,49 +73,45 @@ func MakeTweetStream(client *twitterV2.Client) *twitterV2.TweetStream {
 }
 
 // TweetStreamHandler Start stream
-func TweetStreamHandler(stream *twitterV2.TweetStream, raidChan chan *RaidMsg) {
+func TweetStreamHandler(stream *twitterV2.TweetStream, raidChan chan *RaidMsg, ch chan bool) {
 	msgHandler := newMessageHandler()
-	func() {
-		defer stream.Close()
-		for {
-			select {
+	defer stream.Close()
 
-			case tm := <-stream.Tweets():
-				tmb, err := json.Marshal(tm)
-				if err != nil {
-					log.Printf("error decoding system message %v", err)
-				}
-				log.Println(string(tmb))
-				for _, tweet := range tm.Raw.Tweets {
-					handleTweet(msgHandler, raidChan, tweet)
-				}
-			case sm := <-stream.SystemMessages():
-				smb, err := json.Marshal(sm)
-				if err != nil {
-					log.Printf("error decoding system message %v", err)
-				}
-
-				log.Println("system")
-				log.Println(string(smb))
-			case de := <-stream.DisconnectionError():
-				ded, err := json.Marshal(de)
-				if err != nil {
-					log.Printf("error decoding disconnect message %v", err)
-				}
-
-				log.Println("disconnect")
-				log.Println(string(ded))
-			case strErr := <-stream.Err():
-				log.Println("error")
-				log.Println(strErr)
-			default:
+	for {
+		select {
+		case <-ch:
+			log.Println("closing")
+			return
+		case tm := <-stream.Tweets():
+			for _, tweet := range tm.Raw.Tweets {
+				handleTweet(msgHandler, raidChan, tweet)
 			}
-			if !stream.Connection() {
-				log.Println("connection lost")
-				return
+		case sm := <-stream.SystemMessages():
+			smb, err := json.Marshal(sm)
+			if err != nil {
+				log.Printf("error decoding system message %v", err)
+				continue
 			}
+			log.Println("system")
+			log.Println(string(smb))
+		case de := <-stream.DisconnectionError():
+			ded, err := json.Marshal(de)
+			if err != nil {
+				log.Printf("error decoding disconnect message %v", err)
+				continue
+			}
+			log.Println("disconnect")
+			log.Println(string(ded))
+		case strErr := <-stream.Err():
+			log.Println("error")
+			log.Println(strErr)
 		}
-	}()
+
+		if !stream.Connection() {
+			log.Println("connection lost")
+			return
+		}
+	}
 }
 
 func handleTweet(msgHandler *messageHandler, raidChan chan *RaidMsg, tweet *twitterV2.TweetObj) {
