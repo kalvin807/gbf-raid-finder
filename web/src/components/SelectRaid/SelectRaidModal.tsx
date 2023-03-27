@@ -7,13 +7,12 @@ import { Text } from 'rebass/styled-components'
 import styled from 'styled-components/macro'
 
 import { Raid } from 'atoms/gbfAtom'
+import { LinkStyledButton } from 'components/Button'
+import Column, { AutoColumn } from 'components/Column'
 import { IconWrapper } from 'components/Icon'
+import ModalV2 from 'components/ModalV2'
+import Row, { RowBetween, RowFixed } from 'components/Row'
 import { Separator } from 'theme'
-
-import { LinkStyledButton } from '../Button'
-import Column, { AutoColumn } from '../Column'
-import Modal from '../Modal'
-import Row, { RowBetween, RowFixed } from '../Row'
 
 import Option from './Options'
 import SelectRaidFilter from './SelectRaidFilter'
@@ -72,7 +71,7 @@ const SelectModal = memo(function SelectModal({
   )
 
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss} maxHeight={80} minHeight={80}>
+    <ModalV2 open={isOpen} onClose={onDismiss} maxHeight={80} minHeight={80}>
       <ContentWrapper>
         <PaddedColumn gap="16px">
           <RowBetween>
@@ -99,7 +98,7 @@ const SelectModal = memo(function SelectModal({
         <Separator />
         <RaidList atom={raidAtom} subscribed={subscribe} toggle={toggleSubscribe} />
       </ContentWrapper>
-    </Modal>
+    </ModalV2>
   )
 })
 

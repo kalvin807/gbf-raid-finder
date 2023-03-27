@@ -6,7 +6,7 @@ import styled from 'styled-components/macro'
 
 import Column, { AutoColumn } from 'components/Column'
 import { IconWrapper } from 'components/Icon'
-import Modal from 'components/Modal'
+import ModalV2 from 'components/ModalV2'
 import Row, { RowBetween, RowFixed } from 'components/Row'
 import { SearchInput } from 'components/SelectRaid/SelectRaidFilter'
 
@@ -31,7 +31,7 @@ const RenamePrompt = ({
   setName: (name: string) => void
 }) => {
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss}>
+    <ModalV2 open={isOpen} onClose={onDismiss}>
       <ContentWrapper>
         <PaddedColumn gap="16px">
           <RowBetween>
@@ -58,7 +58,7 @@ const RenamePrompt = ({
           </Row>
         </PaddedColumn>
       </ContentWrapper>
-    </Modal>
+    </ModalV2>
   )
 }
 export default RenamePrompt

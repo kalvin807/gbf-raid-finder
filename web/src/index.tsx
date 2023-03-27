@@ -11,8 +11,6 @@ import LoadingScreen from './components/LoadingScreen'
 import App from './App'
 import ThemeProvider, { ThemedGlobalStyle } from './theme'
 
-import '@reach/dialog/styles.css'
-
 const container = document.getElementById('root')
 if (container) {
   const root = createRoot(container)
