@@ -4,6 +4,7 @@ export const JpMotd = () => {
   return (
     <>
       <h1>グラブル救援検索・マグナ</h1>
+      <h2>グラブル救援検索・マグナ、4月1日からサービスを終了します。Twitter API の変更で、このサービスを続けるには大掛かりなエンジニアリングが必要になり、続けるのコストが高すぎだと思います。このアプリをご利用いただき、古戦場ことを祈います！</h2>
       <p>
         <strong>新機能</strong> Twitter APIの接続ができないバグを修正しました。 Lvl 275 Seofon Lv275 シエテ!
       </p>
@@ -42,6 +43,7 @@ export const EnMotd = () => {
   return (
     <>
       <h1>GBFinder Omega</h1>
+      <h2>This app will stop serving from the 1st April. The change made at Twitter API made service like this very diffcult to continue without huge engineering investment. Thank you for using this app and hope you best of luck in unite and fight.</h2>
       <p>
         <strong>New</strong> Fixed the bug that it cannot connect to the twitter API. Lvl 275 Seofon Lv275 シエテ!
       </p>
@@ -79,6 +81,8 @@ export const ZhMotd = () => {
   return (
     <>
       <h1>グラブル救援検索・マグナ</h1>
+      <h2>本app會在四月一日停止服務。Twitter API 的更改使得本服務十分難以繼續。感謝你使用本app，祝你在古戦場中旗開得勝。</h2>
+
       <p>
         <strong>新功能</strong> 修復了無法連接Twitter API的問題。 Lvl 275 Seofon Lv275 シエテ!
       </p>
